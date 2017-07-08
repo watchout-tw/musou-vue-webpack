@@ -1,6 +1,7 @@
 <template>
 <div class="section-menu">
   <router-link :to="sectionLink" :alt="config.title"><img class="key-visual" :src="sectionImage" /></router-link>
+  <p class="description">{{ config.description }}</p>
   <div class="pages d-flex align-items-center">
     <router-link class="page" v-for="page in config.pages" :to="{name: page.id}" :key="page.id">
       <div class="title">
@@ -35,14 +36,17 @@ export default {
 <style lang="scss">
 @import '~common/src/styles/resources';
 
-.key-visual {
-  display: block;
-  width: 100%;
-}
-
 .section-menu {
   max-width: 36rem;
   margin: 0 auto;
+
+  .key-visual {
+    display: block;
+    width: 100%;
+  }
+  .description {
+    margin: 1.25rem 0;
+  }
 
   > .pages {
     margin-top: 1rem;

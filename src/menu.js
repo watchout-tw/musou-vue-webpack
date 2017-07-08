@@ -6,6 +6,7 @@ var menu = [
   {
     id: 'roll-play',
     title: '誰扮誰誰就像誰',
+    description: '如果能夠身歷其境，或許我們都能更了解彼此？',
     component: LongForm,
     pages: [
       {
@@ -38,6 +39,7 @@ var menu = [
   {
     id: 'draw',
     title: '不然你來畫畫看啊',
+    description: '不靠感覺，靠資料、靠數據的新聞，有時候並不符合期待。你也來試試？',
     component: Draw,
     pages: [
       {
@@ -49,6 +51,7 @@ var menu = [
   {
     id: 'map',
     title: '啊不是很有國際觀',
+    description: '世界各地的人，說著不同的語言，讀著不同的報導，過著不同的生活。我們對他們了解多少？他們又是如何認識、看待台灣的？',
     component: Map,
     pages: [
       {
