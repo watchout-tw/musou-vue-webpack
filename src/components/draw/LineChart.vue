@@ -567,7 +567,7 @@ $animation-iteration-count: infinite;
     left: -16px;
     width: 40px;
     height: 60px;
-    background-image: url(hand.svg);
+    background-image: url(/static/hand.svg);
     animation: move $animation-time $animation-iteration-count;
   }
 }
