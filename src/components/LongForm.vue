@@ -13,6 +13,18 @@
 
 <script>
 export default {
+  metaInfo() {
+    return {
+      title: `沃草→${this.config.title}←`,
+      meta: [
+        {
+          vmid: 'og-image',
+          property: 'og:image',
+          content: require('_/roll-play.png')
+        }
+      ]
+    }
+  },
   props: ['config'],
   data() {
     return {

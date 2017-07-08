@@ -25,6 +25,6 @@ export default {
 
 <style lang="scss">
 section {
-  padding-bottom: 8rem;
+  padding: 4rem 0;
 }
 </style>

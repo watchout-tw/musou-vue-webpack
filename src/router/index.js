@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Meta from 'vue-meta'
 import Hello from '@/components/Hello'
 import SectionMenu from '@/components/SectionMenu'
 
 import menu from '@/menu'
 
 Vue.use(Router)
+Vue.use(Meta, {
+  tagIDKeyName: 'vmid'
+})
 
 var routes = [
   {

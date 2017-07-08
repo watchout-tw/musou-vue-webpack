@@ -1,7 +1,7 @@
 <template>
 <div id="app">
   <NavigationWithIdentity :channel="channel" :isAuthenticated.sync="isAuthenticated" :modalAuthIsShown.sync="modalAuthIsShown"></NavigationWithIdentity>
-  <router-view></router-view>
+  <router-view :channel="channel"></router-view>
   <ModalAuth v-if="modalAuthIsShown" :modalAuthIsShown.sync="modalAuthIsShown" :isAuthenticated.sync="isAuthenticated"></ModalAuth>
   <FooterStandard></FooterStandard>
   <SupportWatchoutStandard v-if="supportIsShown" :supportIsShown.sync="supportIsShown"></SupportWatchoutStandard>
@@ -17,6 +17,17 @@ import SupportWatchoutStandard from 'common/src/components/SupportWatchout/Stand
 
 export default {
   name: 'app',
+  metaInfo() {
+    return {
+      meta: [
+        {
+          vmid: 'og-image',
+          property: 'og:image',
+          content: require('_/musou.png')
+        }
+      ]
+    }
+  },
   data() {
     return {
       channel: dataStore.channels.musou,
