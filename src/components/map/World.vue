@@ -132,42 +132,48 @@ export default {
   },
   props: ['raw', 'debug'],
   watch: {
-    raw: function(now) {
-      var self = this
-      this.rows = now.map(function(row) {
-        var pos = self.util.projection([row.lng, row.lat])
-        return Object.assign(row, {
-          x: pos[0],
-          y: pos[1]
-        })
-      })
-      if(this.rows.length > 0) {
-        this.draw()
-        this.group()
-        this.spread()
-      }
+    raw: function() {
+      this.update()
     },
     debug: function(now) {
       this.el.container.classed('debug', now)
     }
   },
-  mounted: function() {
-    this.size.w = 960
-    this.size.h = 500
-    this.size.r = 4
-    this.size.lineHeight = 1.25
-
-    this.util.offset = {x: 0, y: 64}
-    this.util.projection = d3.geoMercator()
-      .scale(this.size.w / (2 * Math.PI))
-      .translate([this.size.w / 2, this.size.h / 2 + this.util.offset.y])
-
-    this.el.container = d3.select(this.$el).select('.draw')
-      .classed('debug', this.debug)
-    this.el.root = this.el.container.append('svg')
-      .attr('viewBox', [0, 0, this.size.w, this.size.h].join(' '))
+  mounted() {
+    this.init()
+    this.update()
   },
   methods: {
+    init() {
+      this.size.w = 960
+      this.size.h = 500
+      this.size.r = 4
+      this.size.lineHeight = 1.25
+
+      this.util.offset = {x: 0, y: 64}
+      const projection = d3.geoMercator()
+        .scale(this.size.w / (2 * Math.PI))
+        .translate([this.size.w / 2, this.size.h / 2 + this.util.offset.y])
+      this.util.projection = projection
+
+      this.el.container = d3.select(this.$el).select('.draw')
+        .classed('debug', this.debug)
+      this.el.root = this.el.container.append('svg')
+        .attr('viewBox', [0, 0, this.size.w, this.size.h].join(' '))
+    },
+    update() {
+      this.rows = this.raw.map(row => {
+        var pos = this.util.projection([row.lng, row.lat])
+        return Object.assign(row, {
+          x: pos[0],
+          y: pos[1]
+        })
+      })
+
+      this.draw()
+      this.group()
+      this.spread()
+    },
     draw: function() {
       // draw quotes
       var quotes = this.el.root.selectAll('g.quote').data(this.rows)

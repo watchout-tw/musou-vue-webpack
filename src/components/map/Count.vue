@@ -23,9 +23,17 @@ export default {
     }
   },
   watch: {
-    raw(now) {
-      this.total = now.length
-      this.rows = now.filter(row => this.count.condition(row.what + row.what_in_english))
+    raw() {
+      this.update()
+    }
+  },
+  mounted() {
+    this.update()
+  },
+  methods: {
+    update() {
+      this.total = this.raw.length
+      this.rows = this.raw.filter(row => this.count.condition(row.what + row.what_in_english))
     }
   }
 }

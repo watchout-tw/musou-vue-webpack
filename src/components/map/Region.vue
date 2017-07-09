@@ -55,20 +55,21 @@ export default {
     }
   },
   watch: {
-    raw: function(now) {
-      var self = this
-      this.rows = this.raw.filter(function(row) {
-        return row.region === self.region.name
-      })
-      this.draw()
+    raw() {
+      this.update()
     }
   },
-  mounted: function() {
-    this.el.container = d3.select(this.$el).select('.draw')
-    this.el.root = this.el.container.select('svg')
+  mounted() {
+    this.update()
   },
   methods: {
-    draw: function() {
+    update() {
+      this.el.container = d3.select(this.$el).select('.draw')
+      this.el.root = this.el.container.select('svg')
+      this.rows = this.raw.filter(row => row.region === this.region.name)
+      this.draw()
+    },
+    draw() {
       var quotes = this.el.root.selectAll('g.quote').data(this.rows)
       quotes.exit().remove()
       quotes.enter().append('g').merge(quotes)
