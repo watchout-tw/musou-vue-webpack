@@ -48,4 +48,56 @@ export default {
 <style lang="scss">
 @import '~common/src/styles/resources';
 @import '~common/src/styles/main';
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+svg {
+  display: block;
+}
+.textgroup {
+  max-width: 30rem;
+  width: auto;
+  > .title {
+    margin: 1rem 0;
+  }
+}
+article {
+  > header {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 1rem;
+
+    > .text {
+      > hgroup {
+        margin-bottom: 1rem;
+        > h2 {
+          color: $color-musou;
+        }
+      }
+      > .description {
+        margin: 1rem 0;
+      }
+      > .authorship {
+        margin: 1rem 0;
+        color: $color-watchout;
+        > .item {
+          > .job {
+            width: 4rem;
+            margin-right: 1rem;
+            opacity: 0.65;
+          }
+          > .person:not(:last-of-type) {
+            margin-right: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
 </style>

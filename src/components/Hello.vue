@@ -11,6 +11,18 @@ import menu from '@/menu'
 import SectionMenu from '@/components/SectionMenu'
 
 export default {
+  metaInfo() {
+    return {
+      title: `沃草→國會無雙←`,
+      meta: [
+        {
+          vmid: 'og-image',
+          property: 'og:image',
+          content: require('_/musou.png')
+        }
+      ]
+    }
+  },
   name: 'hello',
   data() {
     return {
@@ -24,7 +36,9 @@ export default {
 </script>
 
 <style lang="scss">
-section {
-  padding: 4rem 0;
+.hello {
+  > section {
+    padding: 4rem 0;
+  }
 }
 </style>

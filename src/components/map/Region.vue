@@ -1,5 +1,5 @@
 <template>
-<div class="region">
+<div class="atlas-regions-region">
   <div class="name">{{ region.translation }}</div>
   <div class="score"><span class="value">{{ score }}</span><span class="unit">%</span></div>
   <div class="draw" :class="{ debug: debug }">
@@ -109,3 +109,28 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import '~common/src/styles/resources';
+
+.atlas-regions-region {
+  width: 50%;
+  max-width: 20rem;
+  margin-bottom: 1rem;
+  @include bp-sm-up {
+    width: 33.3333%;
+  }
+  > .score {
+    line-height: 2rem;
+    > .value {
+      font-size: 2rem;
+    }
+    > .unit {
+      margin-left: 0.125rem;
+    }
+  }
+  > .draw {
+    margin: 0.5rem 0 1rem;
+  }
+}
+</style>

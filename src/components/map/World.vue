@@ -242,3 +242,26 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import '~common/src/styles/resources';
+
+.atlas {
+  > figcaption {
+    font-size: 0.75rem;
+    margin: 0 0.25rem;
+  }
+}
+.atlas-world {
+  @include bp-lg-alt-down {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+  > .draw {
+    background: url(/static/world_map_mercator-mod.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+</style>

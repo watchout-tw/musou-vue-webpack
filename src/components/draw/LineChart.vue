@@ -462,7 +462,7 @@ $max-width: 30rem;
     }
   }
 }
-svg {
+.line-chart svg {
   cursor: pointer;
   display: block;
   circle {
