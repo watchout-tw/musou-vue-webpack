@@ -2,7 +2,7 @@
 <div class="longform">
   <div class="content" :style="config.chart.contentStyle">
     <div class="credit" :style="creditStyle">
-      <span>This project is made possible by </span><a :href="sourceLink" target="_blank"><img src="https://plotdb.com//assets/img/land/name.png" width="165px" style="margin: 0.25rem 0;"/></a>
+      <span>This project is made possible by </span><a :href="sourceLink" target="_blank"><img :src="plotDBLogo" width="163px" style="margin: 0.25rem 0;"/></a>
     </div>
     <div v-if="isLoading">loading...</div>
     <div id="chart"></div>
@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import Color from 'color'
+
 export default {
   metaInfo() {
     return {
@@ -38,6 +40,10 @@ export default {
     }
   },
   computed: {
+    plotDBLogo() {
+      let color = Color(this.config.chart.contentStyle.backgroundColor)
+      return require('_/plotdb/' + (color.light() ? 'light' : 'dark') + '.png')
+    },
     sourceLink() {
       return `https://plotdb.io/v/chart/${this.config.chart.id}`
     },
@@ -52,7 +58,7 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
     Promise.all(this.scripts.map(scriptURL => this.loadScript(scriptURL)))
       .then(results => {
         if(window.plotdb) {
