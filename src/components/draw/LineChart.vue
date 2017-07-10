@@ -396,22 +396,138 @@ export default {
 <style lang="scss">
 @import '~common/src/styles/resources';
 
-$max-width: 30rem;
-.chart {
-  position: relative;
-  width: 100%;
-  max-width: $max-width;
-  margin: 0 auto;
-}
-
 .line-chart {
-  max-width: $max-width;
+  max-width: 30rem;
   margin: 4rem auto 2rem;
 
-  .title {
-    margin: 0.5rem 0;
+  > .before,
+  > .after {
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
-  .after {
+  > .before {
+    > .title {
+      margin: 0.5rem 0;
+    }
+  }
+  > .chart {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+
+    @keyframes grow {
+      0% { width: 0; }
+      100% { width: 60px; }
+    }
+    @keyframes move {
+      0% { @include transform(none); }
+      100% { @include transform(translate(52px, -30px)); }
+    }
+    $animation-time: 1s;
+    $animation-iteration-count: infinite;
+
+    > .you-draw {
+      pointer-events: none;
+      position: absolute;
+      width: 120px;
+      height: 120px;
+
+      > .line {
+        width: 60px;
+        height: 5px;
+        background-size: 20px 5px;
+        background-image: linear-gradient(to right, $color-park, $color-park 50%, transparent 50%, transparent);
+        @include transform(rotate(-30deg));
+        @include transform-origin(center left);
+        position: absolute;
+        top: 50px;
+        animation: grow $animation-time $animation-iteration-count;
+      }
+      > .hand {
+        position: absolute;
+        bottom: 0;
+        left: -16px;
+        width: 40px;
+        height: 60px;
+        background-image: url(/static/hand.svg);
+        animation: move $animation-time $animation-iteration-count;
+      }
+    }
+
+    > svg {
+      display: block;
+      margin: 0;
+      cursor: pointer;
+
+      circle {
+        fill: none;
+      }
+      path {
+        fill: none;
+      }
+      text {
+        @include font-monospace;
+        font-size: 0.75rem;
+        &.unit-label {
+          text-anchor: start;
+        }
+      }
+      .hide {
+        visibility: hidden;
+      }
+      .tick {
+        text {
+          fill: rgba(black, 0.25);
+        }
+        line {
+          stroke: rgba(black, 0.13);
+          stroke-dasharray: 2,2;
+        }
+      }
+      .president {
+        text-anchor: start;
+        font-size: 1rem;
+        font-weight: bold;
+        @include font-serif;
+        opacity: 0.25;
+      }
+      .sequence {
+        path {
+          stroke-width: 5;
+          stroke-linejoin: round;
+          stroke-linecap: round;
+        }
+        text.data {
+          text-anchor: middle;
+        }
+        text.title {
+          font-size: 0.875rem;
+          text-anchor: start;
+        }
+        &.comp {
+          path {
+            stroke: rgba(black, 0.25); //rgb(89, 89, 225);
+          }
+        }
+        &.user {
+          path {
+            stroke: $color-park;
+          }
+        }
+        &.orig {
+          path {
+            stroke: $color-musou;
+          }
+        }
+      }
+      .axis-y {
+        @include bp-sm-only {
+          display: none;
+        }
+      }
+    }
+  }
+  > .after {
     position: relative;
 
     > *:not(button) {
@@ -460,115 +576,6 @@ $max-width: 30rem;
         outline: none;
       }
     }
-  }
-}
-.line-chart svg {
-  cursor: pointer;
-  display: block;
-  circle {
-    fill: none;
-  }
-  path {
-    fill: none;
-  }
-  text {
-    @include font-monospace;
-    font-size: 0.75rem;
-    &.unit-label {
-      text-anchor: start;
-    }
-  }
-  .hide {
-    visibility: hidden;
-  }
-  .tick {
-    text {
-      fill: rgba(black, 0.25);
-    }
-    line {
-      stroke: rgba(black, 0.13);
-      stroke-dasharray: 2,2;
-    }
-  }
-  .president {
-    text-anchor: start;
-    font-size: 1rem;
-    font-weight: bold;
-    @include font-serif;
-    opacity: 0.25;
-  }
-  .sequence {
-    path {
-      stroke-width: 5;
-      stroke-linejoin: round;
-      stroke-linecap: round;
-    }
-    text.data {
-      text-anchor: middle;
-    }
-    text.title {
-      font-size: 0.875rem;
-      text-anchor: start;
-    }
-    &.comp {
-      path {
-        stroke: rgba(black, 0.25); //rgb(89, 89, 225);
-      }
-    }
-    &.user {
-      path {
-        stroke: $color-park;
-      }
-    }
-    &.orig {
-      path {
-        stroke: $color-musou;
-      }
-    }
-  }
-  .axis-y {
-    @include bp-sm-only {
-      display: none;
-    }
-  }
-}
-
-@keyframes grow {
-  0% { width: 0; }
-  100% { width: 60px; }
-}
-@keyframes move {
-  0% { @include transform(none); }
-  100% { @include transform(translate(52px, -30px)); }
-}
-$animation-time: 1s;
-$animation-iteration-count: infinite;
-
-.you-draw {
-  pointer-events: none;
-  position: absolute;
-  width: 120px;
-  height: 120px;
-
-  > .line {
-    width: 60px;
-    height: 5px;
-    background-size: 20px 5px;
-    background-image: linear-gradient(to right, $color-park, $color-park 50%, transparent 50%, transparent);
-    @include transform(rotate(-30deg));
-    @include transform-origin(center left);
-    position: absolute;
-    top: 50px;
-    animation: grow $animation-time $animation-iteration-count;
-  }
-  > .hand {
-    position: absolute;
-    bottom: 0;
-    left: -16px;
-    width: 40px;
-    height: 60px;
-    background-image: url(/static/hand.svg);
-    animation: move $animation-time $animation-iteration-count;
   }
 }
 </style>

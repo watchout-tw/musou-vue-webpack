@@ -16,11 +16,9 @@
     <line-chart v-for="config in graphs" :key="config.id" :config="config" :channel="channel"></line-chart>
   </section>
   <section class="bridge">畫完了，然後呢？</section>
-  <section class="conclusion">
-    <div class="textgroup">
-      <h2 class="title">{{ conclusion.title }}</h2>
-      <div class="description a-text-only" v-html="markdown(conclusion.description)"></div>
-    </div>
+  <section class="conclusion textgroup">
+    <h2 class="title">{{ conclusion.title }}</h2>
+    <div class="description a-text-only" v-html="markdown(conclusion.description)"></div>
   </section>
 </article>
 </template>
@@ -65,17 +63,15 @@ export default {
     width: 100%;
     margin: 2rem 0;
     padding: 1rem 0;
-    background: rgba($color-musou, 0.25);
-    text-align: center;
     @include font-serif;
     font-weight: bold;
     font-size: 1.5rem;
+    text-align: center;
+    background: rgba($color-musou, 0.25);
   }
   > .conclusion {
     margin-left: 1rem;
-    > .title {
-      margin: 1rem 0;
-    }
+    margin-right: 1rem;
   }
 }
 </style>
