@@ -41,5 +41,12 @@ for(let section of menu) {
 
 export default new Router({
   mode: 'history',
-  routes
+  routes,
+  scrollBehavior(to, from, pos) {
+    if(!pos) {
+      pos = {x: 0, y: 0}
+    }
+    console.log(to.fullPath, from.fullPath, pos)
+    return pos
+  }
 })
