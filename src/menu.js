@@ -16,7 +16,7 @@ var menu = [
           id: 14141,
           width: '36rem',
           contentStyle: {
-            backgroundColor: '#202020',
+            backgroundColor: '#303030',
             color: '#eee'
           }
         },
