@@ -1,8 +1,8 @@
 <template>
 <div class="section-menu">
-  <router-link :to="sectionLink" :alt="config.title"><img class="key-visual" :src="sectionImage" /></router-link>
+  <router-link class="section-link" :to="sectionLink" :alt="config.title"><img class="key-visual" :src="sectionImage" /></router-link>
   <p class="description">{{ config.description }}</p>
-  <div class="pages d-flex align-items-center">
+  <div class="pages">
     <router-link class="page" v-for="page in config.pages" :to="{name: page.id}" :key="page.id">
       <div class="title">
         <h3 class="small">{{ page.title }}</h3>
@@ -39,18 +39,25 @@ export default {
 .section-menu {
   max-width: 36rem;
   margin: 0 auto;
-
-  .key-visual {
-    display: block;
+  > .section-link {
     width: 100%;
+    > .key-visual {
+      display: block;
+      width: 100%;
+    }
   }
-  .description {
-    margin: 1.25rem 0;
-  }
-
+  > .description,
   > .pages {
-    margin-top: 1rem;
-
+    @include bp-sm-only {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+  }
+  > .description {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  > .pages {
     > .page {
       position: relative;
       display: inline-block;
