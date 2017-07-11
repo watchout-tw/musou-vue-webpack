@@ -8,6 +8,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var PrerenderSpaPlugin = require('prerender-spa-plugin')
 
 var env = config.build.env
 
@@ -90,7 +91,13 @@ var webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
+    new PrerenderSpaPlugin(
+      // Path to compiled app
+      path.join(__dirname, '../docs'),
+      // List of endpoints you wish to prerender
+      [ '/', '/roll-play/yulamchia', '/roll-play/terror-30', '/map/748', '/draw/tsai-first-year' ]
+    )
   ]
 })
 
