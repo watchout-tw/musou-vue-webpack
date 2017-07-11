@@ -2,9 +2,18 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Meta from 'vue-meta'
 import Hello from '@/components/Hello'
-import SectionMenu from '@/components/SectionMenu'
+import Series from '@/components/Series'
+import LongForm from '@/components/LongForm'
+import Draw from '@/components/Draw'
+import Map from '@/components/Map'
 
-import menu from '@/menu'
+const routerViews = {
+  longform: LongForm,
+  draw: Draw,
+  map: Map
+}
+
+const menu = require('@/menu').default
 
 Vue.use(Router)
 Vue.use(Meta, {
@@ -19,19 +28,19 @@ var routes = [
   }
 ]
 
-for(let section of menu) {
+for(let series of menu) {
   routes.push({
-    path: `/${section.id}`,
-    component: SectionMenu,
+    path: `/${series.id}`,
+    component: Series,
     props: {
-      config: section
+      config: series
     }
   })
-  for(let page of section.pages) {
+  for(let page of series.pages) {
     routes.push({
-      path: `/${section.id}/${page.id}`,
+      path: `/${series.id}/${page.id}`,
       name: page.id,
-      component: section.component,
+      component: routerViews[series.component],
       props: {
         config: page
       }

@@ -1,10 +1,10 @@
 <template>
 <div class="longform">
   <div class="content" :style="config.chart.contentStyle">
-    <div class="credit" :style="creditStyle">
+    <div class="credit">
       <span>This project is made possible by </span><a :href="sourceLink" target="_blank"><img :src="plotDBLogo" width="163px" style="margin: 0.25rem 0;"/></a>
     </div>
-    <div v-if="isLoading">loading...</div>
+    <div class="loading" v-if="isLoading">loading...</div>
     <div id="chart"></div>
   </div>
   <div class="spacer" :style="spacerStyle"></div>
@@ -22,7 +22,7 @@ export default {
         {
           vmid: 'og-image',
           property: 'og:image',
-          content: require('_/roll-play.png')
+          content: require('_/role-play.png')
         }
       ]
     }
@@ -47,7 +47,7 @@ export default {
     sourceLink() {
       return `https://plotdb.io/v/chart/${this.config.chart.id}`
     },
-    creditStyle() {
+    widthConstraint() {
       return {
         maxWidth: this.config.chart.width
       }
@@ -91,19 +91,27 @@ export default {
 </script>
 
 <style lang="scss">
-.credit {
-  margin: 0 auto;
-  padding: 1rem 0;
-  font-size: 0.75rem;
-}
-.content {
-}
-.spacer {
-  height: 24rem;
-}
-#chart {
-  h1 {
-    margin: 2rem 0;
+.longform {
+  > .content {
+    > .credit,
+    > .loading {
+      max-width: 38rem;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    > .credit {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      font-size: 0.75rem;
+    }
+    > #chart {
+      h1 {
+        margin: 2rem 0;
+      }
+    }
+  }
+  > .spacer {
+    height: 24rem;
   }
 }
 </style>

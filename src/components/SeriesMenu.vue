@@ -1,6 +1,6 @@
 <template>
-<div class="section-menu">
-  <router-link class="section-link" :to="sectionLink" :alt="config.title"><img class="key-visual" :src="sectionImage" /></router-link>
+<div class="series-menu" :id="config.id">
+  <router-link class="series-link" :to="seriesLink" :alt="config.title"><img class="key-visual" :src="seriesImage" /></router-link>
   <p class="description">{{ config.description }}</p>
   <div class="pages">
     <router-link class="page" v-for="page in config.pages" :to="{name: page.id}" :key="page.id">
@@ -17,17 +17,11 @@
 export default {
   props: ['config'],
   computed: {
-    sectionLink() {
+    seriesLink() {
       return `/${this.config.id}`
     },
-    sectionImage() {
-      var image
-      try {
-        image = require(`_/${this.config.id}.png`)
-      } catch(exception) {
-        image = require(`_/${this.config.id}.jpg`)
-      }
-      return image
+    seriesImage() {
+      return require('_/' + this.config.image)
     }
   }
 }
@@ -36,10 +30,10 @@ export default {
 <style lang="scss">
 @import '~common/src/styles/resources';
 
-.section-menu {
+.series-menu {
   max-width: 36rem;
   margin: 0 auto;
-  > .section-link {
+  > .series-link {
     width: 100%;
     > .key-visual {
       display: block;

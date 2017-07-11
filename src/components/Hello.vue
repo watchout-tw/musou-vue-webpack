@@ -1,14 +1,15 @@
 <template>
 <div class="hello">
-  <section v-for="section in menu" :key="section.id">
-    <section-menu :config="section"></section-menu>
+  <section v-for="series in menu" :key="series.id">
+    <series-menu :config="series"></series-menu>
   </section>
 </div>
 </template>
 
 <script>
-import menu from '@/menu'
-import SectionMenu from '@/components/SectionMenu'
+import SeriesMenu from '@/components/SeriesMenu'
+
+const menu = require('@/menu').default
 
 export default {
   metaInfo() {
@@ -30,7 +31,7 @@ export default {
     }
   },
   components: {
-    SectionMenu
+    SeriesMenu
   }
 }
 </script>

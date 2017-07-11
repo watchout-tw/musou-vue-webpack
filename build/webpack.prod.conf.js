@@ -10,6 +10,15 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 var PrerenderSpaPlugin = require('prerender-spa-plugin')
 
+var menu = require('../src/menu').default
+var prerenderRoutes = ['/']
+for(let series of menu) {
+  prerenderRoutes.push('/' + series.id)
+  for(let page of series.pages) {
+    prerenderRoutes.push('/' + series.id + '/' + page.id)
+  }
+}
+
 var env = config.build.env
 
 var webpackConfig = merge(baseWebpackConfig, {
@@ -92,11 +101,10 @@ var webpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ]),
+    // prerender
     new PrerenderSpaPlugin(
-      // Path to compiled app
-      path.join(__dirname, '../docs'),
-      // List of endpoints you wish to prerender
-      [ '/', '/roll-play/yulamchia', '/roll-play/terror-30', '/map/748', '/draw/tsai-first-year' ]
+      path.join(__dirname, '../docs'), // Path to compiled app
+      prerenderRoutes // List of endpoints you wish to prerender
     )
   ]
 })
