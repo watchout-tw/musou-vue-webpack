@@ -4,7 +4,7 @@
     <div class="credit">
       <span>This project is made possible by </span><a :href="sourceLink" target="_blank"><img :src="plotDBLogo" width="163px" style="margin: 0.25rem 0;"/></a>
     </div>
-    <div class="loading" v-if="isLoading">loading...</div>
+    <div class="loading" v-if="isLoading">載入中，請稍候⋯</div>
     <div id="chart"></div>
   </div>
   <div class="spacer" :style="spacerStyle"></div>
@@ -22,7 +22,7 @@ export default {
         {
           vmid: 'og-image',
           property: 'og:image',
-          content: require('_/role-play.png')
+          content: require('_/' + this.ogImage)
         }
       ]
     }
@@ -40,6 +40,9 @@ export default {
     }
   },
   computed: {
+    ogImage() {
+      return this.config.image ? this.config.image : 'role-play.png'
+    },
     plotDBLogo() {
       let color = Color(this.config.chart.contentStyle.backgroundColor)
       return require('_/plotdb/' + (color.light() ? 'light' : 'dark') + '.png')

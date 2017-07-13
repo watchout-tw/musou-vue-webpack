@@ -16,7 +16,8 @@ exports.default = [
             color: '#eee'
           }
         },
-        breaking: true
+        breaking: true,
+        image: 'terror-30.jpg'
       },
       {
         id: 'yulamchia',
