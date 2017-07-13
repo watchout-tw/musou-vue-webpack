@@ -4,7 +4,7 @@
   <router-view :channel="channel"></router-view>
   <ModalAuth v-if="modalAuthIsShown" :modalAuthIsShown.sync="modalAuthIsShown" :isAuthenticated.sync="isAuthenticated"></ModalAuth>
   <FooterStandard></FooterStandard>
-  <SupportWatchoutStandard v-if="supportIsShown" :supportIsShown.sync="supportIsShown"></SupportWatchoutStandard>
+  <SupportWatchoutStandard v-if="supportIsShown" :supportIsShown.sync="supportIsShown" :supportPackageID="supportPackageID"></SupportWatchoutStandard>
 </div>
 </template>
 
@@ -33,7 +33,8 @@ export default {
       channel: dataStore.channels.musou,
       isAuthenticated: false,
       modalAuthIsShown: false,
-      supportIsShown: true
+      supportIsShown: true,
+      supportPackageID: 'musou'
     }
   },
   components: {
