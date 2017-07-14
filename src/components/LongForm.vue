@@ -19,6 +19,12 @@
         <div class="item d-flex flex-row" v-for="item in authorship"><div class="job">{{ item.job }}</div><div v-for="person in item.people" class="person">{{ person }}</div></div>
       </div>
       <div class="date">{{ date }}</div>
+      <div class="references" v-if="references">
+        <h5>參考資料</h5>
+        <ul>
+          <li v-for="ref in references">{{ ref }}</li>
+        </ul>
+      </div>
     </div>
   </header>
 </article>
