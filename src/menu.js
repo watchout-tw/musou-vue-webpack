@@ -9,26 +9,12 @@ exports.default = [
       {
         id: 'terror-30',
         title: '你是戒嚴時代的誰呢？',
-        chart: {
-          id: 14141,
-          contentStyle: {
-            backgroundColor: '#303030',
-            color: '#eee'
-          }
-        },
-        breaking: true,
-        image: 'terror-30.jpg'
+        image: 'terror-30.jpg',
+        breaking: true
       },
       {
         id: 'yulamchia',
-        title: '遊覽車為什麼翻車？跟著這樣做，你也會成為黑心慣老闆！',
-        chart: {
-          id: 12756,
-          contentStyle: {
-            backgroundColor: 'white',
-            color: 'black'
-          }
-        }
+        title: '遊覽車為什麼翻車？跟著這樣做，你也會成為黑心慣老闆！'
       }
     ]
   },

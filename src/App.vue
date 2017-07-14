@@ -72,11 +72,30 @@ article {
     margin-bottom: 2rem;
     margin-left: 1rem;
 
+    &.end {
+      margin-top: 1rem;
+
+      &:before {
+        content: '×　×　×';
+        display: block;
+        text-align: center;
+      }
+    }
+
     > .text {
       > hgroup {
         margin-bottom: 1rem;
         > h2 {
           color: $color-musou;
+        }
+        > .zhi {
+          display: inline-block;
+          padding: 0.25rem;
+          background: black;
+          color: white;
+          font-size: 0.85rem;
+          line-height: 1;
+          opacity: 0.85;
         }
       }
       > .description {

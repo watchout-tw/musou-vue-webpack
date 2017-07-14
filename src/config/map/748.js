@@ -2,7 +2,7 @@ export default {
   dataSource: 'same-sex-marriage-international-news-coverage',
   circledDigits: ['⓪', '①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩'],
   raw: [],
-  date: '2017-06-14 20:00:00',
+  date: '2017-06-14 21:00:00',
   interaction: {
     type: 'multiple-choice',
     class: 'selected',
@@ -121,10 +121,6 @@ export default {
   call_for_action: {
     title: '你看到的外媒報導沒出現嗎？',
     description: '由於人力、時間和語言能力的限制，我們目前只能蒐集到<span val="data-tally-total"></span>篇相關報導，你有看到其他的嗎？你可以[來這裡](https://goo.gl/forms/edndn3zHgZ1lHzUK2)填寫你所看到的新聞資料，沃草會在確認內容後更新網頁內容，並且將你列為貢獻者之一。\n\n在沃草，我們持續以各種方式，**努力降低理解複雜議題的門檻**。像《<span val="data-title"></span>》這樣的資訊新聞需要許多人力整理資料、設計、製作，如果你喜歡沃草的內容，請別忘了[支持我們](https://watchout.tw/#support)！'
-  },
-  action: {
-    title: '你看到的外媒報導沒出現嗎？',
-    description: '由於人力、時間和語言能力的限制，沃草僅能搜集到XXX篇相關報導，你有看到其他的嗎？你可以**來這裡**填寫你所看到的新聞資料，沃草將會持續更新網頁內容。\n\n我們以各種方式，努力降低理解複雜議題的門檻。像《滅國也同志，建國也同志》這樣的資訊新聞需要許多人力整理資料、設計、製作，如果你喜歡沃草的內容，請別忘了支持我們！[支持我們](https://watchout.tw/#support)！'
   },
   debug: false
 }

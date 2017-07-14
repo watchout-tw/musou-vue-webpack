@@ -55,7 +55,6 @@ export default new Router({
     if(!pos) {
       pos = {x: 0, y: 0}
     }
-    console.log(to.fullPath, from.fullPath, pos)
     return pos
   }
 })

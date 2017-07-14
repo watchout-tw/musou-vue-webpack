@@ -1,6 +1,6 @@
 <template>
-<div class="longform">
-  <div class="content" :style="config.chart.contentStyle">
+<article class="longform">
+  <div class="content" :style="chart.contentStyle">
     <div class="credit">
       <span>This project is made possible by </span><a :href="sourceLink" target="_blank"><img :src="plotDBLogo" width="163px" style="margin: 0.25rem 0;"/></a>
     </div>
@@ -8,7 +8,20 @@
     <div id="chart"></div>
   </div>
   <div class="spacer" :style="spacerStyle"></div>
-</div>
+  <header class="end">
+    <div class="text textgroup">
+      <hgroup>
+        <h5>模擬人生</h5>
+        <span class="zhi">之</span>
+        <h4>{{ header.title }}</h4>
+      </hgroup>
+      <div class="authorship">
+        <div class="item d-flex flex-row" v-for="item in authorship"><div class="job">{{ item.job }}</div><div v-for="person in item.people" class="person">{{ person }}</div></div>
+      </div>
+      <div class="date">{{ date }}</div>
+    </div>
+  </header>
+</article>
 </template>
 
 <script>
@@ -29,7 +42,7 @@ export default {
   },
   props: ['config'],
   data() {
-    return {
+    return Object.assign(require('@/config/longform/' + this.config.id).default, {
       isLoading: true,
       mountingPoint: 'chart',
       scripts: [
@@ -37,27 +50,27 @@ export default {
         'https://plotdb.com/lib/showdown/1.5.0/index.min.js',
         'https://plotdb.com/lib/d3/3.5.12/index.min.js'
       ]
-    }
+    })
   },
   computed: {
     ogImage() {
       return this.config.image ? this.config.image : 'role-play.png'
     },
     plotDBLogo() {
-      let color = Color(this.config.chart.contentStyle.backgroundColor)
+      let color = Color(this.chart.contentStyle.backgroundColor)
       return require('_/plotdb/' + (color.light() ? 'light' : 'dark') + '.png')
     },
     sourceLink() {
-      return `https://plotdb.io/v/chart/${this.config.chart.id}`
+      return `https://plotdb.io/v/chart/${this.chart.id}`
     },
     widthConstraint() {
       return {
-        maxWidth: this.config.chart.width
+        maxWidth: this.chart.width
       }
     },
     spacerStyle() {
       return {
-        background: this.config.chart.contentStyle.backgroundColor // `linear-gradient(to bottom, ${this.contentStyle.backgroundColor}, white)`
+        background: this.chart.contentStyle.backgroundColor
       }
     }
   },
@@ -65,7 +78,7 @@ export default {
     Promise.all(this.scripts.map(scriptURL => this.loadScript(scriptURL)))
       .then(results => {
         if(window.plotdb) {
-          window.plotdb.load(this.config.chart.id, chart => {
+          window.plotdb.load(this.chart.id, chart => {
             chart.attach(document.getElementById(this.mountingPoint), {})
             this.isLoading = false
           })

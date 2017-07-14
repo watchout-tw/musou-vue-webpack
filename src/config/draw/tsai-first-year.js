@@ -251,6 +251,7 @@ export default {
       people: ['游知澔']
     }
   ],
+  date: '2017-05-19 21:00:00',
   graphs,
   conclusion: {
     title: '結論：關心政治、持續監督',
