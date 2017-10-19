@@ -521,7 +521,7 @@ export default {
         }
       }
       .axis-y {
-        @include bp-sm-only {
+        @include bp-sm-down {
           display: none;
         }
       }

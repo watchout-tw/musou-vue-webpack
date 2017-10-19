@@ -42,7 +42,7 @@ export default {
   }
   > .description,
   > .pages {
-    @include bp-sm-only {
+    @include bp-sm-down {
       margin-left: 1rem;
       margin-right: 1rem;
     }
