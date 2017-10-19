@@ -1,22 +1,80 @@
 <template>
-<div id="app">
-  <NavigationWithIdentity :channel="channel" :isAuthenticated.sync="isAuthenticated" :modalAuthIsShown.sync="modalAuthIsShown"></NavigationWithIdentity>
-  <router-view :channel="channel"></router-view>
-  <ModalAuth v-if="modalAuthIsShown" :modalAuthIsShown.sync="modalAuthIsShown" :isAuthenticated.sync="isAuthenticated"></ModalAuth>
+<main>
+  <NavigationWithIdentity :channel="channel"></NavigationWithIdentity>
+  <router-view :channel.sync="channel"></router-view>
+  <ModalAuth v-if="modalAuthIsShown"></ModalAuth>
+  <ModalLostPwd v-if="modalLostPwdIsShown"></ModalLostPwd>
+  <ModalResetPwd v-if="modalResetPwdIsShown"></ModalResetPwd>
+  <ModalIdentity v-if="modalIdentityIsShown"></ModalIdentity>
+  <ModalTermsOfSvc v-if="modalTermsOfSvcIsShown"></ModalTermsOfSvc>
   <FooterStandard></FooterStandard>
-  <SupportWatchoutStandard v-if="supportIsShown" :supportIsShown.sync="supportIsShown" :supportPackageID="supportPackageID"></SupportWatchoutStandard>
-</div>
+  <SupportWatchoutStandard v-if="supportIsShown" :support-is-shown.sync="supportIsShown" :support-package-key="supportPackageKey"></SupportWatchoutStandard>
+</main>
 </template>
 
 <script>
+import Vue from 'vue'
+import Vuex from 'vuex'
 import dataStore from 'common/src/lib/dataStore'
 import NavigationWithIdentity from 'common/src/components/Navigation/Identity'
 import ModalAuth from 'common/src/components/Modal/Auth'
+import ModalLostPwd from 'common/src/components/Modal/LostPwd'
+import ModalResetPwd from 'common/src/components/Modal/ResetPwd'
+import ModalIdentity from 'common/src/components/Modal/Identity'
+import ModalTermsOfSvc from 'common/src/components/Modal/TermsOfSvc'
 import FooterStandard from 'common/src/components/Footer/Standard'
 import SupportWatchoutStandard from 'common/src/components/SupportWatchout/Standard'
+import * as util from 'common/src/lib/util'
+
+Vue.use(Vuex)
 
 export default {
   name: 'app',
+  components: {
+    NavigationWithIdentity,
+    ModalAuth,
+    ModalLostPwd,
+    ModalResetPwd,
+    ModalIdentity,
+    ModalTermsOfSvc,
+    FooterStandard,
+    SupportWatchoutStandard
+  },
+  computed: {
+    isAuthenticated() {
+      return this.$store.state.isAuthenticated
+    },
+    modalAuthIsShown() {
+      return this.$store.state.modalAuthIsShown
+    },
+    modalLostPwdIsShown() {
+      return this.$store.state.modalLostPwdIsShown
+    },
+    modalResetPwdIsShown() {
+      return this.$store.state.modalResetPwdIsShown
+    },
+    modalIdentityIsShown() {
+      return this.$store.state.modalIdentityIsShown
+    },
+    modalTermsOfSvcIsShown() {
+      return this.$store.state.modalTermsOfSvcIsShown
+    }
+  },
+  data() {
+    return {
+      channel: dataStore.channels.musou,
+      supportIsShown: true,
+      supportPackageKey: 'musou'
+    }
+  },
+  created() {
+    console.log(`This is the Musou App (${Vue.config.mode})`)
+  },
+  beforeMount() {
+    this.$store.dispatch('toggleIsAuthenticated', {
+      value: util.jwtTokenIsHere()
+    })
+  },
   metaInfo() {
     return {
       meta: [
@@ -27,21 +85,6 @@ export default {
         }
       ]
     }
-  },
-  data() {
-    return {
-      channel: dataStore.channels.musou,
-      isAuthenticated: false,
-      modalAuthIsShown: false,
-      supportIsShown: true,
-      supportPackageID: 'musou'
-    }
-  },
-  components: {
-    NavigationWithIdentity,
-    ModalAuth,
-    FooterStandard,
-    SupportWatchoutStandard
   }
 }
 </script>

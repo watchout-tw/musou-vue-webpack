@@ -19,5 +19,6 @@ export default {
       backgroundColor: 'white',
       color: 'black'
     }
-  }
+  },
+  references: []
 }

@@ -8,8 +8,7 @@
 
 <script>
 import SeriesMenu from '@/components/SeriesMenu'
-
-const menu = require('@/menu').default
+import menu from '@/menu'
 
 export default {
   metaInfo() {

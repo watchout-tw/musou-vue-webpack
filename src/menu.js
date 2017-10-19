@@ -1,4 +1,4 @@
-exports.default = [
+export default [
   {
     id: 'role-play',
     image: 'role-play.png',

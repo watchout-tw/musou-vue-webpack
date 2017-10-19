@@ -6,19 +6,18 @@ import Series from '@/components/Series'
 import LongForm from '@/components/LongForm'
 import Draw from '@/components/Draw'
 import Map from '@/components/Map'
+import menu from '@/menu'
+
+Vue.use(Router)
+Vue.use(Meta, {
+  tagIDKeyName: 'vmid'
+})
 
 const routerViews = {
   longform: LongForm,
   draw: Draw,
   map: Map
 }
-
-const menu = require('@/menu').default
-
-Vue.use(Router)
-Vue.use(Meta, {
-  tagIDKeyName: 'vmid'
-})
 
 var routes = [
   {
