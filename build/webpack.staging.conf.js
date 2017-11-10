@@ -10,18 +10,18 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 var PrerenderSpaPlugin = require('prerender-spa-plugin')
 
-var env = config.prod.env
+var env = config.staging.env
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
-      sourceMap: config.prod.productionSourceMap,
+      sourceMap: config.staging.productionSourceMap,
       extract: true
     })
   },
-  devtool: config.prod.productionSourceMap ? '#source-map' : false,
+  devtool: config.staging.productionSourceMap ? '#source-map' : false,
   output: {
-    path: config.prod.assetsRoot,
+    path: config.staging.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
@@ -30,14 +30,6 @@ var webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
-    /*
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
-      sourceMap: true
-    }),
-    */
     // extract css into its own file
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css')
@@ -53,7 +45,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: config.prod.index,
+      filename: config.staging.index,
       template: 'index.html',
       inject: true,
       minify: {
@@ -90,7 +82,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),
-        to: config.prod.assetsSubDirectory,
+        to: config.staging.assetsSubDirectory,
         ignore: ['.*']
       }
     ]),
@@ -103,7 +95,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   ]
 })
 
-if (config.prod.productionGzip) {
+if (config.staging.productionGzip) {
   var CompressionWebpackPlugin = require('compression-webpack-plugin')
 
   webpackConfig.plugins.push(
@@ -112,7 +104,7 @@ if (config.prod.productionGzip) {
       algorithm: 'gzip',
       test: new RegExp(
         '\\.(' +
-        config.prod.productionGzipExtensions.join('|') +
+        config.staging.productionGzipExtensions.join('|') +
         ')$'
       ),
       threshold: 10240,
@@ -121,7 +113,7 @@ if (config.prod.productionGzip) {
   )
 }
 
-if (config.prod.bundleAnalyzerReport) {
+if (config.staging.bundleAnalyzerReport) {
   var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }

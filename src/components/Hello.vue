@@ -8,12 +8,12 @@
 
 <script>
 import SeriesMenu from '@/components/SeriesMenu'
-import menu from '@/menu'
+const menu = require('@/menu').default
 
 export default {
   metaInfo() {
     return {
-      title: `沃草→國會無雙←`,
+      title: `→沃草←國會無雙`,
       meta: [
         {
           vmid: 'og-image',

@@ -15,6 +15,7 @@
 <script>
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 import dataStore from 'common/src/lib/dataStore'
 import NavigationWithIdentity from 'common/src/components/Navigation/Identity'
 import ModalAuth from 'common/src/components/Modal/Auth'
@@ -69,22 +70,23 @@ export default {
   },
   created() {
     console.log(`This is the Musou App (${Vue.config.mode})`)
+    if(Vue.config.mode === 'production') {
+      axios.defaults.baseURL = 'https://core.watchout.tw'
+    } else if(Vue.config.mode === 'staging') {
+      axios.defaults.baseURL = 'https://staging.core.watchout.tw'
+    } else {
+      axios.defaults.baseURL = 'https://dev.core.watchout.tw'
+    }
+    this.$store.dispatch('cacheReps')
+    this.$store.dispatch('cacheParties')
+    this.$store.dispatch('cacheCaucuses')
+    this.$store.dispatch('cacheGovAgencies')
+    this.$store.dispatch('cacheLegislativeSteps')
   },
   beforeMount() {
     this.$store.dispatch('toggleIsAuthenticated', {
       value: util.jwtTokenIsHere()
     })
-  },
-  metaInfo() {
-    return {
-      meta: [
-        {
-          vmid: 'og-image',
-          property: 'og:image',
-          content: require('_/musou.png')
-        }
-      ]
-    }
   }
 }
 </script>

@@ -31,7 +31,7 @@ import LineChart from './draw/LineChart'
 export default {
   metaInfo() {
     return {
-      title: `沃草→${this.config.title}←`,
+      title: `→沃草←${this.config.title}→國會無雙←`,
       meta: [
         {
           vmid: 'og-image',

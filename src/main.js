@@ -5,7 +5,7 @@ import App from './App'
 import store from './store'
 import router from './router'
 
-Vue.config.mode = process.env.PROD_MODE
+Vue.config.mode = process.env.BUILD_MODE
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

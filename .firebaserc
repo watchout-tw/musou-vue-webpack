@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "musou-vue-webpack"
+    "staging": "musou-staging",
+    "production": "musou-vue-webpack"
   }
 }

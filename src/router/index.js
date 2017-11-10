@@ -6,7 +6,7 @@ import Series from '@/components/Series'
 import LongForm from '@/components/LongForm'
 import Draw from '@/components/Draw'
 import Map from '@/components/Map'
-import menu from '@/menu'
+const menu = require('@/menu').default
 
 Vue.use(Router)
 Vue.use(Meta, {
@@ -50,10 +50,7 @@ for(let series of menu) {
 export default new Router({
   mode: 'history',
   routes,
-  scrollBehavior(to, from, pos) {
-    if(!pos) {
-      pos = {x: 0, y: 0}
-    }
-    return pos
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
   }
 })
