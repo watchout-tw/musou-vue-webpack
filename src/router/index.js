@@ -41,7 +41,7 @@ for(let series of menu) {
       name: page.id,
       component: routerViews[series.component],
       props: {
-        config: page
+        config: Object.assign(page, { seriesTitle: series.title })
       }
     })
   }

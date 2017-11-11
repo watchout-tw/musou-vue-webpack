@@ -1,5 +1,24 @@
 exports.default = [
   {
+    id: 'multiple-choice',
+    image: 'musou.png',
+    title: '小測驗',
+    description: '考考你。',
+    component: 'longform',
+    pages: [
+      {
+        id: 'san-min-zhu-yi',
+        title: '三民主義',
+        breaking: true
+      },
+      {
+        id: 'republic-of-china',
+        title: '中華民國人',
+        breaking: true
+      }
+    ]
+  },
+  {
     id: 'role-play',
     image: 'role-play.png',
     title: '模擬人生',
@@ -9,8 +28,7 @@ exports.default = [
       {
         id: 'terror-30',
         title: '你是戒嚴時代的誰呢？',
-        image: 'terror-30.jpg',
-        breaking: true
+        image: 'terror-30.jpg'
       },
       {
         id: 'yulamchia',

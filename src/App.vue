@@ -135,6 +135,7 @@ article {
         }
         > .zhi {
           display: inline-block;
+          margin: 0.25rem 0;
           padding: 0.25rem;
           background: black;
           color: white;
