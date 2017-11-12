@@ -2,7 +2,6 @@ export default {
   dataSource: 'same-sex-marriage-international-news-coverage',
   circledDigits: ['⓪', '①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩'],
   raw: [],
-  date: '2017-06-14 21:00:00',
   interaction: {
     type: 'multiple-choice',
     class: 'selected',
@@ -78,9 +77,6 @@ export default {
       name: 'sam',
       translation: '中美洲及南美洲'
     }
-  },
-  header: {
-    title: '同志結婚會滅國？醒醒吧，你沒有____'
   },
   authorship: [
     {

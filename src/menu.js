@@ -1,19 +1,21 @@
 exports.default = [
   {
-    id: 'multiple-choice',
+    id: 'sim-test',
     image: 'musou.png',
-    title: '小測驗',
-    description: '考考你。',
+    title: '模擬考',
+    description: '中華民國的教育系統最喜歡考試了，沃草也設計了模擬考，要來測試你是不是個好學生。',
     component: 'longform',
     pages: [
       {
         id: 'san-min-zhu-yi',
-        title: '三民主義',
+        title: '《三民主義》模擬考',
+        date: '2017-11-12 20:00:00',
         breaking: true
       },
       {
         id: 'republic-of-china',
-        title: '中華民國人',
+        title: '做個堂堂正正的中華民國人',
+        date: '2017-10-10 20:00:00',
         breaking: true
       }
     ]
@@ -28,11 +30,13 @@ exports.default = [
       {
         id: 'terror-30',
         title: '你是戒嚴時代的誰呢？',
-        image: 'terror-30.jpg'
+        image: 'terror-30.jpg',
+        date: '2017-07-13 21:00:00'
       },
       {
         id: 'yulamchia',
-        title: '遊覽車為什麼翻車？跟著這樣做，你也會成為黑心慣老闆！'
+        title: '遊覽車為什麼翻車？跟著這樣做，你也會成為黑心慣老闆！',
+        date: '2017-02-15 21:00:00'
       }
     ]
   },
@@ -45,7 +49,8 @@ exports.default = [
     pages: [
       {
         id: '748',
-        title: '同志結婚會滅國？醒醒吧，你沒有____'
+        title: '同志結婚會滅國？醒醒吧，你沒有▁▁',
+        date: '2017-06-14 21:00:00'
       }
     ]
   },
@@ -58,7 +63,9 @@ exports.default = [
     pages: [
       {
         id: 'tsai-first-year',
-        title: '蔡總統的第一年'
+        title: '蔡總統的第一年',
+        description: '蔡英文政府已執政滿一週年，跟過去幾年相比，到底表現好不好呢？沃草透過比較從扁政府、馬政府到蔡政府第一年的各項數據，請你先自己畫出心中的感受，再來看看跟真實數據的差多少？',
+        date: '2017-05-19 21:00:00'
       }
     ]
   }

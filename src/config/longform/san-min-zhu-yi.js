@@ -1,7 +1,4 @@
 export default {
-  header: {
-    title: '三民主義'
-  },
   authorship: [
     {
       job: '編輯',
@@ -12,7 +9,6 @@ export default {
       people: ['游知澔']
     }
   ],
-  date: '2017-11-12 20:00:00',
   chart: {
     id: 15028,
     contentStyle: {

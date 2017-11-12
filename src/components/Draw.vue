@@ -3,14 +3,14 @@
   <header>
     <div class="text textgroup">
       <hgroup>
-        <h2>不然你來畫畫看啊</h2>
-        <h1>{{ header.title }}</h1>
+        <h2>{{ config.seriesTitle }}</h2>
+        <h1>{{ config.title }}</h1>
       </hgroup>
-      <div class="description" v-html="markdown(header.description)"></div>
+      <div class="description" v-html="markdown(config.description)"></div>
       <div class="authorship">
         <div class="item d-flex flex-row" v-for="item in authorship"><div class="job">{{ item.job }}</div><div v-for="person in item.people" class="person">{{ person }}</div></div>
       </div>
-      <div class="date">{{ date }}</div>
+      <div class="date">{{ config.date }}</div>
     </div>
   </header>
   <section class="graphs">

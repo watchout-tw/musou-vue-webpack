@@ -1,7 +1,4 @@
 export default {
-  header: {
-    title: '中華民國人'
-  },
   authorship: [
     {
       job: '編輯',
@@ -12,7 +9,6 @@ export default {
       people: ['游知澔']
     }
   ],
-  date: '2017-10-10 20:00:00',
   chart: {
     id: 12782,
     contentStyle: {

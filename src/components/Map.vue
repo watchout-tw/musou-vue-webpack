@@ -3,14 +3,14 @@
   <header>
     <div class="text textgroup">
       <hgroup>
-        <h2>啊不是很有國際觀</h2>
-        <h1>{{ header.title }}</h1>
+        <h2>{{ config.seriesTitle }}</h2>
+        <h1>{{ config.title }}</h1>
       </hgroup>
       <div class="authorship">
         <div class="item d-flex flex-row" v-for="item in authorship"><div class="job">{{ item.job }}</div><div v-for="person in item.people" class="person">{{ person }}</div></div>
         <div class="item d-flex flex-row"><div class="job">貢獻者</div><div class="person">{{ contributors }}</div></div>
       </div>
-      <div class="date">{{ date }}</div>
+      <div class="date">{{ config.date }}</div>
     </div>
   </header>
   <section class="question">
@@ -114,7 +114,7 @@ export default {
     $('[val=data-tally-country]').html(this.raw.filter(row =>
       this.$data.tally.country.condition(row.what + row.what_in_english)
     ).length)
-    $('[val=data-title]').html(this.header.title)
+    $('[val=data-title]').html(this.config.title)
   },
   methods: {
     interactionSelectOption(event, selectionIndex) {

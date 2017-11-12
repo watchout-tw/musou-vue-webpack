@@ -13,12 +13,12 @@
       <hgroup>
         <h5>{{ config.seriesTitle }}</h5>
         <span class="zhi">之</span>
-        <h4>{{ header.title }}</h4>
+        <h4>{{ config.title }}</h4>
       </hgroup>
       <div class="authorship">
         <div class="item d-flex flex-row" v-for="item in authorship"><div class="job">{{ item.job }}</div><div v-for="person in item.people" class="person">{{ person }}</div></div>
       </div>
-      <div class="date">{{ date }}</div>
+      <div class="date">{{ config.date }}</div>
       <div class="references" v-if="references.length > 0">
         <h5>參考資料</h5>
         <ul>

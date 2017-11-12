@@ -233,10 +233,6 @@ var graphs = [
 ]
 
 export default {
-  header: {
-    title: '蔡總統的第一年',
-    description: '蔡英文政府已執政滿一週年，跟過去幾年相比，到底表現好不好呢？沃草透過比較從扁政府、馬政府到蔡政府第一年的各項數據，請你先自己畫出心中的感受，再來看看跟真實數據的差多少？'
-  },
   authorship: [
     {
       job: '數據分析',
@@ -251,7 +247,6 @@ export default {
       people: ['游知澔']
     }
   ],
-  date: '2017-05-19 21:00:00',
   graphs,
   conclusion: {
     title: '結論：關心政治、持續監督',
