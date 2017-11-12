@@ -16,6 +16,7 @@ exports.default = [
       {
         id: 'republic-of-china',
         title: '做個堂堂正正的中華民國人',
+        image: 'republic-of-china.jpg',
         date: '2017-10-10 20:00:00',
         breaking: true
       }
