@@ -2,7 +2,7 @@ export default {
   authorship: [
     {
       job: '編輯',
-      people: ['洪國鈞']
+      people: ['洪國鈞', '王希']
     },
     {
       job: '設計開發',
@@ -17,6 +17,6 @@ export default {
     }
   },
   references: [
-    '參考資料列表'
+    '[全國法規資料庫](http://law.moj.gov.tw)'
   ]
 }

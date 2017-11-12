@@ -25,10 +25,11 @@
 </template>
 
 <script>
-import marked from 'marked'
+import knowsMarkdown from '@/interfaces/knowsMarkdown'
 import LineChart from './draw/LineChart'
 
 export default {
+  mixins: [knowsMarkdown],
   metaInfo() {
     return {
       title: `→沃草←${this.config.title}→國會無雙←`,
@@ -44,11 +45,6 @@ export default {
   props: ['channel', 'config'],
   data() {
     return require('@/config/draw/' + this.config.id).default
-  },
-  methods: {
-    markdown(str) {
-      return marked(str)
-    }
   },
   components: {
     LineChart

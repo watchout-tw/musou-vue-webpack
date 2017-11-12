@@ -7,7 +7,7 @@ exports.default = [
     component: 'longform',
     pages: [
       {
-        id: 'san-min-zhu-yi',
+        id: '3-principles',
         title: '《三民主義》模擬考',
         date: '2017-11-12 20:00:00',
         breaking: true

@@ -167,6 +167,9 @@ article {
           margin: 0.25rem 0;
           padding-left: 1.25rem;
           font-size: 0.75rem;
+          > li > p {
+            margin: 0;
+          }
         }
       }
     }
