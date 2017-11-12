@@ -56,7 +56,8 @@ export default {
       scripts: [
         'https://plotdb.com/js/pack/view.js',
         'https://plotdb.com/lib/showdown/1.5.0/index.min.js',
-        'https://plotdb.com/lib/d3/3.5.12/index.min.js'
+        'https://plotdb.com/lib/d3/3.5.12/index.min.js',
+        'https://plotdb.io/lib/smooth-scroll/10.2.1/index.min.js'
       ]
     })
   },
