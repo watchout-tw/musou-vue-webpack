@@ -1,14 +1,14 @@
 exports.default = [
   {
-    id: 'sim-test',
-    image: 'sim-test.png',
-    title: '模擬考',
-    description: '中華民國的教育系統最喜歡考試了，沃草也設計了模擬考，要來測試你是不是個好學生。',
+    id: 'qz',
+    image: 'qz.png',
+    title: '小測驗',
+    description: '中華民國的教育系統最喜歡考試了。沃草也有小測驗，現在就試試看，看你是不是個好學生。',
     component: 'longform',
     pages: [
       {
         id: '3-principles',
-        title: '你唸過《三民主義》嗎？',
+        title: '你唸過三民主義嗎？',
         image: '3-principles.jpg',
         date: '2017-11-12 20:00:00',
         breaking: true

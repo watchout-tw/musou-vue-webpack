@@ -38,7 +38,7 @@ export default {
   mixins: [knowsMarkdown],
   metaInfo() {
     return {
-      title: `→沃草←${this.config.title}→國會無雙←`,
+      title: `《${this.config.seriesTitle}》${this.config.title}→沃草←國會無雙`,
       meta: [
         {
           vmid: 'og-image',
