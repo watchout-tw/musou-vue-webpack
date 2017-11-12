@@ -1,7 +1,7 @@
 exports.default = [
   {
     id: 'sim-test',
-    image: 'musou.png',
+    image: 'sim-test.png',
     title: '模擬考',
     description: '中華民國的教育系統最喜歡考試了，沃草也設計了模擬考，要來測試你是不是個好學生。',
     component: 'longform',
