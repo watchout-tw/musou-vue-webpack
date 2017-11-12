@@ -8,7 +8,8 @@ exports.default = [
     pages: [
       {
         id: '3-principles',
-        title: '《三民主義》模擬考',
+        title: '你唸過《三民主義》嗎？',
+        image: '3-principles.jpg',
         date: '2017-11-12 20:00:00',
         breaking: true
       },
