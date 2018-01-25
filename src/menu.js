@@ -8,7 +8,7 @@ exports.default = [
     pages: [
       {
         id: 'labor-standard-act',
-        title: '勞基法',
+        title: '《勞基法》流言終結者',
         image: 'swipe.png',
         date: '2018-01-26 20:00:00',
         breaking: true
