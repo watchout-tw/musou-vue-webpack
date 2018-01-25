@@ -147,10 +147,11 @@ export default {
       return this.swipeActionEnabled(action) ? 'enabled' : 'disabled'
     },
     swipeActionTag(action) {
-      return this.topCard && this.topCard.hasOwnProperty('options') && this.topCard.options.hasOwnProperty(action) ? this.topCard.options[action] : '👻'
+      return this.topCard && this.topCard.hasOwnProperty('options') && this.topCard.options.hasOwnProperty(action) ? this.topCard.options[action] : 'N/A'
     },
     swipe(direction) {
       if(direction !== 0 && this.topCard) {
+        this.topCard.dragging = true
         this.topCard.el.parentNode.appendChild(this.topCard.el) // move dom of topCard to the front
         this.topCard.obj.throwOut(direction * 200, Math.random() * 200 * (Math.round(Math.random()) * 2 - 1))
       }
