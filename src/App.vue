@@ -113,9 +113,7 @@ svg {
 }
 article {
   > header {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    margin-left: 1rem;
+    margin: 2rem 1rem;
 
     &.end {
       margin-top: 1rem;
