@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Meta from 'vue-meta'
 import Hello from '@/components/Hello'
 import Series from '@/components/Series'
+import Swipe from '@/components/Swipe'
 import LongForm from '@/components/LongForm'
 import Draw from '@/components/Draw'
 import Map from '@/components/Map'
@@ -14,6 +15,7 @@ Vue.use(Meta, {
 })
 
 const routerViews = {
+  swipe: Swipe,
   longform: LongForm,
   draw: Draw,
   map: Map

@@ -1,5 +1,21 @@
 exports.default = [
   {
+    id: 'swipe',
+    image: 'swipe.png',
+    title: '滑滑看',
+    description: '滑滑看？',
+    component: 'swipe',
+    pages: [
+      {
+        id: 'labor-standard-act',
+        title: '勞基法',
+        image: 'swipe.png',
+        date: '2018-01-26 20:00:00',
+        breaking: true
+      }
+    ]
+  },
+  {
     id: 'qz',
     image: 'qz.png',
     title: '小測驗',
@@ -11,14 +27,14 @@ exports.default = [
         title: '你唸過三民主義嗎？',
         image: '3-principles.jpg',
         date: '2017-11-12 20:00:00',
-        breaking: true
+        breaking: false
       },
       {
         id: 'republic-of-china',
         title: '做個堂堂正正的中華民國人',
         image: 'republic-of-china.jpg',
         date: '2017-10-10 20:00:00',
-        breaking: true
+        breaking: false
       }
     ]
   },
