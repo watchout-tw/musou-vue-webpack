@@ -6,23 +6,55 @@ export default {
       title: '《勞基法》流言終結者',
       content: '我們《沃草》幫你整理這次《勞基法》修法最常見的九個似是而非的說法，都已經這麼簡單了，你還不看嗎？\n\n左右滑滑看啊！\n\n不然，用下面的兩個按鈕也可以。',
       options: {
-        no: '不想滑',
-        yes: '好啦好啦'
+        left: {
+          type: 'NO',
+          label: 'NO'
+        },
+        right: {
+          type: 'YES',
+          label: 'YES'
+        }
       }
     },
     {
       type: 'question',
-      question: '法律規定加班可以換補休，以後加班費都領不到啦 QQ',
-      answer: 'no',
+      question: '先練習一次吧。\n\n**只要努力，人人都有機會成功。**\n\n<span>在卡片上往左滑，或按紅色的按鈕</span><label class="swipe-action-inline NO"></label><span>，表示你不同意這則敘述。往右滑，或按綠色的按鈕</span><label class="swipe-action-inline YES"></label><span>，表示你同意。</span>',
+      answer: 'YES',
       options: {
-        no: '不會啦',
-        yes: '真的'
+        left: {
+          type: 'NO',
+          label: 'NO'
+        },
+        right: {
+          type: 'YES',
+          label: 'YES'
+        }
       },
-      responses: {
-        no: '沒錯，是真的不會這樣',
-        yes: '但其實不會啦'
+      recap: '只要努力，人人都有機會成功？',
+      but: '話是這麼說沒錯，但是⋯\n\n如果聽《沃草》的說法，請按「繼續說下去」，不然，按「下一題謝謝」可以跳出，繼續看下一題。',
+      more: [
+        {
+          type: 'markdown',
+          content: '根據古典自由經濟理論⋯'
+        }
+      ]
+    },
+    {
+      type: 'question',
+      question: '法律規定加班可以換補休，以後都領不到加班費啦 QQ',
+      answer: 'NO',
+      options: {
+        left: {
+          type: 'NO',
+          label: 'NO'
+        },
+        right: {
+          type: 'YES',
+          label: 'YES'
+        }
       },
-      but: '不過話說回來⋯',
+      recap: '法律規定加班可以換補休，以後都領不到加班費了？',
+      but: '「加班可換補休」並不一定會讓勞工領不到加班費，不過⋯',
       more: [
         {
           type: 'markdown',
@@ -33,16 +65,19 @@ export default {
     {
       type: 'question',
       question: '休息日加班費費率變低，加班費要減少啦 QQ',
-      answer: 'no',
+      answer: 'NO',
       options: {
-        no: '不會啦',
-        yes: '真的'
+        left: {
+          type: 'NO',
+          label: 'NO'
+        },
+        right: {
+          type: 'YES',
+          label: 'YES'
+        }
       },
-      responses: {
-        no: '是真的不會這樣',
-        yes: '但其實不會啦'
-      },
-      but: '然而⋯',
+      recap: '休息日加班費費率變低，加班會會減少？',
+      but: '雖然加班費不會因為費率變低而減少，但是⋯',
       more: [
         {
           type: 'markdown',
@@ -65,16 +100,19 @@ export default {
     {
       type: 'question',
       question: '每個月加班工時上限提高了，以後每個月都要多加班八小時了啦 QQ',
-      answer: 'no',
+      answer: 'NO',
       options: {
-        no: '其實不會',
-        yes: '真的'
+        left: {
+          type: 'NO',
+          label: 'NO'
+        },
+        right: {
+          type: 'YES',
+          label: 'YES'
+        }
       },
-      responses: {
-        no: '是真的不會這樣',
-        yes: '但其實不會啦'
-      },
-      but: '不過⋯',
+      recap: '每個月加班工時上限提高，每個月要多加班八小時？',
+      but: '不會每個月多加班，不過⋯',
       more: [
         {
           type: 'markdown',
@@ -84,17 +122,20 @@ export default {
     },
     {
       type: 'question',
-      question: '「七休一」條文從訂定《勞基法》時就存在，已經實施超過三十年！',
-      answer: 'yes',
+      question: '「七休一」條文從《勞基法》訂定時就存在，已經實施超過三十年！',
+      answer: 'YES',
       options: {
-        no: '唬人的吧',
-        yes: '沒錯！'
+        left: {
+          type: 'NO',
+          label: 'NO'
+        },
+        right: {
+          type: 'YES',
+          label: 'YES'
+        }
       },
-      responses: {
-        no: '其實是真的',
-        yes: '的確是真的'
-      },
-      but: '但是⋯',
+      recap: '「七休一」已經實施超過三十年？',
+      but: '的確可以說「七休一已經實施超過三十年」，但是⋯',
       more: [
         {
           type: 'markdown',
@@ -105,16 +146,19 @@ export default {
     {
       type: 'question',
       question: '要累死了，以後每個人下班後八小時就可以繼續上班 QQ',
-      answer: 'no',
+      answer: 'NO',
       options: {
-        no: '不會啦',
-        yes: '真的'
+        left: {
+          type: 'NO',
+          label: 'NO'
+        },
+        right: {
+          type: 'YES',
+          label: 'YES'
+        }
       },
-      responses: {
-        no: '是真的不會這樣',
-        yes: '其實不會啦'
-      },
-      but: '然而⋯',
+      recap: '以後下班後八小時就可以繼續上班？',
+      but: '其實不是每個人都會這樣⋯',
       more: [
         {
           type: 'markdown',
@@ -124,17 +168,20 @@ export default {
     },
     {
       type: 'question',
-      question: '公司沒工會也沒開過勞資會議，放寬七休一、加班時數上限調整跟我沒關係吧？',
-      answer: 'yes',
+      question: '公司沒工會，也沒開過勞資會議，放寬七休一、加班時數上限調整跟我沒關係吧？',
+      answer: 'YES',
       options: {
-        no: '才怪',
-        yes: '沒錯'
+        left: {
+          type: 'NO',
+          label: 'NO'
+        },
+        right: {
+          type: 'YES',
+          label: 'YES'
+        }
       },
-      responses: {
-        no: '其實是可以這麼說',
-        yes: '的確可以這麼說'
-      },
-      but: '但是⋯',
+      recap: '沒有工會，也沒開過勞資會議，七休一、加班時數上限就不會被放寬？',
+      but: '可以這樣說沒錯，不過⋯',
       more: [
         {
           type: 'markdown',
@@ -144,17 +191,20 @@ export default {
     },
     {
       type: 'question',
-      question: '遊覽車司機工時超長，這次修《勞基法》會讓他們更慘 QQ',
-      answer: 'no',
+      question: '遊覽車司機工時超長，這次修法，會讓他們更慘 QQ',
+      answer: 'NO',
       options: {
-        no: '不會',
-        yes: '沒錯'
+        left: {
+          type: 'NO',
+          label: 'NO'
+        },
+        right: {
+          type: 'YES',
+          label: 'YES'
+        }
       },
-      responses: {
-        no: '的確不會',
-        yes: '其實不會'
-      },
-      but: '因為⋯',
+      recap: '這次修法，會讓遊覽車司機更慘？',
+      but: '其實遊覽車司機不會因為這次修法而更慘，因為⋯',
       more: [
         {
           type: 'markdown',
@@ -164,17 +214,20 @@ export default {
     },
     {
       type: 'question',
-      question: '這次修法以後，民進黨立委說的中南部中小企業就可以讓勞工在例假日上班了耶！',
-      answer: 'yes',
+      question: '這次修法後，民進黨立委說的中南部中小企業就可以讓勞工在例假日上班了耶！',
+      answer: 'YES',
       options: {
-        no: '有差嗎',
-        yes: '沒錯'
+        left: {
+          type: 'NO',
+          label: 'NO'
+        },
+        right: {
+          type: 'YES',
+          label: 'YES'
+        }
       },
-      responses: {
-        no: '是真的',
-        yes: '的確沒錯'
-      },
-      but: '不過⋯',
+      recap: '這次修法後，中南部中小企業就可以讓勞工在例假日上班了？',
+      but: '是啦是啦，不過⋯',
       more: [
         {
           type: 'markdown',
@@ -184,17 +237,20 @@ export default {
     },
     {
       type: 'question',
-      question: '保全業已經夠慘了，現在《勞基法》工時規定更有彈性，要更過勞了 QQ',
-      answer: 'no',
+      question: '保全業的勞工已經夠慘了，修法後，工時規定更有「彈性」，要更過勞了 QQ',
+      answer: 'NO',
       options: {
-        no: '不會啦',
-        yes: '真的'
+        left: {
+          type: 'NO',
+          label: 'NO'
+        },
+        right: {
+          type: 'YES',
+          label: 'YES'
+        }
       },
-      responses: {
-        no: '真的不會',
-        yes: '其實不會這樣'
-      },
-      but: '你不知道⋯',
+      recap: '這次修法，會讓保全業的勞工更慘？',
+      but: '其實不會，因為⋯',
       more: [
         {
           type: 'markdown',

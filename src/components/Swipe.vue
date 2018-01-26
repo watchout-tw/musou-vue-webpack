@@ -1,24 +1,24 @@
 <template>
 <article class="swipe">
   <div class="swipe-container">
-    <div class="swipe-cards">
-      <template v-for="(card, index) of cards">
-        <div v-if="card.type === 'question'" class="swipe-card" :data-card-index="index" :class="cardClasses(index)">
-          <div class="content">
-            {{ card.question }}
+    <div class="swipe-sections">
+      <div class="swipe-cards">
+        <template v-for="(card, index) of cards">
+          <div v-if="card.type === 'question'" class="swipe-card" :data-card-index="index" :class="cardClasses(index)">
+            <div class="content" v-html="markdown(card.question)"></div>
           </div>
-        </div>
-        <div v-else-if="card.type === 'text'" class="swipe-card" :data-card-index="index" :class="cardClasses(index)" :id="card.id">
-          <div class="content">
-            <h1 v-if="card.title" class="small">{{ card.title }}</h1>
-            <div class="paragraphs" v-html="markdown(card.content)"></div>
+          <div v-else-if="card.type === 'text'" class="swipe-card" :data-card-index="index" :class="cardClasses(index)" :id="card.id">
+            <div class="content">
+              <h1 v-if="card.title" class="small">{{ card.title }}</h1>
+              <div class="paragraphs" v-html="markdown(card.content)"></div>
+            </div>
           </div>
-        </div>
-      </template>
-    </div>
-    <div class="swipe-actions d-flex justify-content-around">
-      <div class="swipe-action d-flex justify-content-center align-items-center no" @click="swipe(swipeActionEnabled('no') ? -1 : 0)" :class="swipeActionClasses('no')"><span>{{ swipeActionTag('no') }}</span></div>
-      <div class="swipe-action d-flex justify-content-center align-items-center yes" @click="swipe(swipeActionEnabled('yes') ? +1 : 0)" :class="swipeActionClasses('yes')"><span>{{ swipeActionTag('yes') }}</span></div>
+        </template>
+      </div>
+      <div class="swipe-actions d-flex justify-content-around">
+        <div class="swipe-action d-flex justify-content-center align-items-center" @click="swipe(swipeActionEnabled('left') ? -1 : 0)" :class="swipeActionClasses('left')"></div>
+        <div class="swipe-action d-flex justify-content-center align-items-center" @click="swipe(swipeActionEnabled('right') ? +1 : 0)" :class="swipeActionClasses('right')"></div>
+      </div>
     </div>
   </div>
   <header class="end">
@@ -43,9 +43,9 @@
   <transition name="modal">
     <div v-if="showResult" class="result-container d-flex justify-content-center align-items-center">
       <div class="result">
-        <p class="question">{{ activeCard.question }}</p>
-        <p class="answer">你說「{{ activeCard.options[lastSwipe > 0 ? 'yes' : 'no'] }}」，{{ activeCard.responses[lastSwipe > 0 ? 'yes' : 'no'] }}。</p>
-        <p class="but">{{ activeCard.but }}</p>
+        <div class="question paragraphs" v-html="markdown(activeCard.hasOwnProperty('recap') ? activeCard.recap : activeCard.question)"></div>
+        <div class="answer" :class="activeCard.answer"></div>
+        <div class="but paragraphs" v-html="markdown(activeCard.but)"></div>
         <template v-if="showMore">
           <div class="more">
             <div v-if="activeCard.more" v-for="section in activeCard.more">
@@ -58,12 +58,12 @@
             </div>
           </div>
           <div class="buttons">
-            <button @click="showResult = showMore = false">好了好了</button>
+            <button class="flat" @click="showResult = showMore = false">下一題謝謝</button>
           </div>
         </template>
         <div v-else class="buttons">
-          <button @click="showResult = showMore = false">我不想聽啦</button>
-          <button class="musou" @click="showMore = true">繼續說下去</button>
+          <button class="flat" @click="showResult = showMore = false">下一題謝謝</button>
+          <button class="flat musou" @click="showMore = true">繼續說下去</button>
         </div>
       </div>
     </div>
@@ -97,6 +97,7 @@ export default {
         el: undefined,
         obj: undefined,
         dragging: false,
+        offsetX: 0,
         isOut: false,
         hasBeenOut: false
       }))
@@ -144,7 +145,14 @@ export default {
       return this.topCard && this.topCard.hasOwnProperty('options') && this.topCard.options.hasOwnProperty(action)
     },
     swipeActionClasses(action) {
-      return this.swipeActionEnabled(action) ? 'enabled' : 'disabled'
+      var classes = []
+      if(this.swipeActionEnabled(action)) {
+        classes.push(this.topCard.options[action].type)
+        classes.push('enabled')
+      } else {
+        classes.push('disabled')
+      }
+      return classes
     },
     swipeActionTag(action) {
       return this.topCard && this.topCard.hasOwnProperty('options') && this.topCard.options.hasOwnProperty(action) ? this.topCard.options[action] : 'N/A'
@@ -190,6 +198,12 @@ export default {
       }
       this.activeCardIndex = index
     })
+    this.stack.on('dragmove', (e) => {
+      const index = +e.target.dataset.cardIndex
+      if(this.cards[index]) {
+        this.cards[index].offsetX = e.offset
+      }
+    })
     this.stack.on('throwinend', (e) => {
       const index = +e.target.dataset.cardIndex
       if(this.cards[index]) {
@@ -231,91 +245,166 @@ export default {
 
 <style lang="scss">
 @import '~common/src/styles/resources';
+
+@mixin checkmark($size, $color) {
+  content: '';
+  display: block;
+  width: $size;
+  height: $size*1.75;
+  border-bottom: $size*0.25 $color solid;
+  border-right: $size*0.25 $color solid;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -65%) rotate(45deg);
+}
+@mixin line($size, $color, $rotation) {
+  content: '';
+  display: block;
+  width: $size*1.75;
+  height: $size*0.25;
+  background: $color;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate($rotation);
+}
+@mixin forward-slash($size, $color) {
+  @include line($size, $color, -45deg);
+}
+@mixin backward-slash($size, $color) {
+  @include line($size, $color, 45deg);
+}
+
+button:not([class^="el"]):not(.btn-prev):not(.btn-next).flat {
+  padding: 0.25rem;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  margin: 0 1rem;
+  background: none;
+  color: $color-border-grey;
+
+  &.musou {
+    color: $color-musou;
+  }
+}
+
+$color-yes: $color-watchout;
+$color-no: $color-musou;
+
 .swipe {
   position: relative;
   margin: 0;
   padding: 0;
 
+  .swipe-action-inline {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    margin: 0 0.125rem;
+
+    &.YES {
+      background: rgba($color-yes, 0.5);
+      &:before {
+        @include checkmark(0.65rem, $color-yes);
+      }
+    }
+    &.NO {
+      background: rgba($color-no, 0.5);
+      &:before {
+        @include forward-slash(0.65rem, $color-no);
+      }
+      &:after {
+        @include backward-slash(0.65rem, $color-no);
+      }
+    }
+  }
+
   > .swipe-container {
     width: 100%;
-    max-width: 24rem;
-    margin: 2rem auto;
-    @include bp-md-up {
-      margin: 8vw auto;
-    }
-
-    > .swipe-cards {
-      position: relative;
+    > .swipe-sections {
       width: 100%;
-      height: 0;
-      padding-bottom: 100%;
-      > .swipe-card {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        padding: 1rem;
-        background: #eee;
-        cursor: pointer;
-
-        &.dragging,
-        &.is-out {
-            @include shadow;
-        }
-        > .content {
-          width: 100%;
-          @include font-serif;
-          font-size: 1.25rem;
-        }
-        &.is-out {
-          > .content,
-          > .actions {
-            opacity: 0.25;
-          }
-        }
-        &#last {
-          background: #aaa;
-          @include shadow;
-        }
+      max-width: 24rem;
+      margin: 0 auto;
+      padding: 2rem 0;
+      @include bp-md-up {
+        padding: 8vw 0;
       }
-    }
-    > .swipe-actions {
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      > .swipe-action {
+
+      > .swipe-cards {
         position: relative;
-        width: 8rem;
-        height: 8rem;
-        border-radius: 4rem;
-        text-align: center;
-        cursor: pointer;
-        @include shadow;
+        width: 100%;
+        height: 0;
+        padding-bottom: 100%;
+        > .swipe-card {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          padding: 1rem;
+          background: #eee;
+          cursor: pointer;
 
-        &.disabled {
-          cursor: default;
-          > * {
-            display: none;
+          &.dragging,
+          &.is-out {
+              @include shadow;
           }
-          &:before {
-            content: '';
-            display: block;
-            position: absolute;
+          > .content {
             width: 100%;
-            height: 0.5rem;
-            background: red;
-            transform: rotate(-45deg);
+            @include font-serif;
+            font-size: 1.25rem;
+          }
+          &.is-out {
+            > .content,
+            > .actions {
+              opacity: 0.25;
+            }
+          }
+          &#last {
+            background: #aaa;
+            @include shadow;
           }
         }
       }
-      > .yes {
-        background: $color-watchout;
-      }
-      > .no {
-        background: $color-musou;
+      > .swipe-actions {
+        margin-top: 2rem;
+        > .swipe-action {
+          position: relative;
+          width: 8rem;
+          height: 8rem;
+          border-radius: 4rem;
+          text-align: center;
+          cursor: pointer;
+          @include shadow;
+
+          &.disabled {
+            background: $color-generic-grey;
+            cursor: default;
+          }
+          &.YES {
+            background: rgba($color-yes, 0.5);
+            &:before {
+              @include checkmark(2rem, $color-yes);
+            }
+          }
+          &.NO {
+            background: rgba($color-no, 0.5);
+            &:before {
+              @include forward-slash(2rem, $color-no);
+            }
+            &:after {
+              @include backward-slash(2rem, $color-no);
+            }
+          }
+        }
       }
     }
-
   }
   > .result-container {
     position: fixed;
@@ -329,28 +418,43 @@ export default {
     transition: opacity .3s ease;
 
     > .result {
-      max-width: 24rem;
+      max-width: 24.5rem;
+      max-height: 36rem;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       padding: 1rem;
+      border: 0.25rem black solid;
+      border-radius: 0.125rem;
+      background: white;
 
       > .question {
-        margin-left: 0.75rem;
-        border-left: 0.25rem $color-secondary-text-grey solid;
-        padding: 0.25rem 0 0.25rem 1rem;
-        color: $color-secondary-text-grey;
+        margin-top: 0;
       }
-      > .but {
-        &.yes {
-          color: $color-watchout;
+      > .answer {
+        position: relative;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 2rem;
+        margin: 0 auto;
+
+        &.YES {
+          background: rgba($color-yes, 0.25);
+          &:before {
+            @include checkmark(1.25rem, $color-yes);
+          }
         }
-        &.no {
-          color: $color-musou;
+        &.NO {
+          background: rgba($color-no, 0.25);
+          &:before {
+            @include forward-slash(1.25rem, $color-no);
+          }
+          &:after {
+            @include backward-slash(1.25rem, $color-no);
+          }
         }
       }
       > .more {
-        max-height: 16rem;
-        overflow-x: hidden;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch
       }
       > .buttons {
         text-align: center;
