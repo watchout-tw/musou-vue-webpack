@@ -308,6 +308,7 @@ button:not([class^="el"]):not(.btn-prev):not(.btn-next).flat {
   border-top: none;
   border-left: none;
   border-right: none;
+  border-bottom-color: $color-border-grey;
   border-radius: 0;
   margin: 0 1rem;
   background: none;
@@ -315,6 +316,7 @@ button:not([class^="el"]):not(.btn-prev):not(.btn-next).flat {
 
   &.musou {
     color: $color-musou;
+    border-color: $color-musou;
   }
 }
 
