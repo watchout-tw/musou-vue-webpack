@@ -5,7 +5,9 @@
       <div class="swipe-cards">
         <template v-for="(card, index) of cards">
           <div v-if="card.type === 'question'" class="swipe-card" :data-card-index="index" :class="cardClasses(index)">
-            <div class="content" v-html="markdown(card.question)"></div>
+            <div class="content">
+              <div class="paragraphs first" v-html="markdown(card.question)"></div>
+            </div>
           </div>
           <div v-else-if="card.type === 'text'" class="swipe-card" :data-card-index="index" :class="cardClasses(index)" :id="card.id">
             <div class="content">
@@ -41,7 +43,7 @@
     </div>
   </header>
   <transition name="modal">
-    <div v-if="showResult" class="result-container d-flex justify-content-center align-items-center">
+    <div v-if="showResult" class="result-container d-flex justify-content-center align-items-center" @click.self="showResult = false">
       <div class="result">
         <div class="question paragraphs" v-html="markdown(activeCard.hasOwnProperty('recap') ? activeCard.recap : activeCard.question)"></div>
         <div class="answer" :class="activeCard.answer"></div>
@@ -74,9 +76,10 @@
 <script>
 import Vue from 'vue'
 import knowsMarkdown from '@/interfaces/knowsMarkdown'
+import knowsClasses from '@/interfaces/knowsClasses'
 
 export default {
-  mixins: [knowsMarkdown],
+  mixins: [knowsMarkdown, knowsClasses],
   metaInfo() {
     return {
       title: `《${this.config.seriesTitle}》${this.config.title}→沃草←國會無雙`,
@@ -128,6 +131,17 @@ export default {
       return this.mirror.length > 0 ? this.cards[this.mirror[this.mirror.length - 1]] : undefined
     }
   },
+  watch: {
+    showResult() {
+      const el = document.documentElement
+      const className = 'no-scroll'
+      if(this.showResult) {
+        this.addClass(el, className)
+      } else {
+        this.removeClass(el, className)
+      }
+    }
+  },
   methods: {
     cardClasses(index) {
       var classes = []
@@ -162,12 +176,12 @@ export default {
         this.topCard.dragging = true
         this.topCard.el.parentNode.appendChild(this.topCard.el) // move dom of topCard to the front
         this.topCard.obj.throwOut(direction * 200, Math.random() * 200 * (Math.round(Math.random()) * 2 - 1))
+        // modify swing to set springThrowOut velocity to 1
       }
     }
   },
   mounted() {
     const Swing = require('swing')
-    // const Direction = Swing.Direction
     const elements = [].slice.call(document.querySelectorAll(this.cardSelector))
     const config = {
       allowedDirections: [Swing.Direction.LEFT, Swing.Direction.RIGHT],
@@ -211,7 +225,9 @@ export default {
         this.cards[index].isOut = false
         this.cards[index].hasBeenOut = false
       }
-      this.mirror.push(index)
+      if(this.mirror.indexOf(index) < 0) {
+        this.mirror.push(index)
+      }
     })
     this.stack.on('throwout', (e) => {
       this.lastSwipe = e.throwDirection.toString().toLowerCase().indexOf('right') > -1 ? +1 : -1
@@ -274,6 +290,17 @@ export default {
 }
 @mixin backward-slash($size, $color) {
   @include line($size, $color, 45deg);
+}
+@mixin shadow-more {
+  box-shadow: 0 4px 16px 0 $color-shadow;
+}
+.no-scroll {
+  overflow: hidden !important;
+}
+@mixin v-bp-md-up {
+  @media (min-height: #{$bp-md}) {
+    @content;
+  }
 }
 
 button:not([class^="el"]):not(.btn-prev):not(.btn-next).flat {
@@ -348,7 +375,7 @@ $color-no: $color-musou;
           width: 100%;
           height: 100%;
           padding: 1rem;
-          background: #eee;
+          background: #ddd;
           cursor: pointer;
 
           &.dragging,
@@ -376,9 +403,9 @@ $color-no: $color-musou;
         margin-top: 2rem;
         > .swipe-action {
           position: relative;
-          width: 8rem;
-          height: 8rem;
-          border-radius: 4rem;
+          width: 6rem;
+          height: 6rem;
+          border-radius: 3rem;
           text-align: center;
           cursor: pointer;
           @include shadow;
@@ -390,16 +417,16 @@ $color-no: $color-musou;
           &.YES {
             background: rgba($color-yes, 0.5);
             &:before {
-              @include checkmark(2rem, $color-yes);
+              @include checkmark(1.5rem, $color-yes);
             }
           }
           &.NO {
             background: rgba($color-no, 0.5);
             &:before {
-              @include forward-slash(2rem, $color-no);
+              @include forward-slash(1.5rem, $color-no);
             }
             &:after {
-              @include backward-slash(2rem, $color-no);
+              @include backward-slash(1.5rem, $color-no);
             }
           }
         }
@@ -412,21 +439,23 @@ $color-no: $color-musou;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: $color-modal-mask;
+    background: rgba(black, 0.65);
     z-index: $z-below-nav;
     padding-top: $navbar-height;
     transition: opacity .3s ease;
 
     > .result {
-      max-width: 24.5rem;
-      max-height: 36rem;
+      max-width: 24rem;
+      max-height: 24rem;
+      @include v-bp-md-up {
+        max-height: 36rem;
+      }
       overflow-x: hidden;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       padding: 1rem;
-      border: 0.25rem black solid;
-      border-radius: 0.125rem;
       background: white;
+      @include shadow-more;
 
       > .question {
         margin-top: 0;

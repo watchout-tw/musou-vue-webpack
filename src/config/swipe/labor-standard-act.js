@@ -261,7 +261,8 @@ export default {
     {
       type: 'text',
       id: 'last',
-      content: '沒了'
+      title: '沒了',
+      content: '記得分享喔。'
     }
   ],
   authorship: [
