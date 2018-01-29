@@ -133,12 +133,15 @@ export default {
   },
   watch: {
     showResult() {
-      const el = document.documentElement
+      const html = document.documentElement
+      const body = document.body
       const className = 'no-scroll'
       if(this.showResult) {
-        this.addClass(el, className)
+        this.addClass(html, className)
+        this.addClass(body, className)
       } else {
-        this.removeClass(el, className)
+        this.removeClass(html, className)
+        this.removeClass(body, className)
       }
     }
   },
@@ -295,6 +298,7 @@ export default {
   box-shadow: 0 4px 16px 0 $color-shadow;
 }
 .no-scroll {
+  height: 100%;
   overflow: hidden !important;
 }
 @mixin v-bp-md-up {
