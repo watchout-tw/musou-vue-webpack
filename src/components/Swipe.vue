@@ -43,7 +43,7 @@
     </div>
   </header>
   <transition name="modal">
-    <div v-if="showResult" class="result-container d-flex justify-content-center align-items-center" @click.self="showResult = false">
+    <div v-if="showResult" class="result-container d-flex justify-content-center align-items-center" @click.self="showResult = showMore = false">
       <div class="result">
         <div class="question paragraphs" v-html="markdown(activeCard.hasOwnProperty('recap') ? activeCard.recap : activeCard.question)"></div>
         <div class="answer" :class="activeCard.answer"></div>
@@ -312,6 +312,7 @@ button:not([class^="el"]):not(.btn-prev):not(.btn-next).flat {
   border-top: none;
   border-left: none;
   border-right: none;
+  border-bottom-color: $color-border-grey;
   border-radius: 0;
   margin: 0 1rem;
   background: none;
@@ -319,6 +320,7 @@ button:not([class^="el"]):not(.btn-prev):not(.btn-next).flat {
 
   &.musou {
     color: $color-musou;
+    border-color: $color-musou;
   }
 }
 
@@ -379,7 +381,7 @@ $color-no: $color-musou;
           width: 100%;
           height: 100%;
           padding: 1rem;
-          background: #ddd;
+          background: $color-very-light-grey;
           cursor: pointer;
 
           &.dragging,
@@ -398,7 +400,7 @@ $color-no: $color-musou;
             }
           }
           &#last {
-            background: #aaa;
+            background: $color-very-light-grey;
             @include shadow;
           }
         }
@@ -415,7 +417,7 @@ $color-no: $color-musou;
           @include shadow;
 
           &.disabled {
-            background: $color-generic-grey;
+            background: $color-very-light-grey;
             cursor: default;
           }
           &.YES {
