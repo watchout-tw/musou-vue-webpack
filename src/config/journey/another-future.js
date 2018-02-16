@@ -10,7 +10,16 @@ export default {
       styles: {
         title: {},
         description: {},
-        subtitle: {}
+        subtitle: {},
+        options: {
+          align: 'center',
+          size: 16,
+          color: 'white',
+          background: {
+            color: 'black',
+            opacity: 0.5
+          }
+        }
       }
     },
     scenes: [
@@ -99,6 +108,11 @@ export default {
         }
       },
       {
+        id: 'the-dance',
+        classes: ['square'],
+        title: 'The dance.'
+      },
+      {
         id: 'a-square-scene',
         classes: ['square'],
         date: '1945-01-01',
@@ -116,28 +130,20 @@ export default {
         description: 'Lorem ipsum.',
         options: [
           {
-            label: '旋轉跳躍',
+            label: 'Let’s dance.',
             action: 'goto',
-            target: 'a-sample-scene'
+            target: 'the-dance'
           },
           {
             label: '不要鬧了',
             action: 'next'
           }
-        ],
-        default: {
-          styles: {
-            option: {
-              align: 'center',
-              size: 16,
-              color: 'white',
-              background: {
-                color: 'black',
-                opacity: 0.5
-              }
-            }
-          }
-        }
+        ]
+      },
+      {
+        id: 'some-other-scene',
+        classes: ['wide'],
+        title: '測試一下'
       },
       {
         id: 'closing',

@@ -9,11 +9,16 @@
         <p v-if="activeScene.title">{{ activeScene.title }}</p>
         <p v-if="activeScene.description">{{ activeScene.description }}</p>
       </div>
-      <div class="subtitle-container">字幕在這裡</div>
+      <div v-if="activeScene.subtitle" class="subtitle-container">字幕在這裡</div>
     </div>
-    <div class="control d-flex">
-      <div class="previous" @click="advanceScene(-1)"></div>
-      <div class="next" @click="advanceScene(+1)"></div>
+    <div class="control-panel d-flex">
+      <template v-if="activeSceneClasses.includes('fork')">
+        <div v-for="option of activeScene.options" class="option" @click="fork(option.action, option.target)">{{ option.label }}</div>
+      </template>
+      <template v-else>
+        <div class="previous" @click="advanceScene(-1)"></div>
+        <div class="next" @click="advanceScene(+1)"></div>
+      </template>
     </div>
   </div>
 </div>
@@ -52,6 +57,9 @@ export default {
     scenes() {
       return this.sequence.scenes ? this.sequence.scenes : []
     },
+    sceneIDs() {
+      return this.scenes.map(scene => scene.id)
+    },
     activeScene() {
       return this.scenes[this.activeSceneIndex]
     },
@@ -62,6 +70,14 @@ export default {
   methods: {
     advanceScene(delta) {
       this.activeSceneIndex = (this.activeSceneIndex + this.scenes.length + delta) % this.scenes.length
+    },
+    fork(action, target) {
+      if(action === 'goto') {
+        const index = this.sceneIDs.indexOf(target)
+        this.activeSceneIndex = index >= 0 ? index : this.activeSceneIndex
+      } else if(action === 'next') {
+        this.advanceScene(+1)
+      }
     }
   }
 }
@@ -152,6 +168,14 @@ export default {
         color: white;
       }
 
+      &.opening {
+        > .text-container {
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+
       @include bp-sm-up {
         &.wide {
         }
@@ -171,23 +195,29 @@ export default {
           }
           > .text-container {
             position: absolute;
+            top: 50%;
             left: 50%;
+            transform: translateY(-50%);
           }
         }
       }
     }
-    > .control {
+    > .control-panel {
       position: absolute;
       bottom: 0;
       right: 0;
       margin: 1rem;
       > .previous,
-      > .next {
+      > .next,
+      > .option {
         cursor: pointer;
         position: relative;
-        border-radius: 50%;
         background: white;
         @include shadow;
+      }
+      > .previous,
+      > .next {
+        border-radius: 50%;
       }
       > .previous {
         width: 2rem;
@@ -199,6 +229,13 @@ export default {
         width: 4rem;
         height: 4rem;
         @include arrow(1.25rem, right);
+      }
+      > .option {
+        padding: 0.75rem;
+        line-height: 1;
+        &:not(:last-child) {
+          margin-right: 1rem;
+        }
       }
     }
   }
