@@ -16,11 +16,12 @@ export default {
     scenes: [
       {
         id: 'opening',
-        type: 'opening'
+        classes: ['wide', 'opening'],
+        title: '你不知道你失去了什麼'
       },
       {
         id: 'the-first-sample-scene',
-        type: 'default',
+        classes: ['wide'],
         date: '1945-01-01',
         title: '一九四五年､夏｡',
         description: 'Lorem ipsum.',
@@ -43,16 +44,19 @@ export default {
           }
         ],
         subtitle: [
-          {
-            content: 'line1',
-            rotate: -30
-          }
+          'line1',
+          '這一行含有湯德章三個字',
+          '這裡則提到林茂生',
+          'line4',
+          'line5'
         ],
         tags: [
           {
+            type: 'person',
             content: '湯德章'
           },
           {
+            type: 'person',
             content: '林茂生'
           }
         ],
@@ -95,8 +99,19 @@ export default {
         }
       },
       {
+        id: 'a-square-scene',
+        classes: ['square'],
+        date: '1945-01-01',
+        title: '正方形場景',
+        description: 'Lorem ipsum.',
+        mainVisual: {
+          type: 'image',
+          url: '.../...jpg'
+        }
+      },
+      {
         id: 'a-sample-fork-scene',
-        type: 'fork',
+        classes: ['wide', 'fork'],
         title: '選一個？',
         description: 'Lorem ipsum.',
         options: [
@@ -126,7 +141,8 @@ export default {
       },
       {
         id: 'closing',
-        type: 'closing'
+        classes: ['square', 'closing'],
+        title: '結語'
       }
     ] // end of scenes
   }
