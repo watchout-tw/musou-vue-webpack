@@ -1,5 +1,21 @@
 exports.default = [
   {
+    id: 'journey',
+    image: 'journey.png',
+    title: '小旅行',
+    description: '跟阿草一起來一場小旅行嗎？',
+    component: 'journey',
+    pages: [
+      {
+        id: 'another-future',
+        title: '你不知道你失去了什麼',
+        image: 'journey.png',
+        date: '2018-02-27 20:00:00',
+        breaking: true
+      }
+    ]
+  },
+  {
     id: 'swipe',
     image: 'swipe.png',
     title: '滑滑看',
