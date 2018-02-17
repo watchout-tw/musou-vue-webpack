@@ -4,6 +4,12 @@
     <div class="scene" :class="activeSceneClasses">
       <div class="main-visual-container">
         <div class="main-visual"></div>
+        <div v-if="activeScene.visualTags" class="visual-tags">
+          <div v-for="tag of activeScene.visualTags" class="visual-tag" :style="getPositions('visualTags', tag)">
+            <div class="region" :style="getDimentions('visualTags', tag)"></div>
+            <div class="content" :style="getStyles('visualTags', tag)" v-if="tag.content">{{ tag.content }}</div>
+          </div>
+        </div>
       </div>
       <div class="text-container">
         <p>{{ activeScene.classes }}</p>
@@ -73,12 +79,27 @@ export default {
     }
   },
   methods: {
-    getStyles(name, data) {
-      const global = this.sequence.default ? this.sequence.default.styles ? this.sequence.default.styles[name] : undefined : undefined
-      const scene = this.activeScene.default ? this.activeScene.styles ? this.activeScene.styles[name] : undefined : undefined
-      const local = data.styles
-      const attributes = ['text', 'background']
+    getPositions(name, data) {
       var styles = {}
+      const canvasWidth = this.activeScene.mainVisual.width
+      const canvasHeight = this.activeScene.mainVisual.height
+      styles.top = data.y * 100.0 / canvasWidth + '%'
+      styles.left = data.x * 100.0 / canvasHeight + '%'
+      return styles
+    },
+    getDimentions(name, data) {
+      var styles = {}
+      styles.width = data.width + 'px'
+      styles.height = data.height + 'px'
+      return styles
+    },
+    getStyles(name, data) {
+      var styles = {}
+      const global = this.sequence.default ? this.sequence.default.styles ? this.sequence.default.styles[name] : undefined : undefined
+      const scene = this.activeScene.default ? this.activeScene.default.styles ? this.activeScene.default.styles[name] : undefined : undefined
+      const local = data.styles
+      console.log(name, data, global, scene, local)
+      const attributes = ['text', 'background']
       for(let attribute of attributes) {
         styles[attribute] = (local && local[attribute]) || (scene && scene[attribute]) || (global && global[attribute]) || undefined
       }
@@ -187,6 +208,25 @@ export default {
           @include fill-everything;
           background-color: rgb(192, 255, 192);
         }
+        > .visual-tags {
+          > .visual-tag {
+            position: absolute;
+            > .region {
+              border: 2px black solid;
+              border-radius: 2px;
+              cursor: pointer;
+            }
+            > .content {
+              display: inline-block;
+              min-width: 3rem;
+              max-width: 8rem;
+              border-radius: 2px;
+              font-size: 0.875rem;
+              margin: 0.25rem 0;
+              padding: 0.25rem 0.5rem;
+            }
+          }
+        }
       }
       > .text-container {
         position: absolute;
@@ -200,7 +240,7 @@ export default {
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
-        padding: 0.125rem 0.5rem;
+        padding: 0.25rem 0.75rem;
         background-color: black;
         color: white;
       }

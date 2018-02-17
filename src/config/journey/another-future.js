@@ -38,7 +38,9 @@ export default {
         description: 'Lorem ipsum.',
         mainVisual: {
           type: 'image',
-          url: '.../...tif'
+          url: '.../...tif',
+          width: 1600,
+          height: 900
         },
         media: [
           {
@@ -75,14 +77,27 @@ export default {
           {
             x: 200,
             y: 400,
-            width: 24,
-            height: 72,
+            width: 48,
+            height: 64,
             content: '湯德章'
+          },
+          {
+            x: 320,
+            y: 160,
+            width: 64,
+            height: 48,
+            content: '林茂生'
+          },
+          {
+            x: 640,
+            y: 400,
+            width: 84,
+            height: 96
           }
         ],
         default: {
           styles: {
-            label: {
+            labels: {
               text: {
                 color: 'white'
               },
@@ -104,11 +119,17 @@ export default {
                 opacity: 0.5
               }
             },
-            tag: {
+            tags: {
               background: 'black'
             },
-            visualTag: {
-              background: 'black'
+            visualTags: {
+              background: {
+                color: 'black',
+                opacity: 0.25
+              },
+              text: {
+                color: 'black'
+              }
             }
           }
         }
