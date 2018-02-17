@@ -12,12 +12,14 @@ export default {
         description: {},
         subtitle: {},
         options: {
-          align: 'center',
-          size: 16,
-          color: 'white',
+          text: {
+            align: 'center',
+            size: 16,
+            color: 'black'
+          },
           background: {
-            color: 'black',
-            opacity: 0.5
+            color: 'white',
+            opacity: 1
           }
         }
       }
@@ -81,7 +83,9 @@ export default {
         default: {
           styles: {
             label: {
-              label: 'white',
+              text: {
+                color: 'white'
+              },
               background: {
                 color: 'black',
                 opacity: 1
@@ -90,11 +94,13 @@ export default {
             subtitle: {
               x: 'center',
               y: 'bottom',
-              align: 'center',
-              size: 16,
-              color: 'white',
+              text: {
+                align: 'center',
+                size: 16,
+                color: 'white'
+              },
               background: {
-                background: 'black',
+                color: 'black',
                 opacity: 0.5
               }
             },

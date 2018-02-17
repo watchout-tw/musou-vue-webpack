@@ -6,14 +6,18 @@
         <div class="main-visual"></div>
       </div>
       <div class="text-container">
-        <p v-if="activeScene.title">{{ activeScene.title }}</p>
+        <p>{{ activeScene.classes }}</p>
+        <template v-if="activeScene.title">
+          <h1 v-if="activeSceneClasses.includes('opening')" class="small">{{ activeScene.title }}</h1>
+          <h2 v-else class="small">{{ activeScene.title }}</h2>
+        </template>
         <p v-if="activeScene.description">{{ activeScene.description }}</p>
       </div>
       <div v-if="activeScene.subtitle" class="subtitle-container">字幕在這裡</div>
     </div>
     <div class="control-panel d-flex">
       <template v-if="activeSceneClasses.includes('fork')">
-        <div v-for="option of activeScene.options" class="option" @click="fork(option.action, option.target)">{{ option.label }}</div>
+        <div v-for="option of activeScene.options" class="option" @click="fork(option.action, option.target)" :style="getStyles('options', option)">{{ option.label }}</div>
       </template>
       <template v-else>
         <div class="previous" @click="advanceScene(-1)"></div>
@@ -27,6 +31,7 @@
 <script>
 import knowsMarkdown from '@/interfaces/knowsMarkdown'
 import knowsClasses from '@/interfaces/knowsClasses'
+import parseColor from 'parse-color'
 
 export default {
   mixins: [knowsMarkdown, knowsClasses],
@@ -68,6 +73,37 @@ export default {
     }
   },
   methods: {
+    getStyles(name, data) {
+      const global = this.sequence.default ? this.sequence.default.styles ? this.sequence.default.styles[name] : undefined : undefined
+      const scene = this.activeScene.default ? this.activeScene.styles ? this.activeScene.styles[name] : undefined : undefined
+      const local = data.styles
+      const attributes = ['text', 'background']
+      var styles = {}
+      for(let attribute of attributes) {
+        styles[attribute] = (local && local[attribute]) || (scene && scene[attribute]) || (global && global[attribute]) || undefined
+      }
+
+      if(styles.text && typeof styles.text === 'object') {
+        if(styles.text.align) {
+          styles.textAlign = styles.text.align
+        }
+        if(styles.text.size) {
+          styles.fontSize = styles.text.size
+        }
+        if(styles.text.color) {
+          styles.color = styles.text.color
+        }
+      }
+      if(styles.background && typeof styles.background === 'object') {
+        var color = parseColor(styles.background.color)
+        if(styles.background.opacity) {
+          color = parseColor('rgba(' + color.rgb.slice().concat(styles.background.opacity).join(',') + ')')
+        }
+        styles.backgroundColor = 'rgba(' + color.rgba.join(',') + ')'
+      }
+      console.log(styles)
+      return styles
+    },
     advanceScene(delta) {
       this.activeSceneIndex = (this.activeSceneIndex + this.scenes.length + delta) % this.scenes.length
     },
@@ -142,21 +178,22 @@ export default {
       @include bp-lg-up {
         padding-bottom: 56.25%;
       }
-      background: rgb(255, 192, 192);
+      background-color: rgb(255, 192, 192);
 
       > .main-visual-container {
         @include fill-everything;
-        background: rgb(192, 192, 255);
+        background-color: rgb(192, 192, 255);
         > .main-visual {
           @include fill-everything;
-          background: rgb(192, 255, 192);
+          background-color: rgb(192, 255, 192);
         }
       }
       > .text-container {
         position: absolute;
         top: 0;
         left: 0;
-        background: rgb(255, 228, 192);
+        background-color: rgb(255, 228, 192);
+        margin: 1rem;
       }
       > .subtitle-container {
         position: absolute;
@@ -164,7 +201,7 @@ export default {
         left: 50%;
         transform: translateX(-50%);
         padding: 0.125rem 0.5rem;
-        background: black;
+        background-color: black;
         color: white;
       }
 
@@ -212,7 +249,7 @@ export default {
       > .option {
         cursor: pointer;
         position: relative;
-        background: white;
+        background-color: white;
         @include shadow;
       }
       > .previous,
@@ -223,7 +260,7 @@ export default {
         width: 2rem;
         height: 2rem;
         @include arrow(0.75rem, left);
-        margin-right: 0.25rem;
+        margin-right: 0.5rem;
       }
       > .next {
         width: 4rem;
@@ -234,7 +271,7 @@ export default {
         padding: 0.75rem;
         line-height: 1;
         &:not(:last-child) {
-          margin-right: 1rem;
+          margin-right: 0.75rem;
         }
       }
     }
