@@ -14,12 +14,21 @@ export default {
         options: {
           text: {
             align: 'center',
-            size: 16,
+            size: '1rem',
             color: 'black'
           },
           background: {
             color: 'white',
             opacity: 1
+          }
+        },
+        visualTags: {
+          border: {
+            width: '2px',
+            color: 'white'
+          },
+          text: {
+            color: 'black'
           }
         }
       }
@@ -38,7 +47,7 @@ export default {
         description: 'Lorem ipsum.',
         mainVisual: {
           type: 'image',
-          url: '.../...tif',
+          url: 'placeholders/_8uD3NOc.jpg',
           width: 1600,
           height: 900
         },
@@ -75,24 +84,25 @@ export default {
         ],
         visualTags: [
           {
-            x: 200,
-            y: 400,
-            width: 48,
-            height: 64,
-            content: '湯德章'
+            x: 560,
+            y: 280,
+            width: 60,
+            height: 128,
+            content: 'Stormtrooper A'
           },
           {
-            x: 320,
-            y: 160,
+            x: 790,
+            y: 200,
             width: 64,
-            height: 48,
-            content: '林茂生'
+            height: 96,
+            content: 'Stormtrooper B'
           },
           {
-            x: 640,
-            y: 400,
-            width: 84,
-            height: 96
+            x: 784,
+            y: 360,
+            width: 76,
+            height: 144,
+            content: 'Jedi'
           }
         ],
         default: {
@@ -111,7 +121,7 @@ export default {
               y: 'bottom',
               text: {
                 align: 'center',
-                size: 16,
+                size: '1rem',
                 color: 'white'
               },
               background: {
@@ -121,18 +131,32 @@ export default {
             },
             tags: {
               background: 'black'
-            },
-            visualTags: {
-              background: {
-                color: 'black',
-                opacity: 0.25
-              },
-              text: {
-                color: 'black'
-              }
             }
           }
         }
+      },
+      {
+        id: 'a-small-photo-scene',
+        classes: ['wide'],
+        date: '1945-01-01',
+        title: '小照片',
+        description: 'Lorem ipsum.',
+        mainVisual: {
+          type: 'image',
+          url: 'placeholders/70181883.jpg',
+          width: 500,
+          height: 398,
+          magnify: false
+        },
+        visualTags: [
+          {
+            x: 40,
+            y: 100,
+            width: 48,
+            height: 64,
+            content: '生野'
+          }
+        ]
       },
       {
         id: 'the-dance',
@@ -147,7 +171,10 @@ export default {
         description: 'Lorem ipsum.',
         mainVisual: {
           type: 'image',
-          url: '.../...jpg'
+          url: 'placeholders/70182271.jpg',
+          width: 500,
+          height: 398,
+          magnify: false
         }
       },
       {

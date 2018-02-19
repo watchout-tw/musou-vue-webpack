@@ -1,13 +1,17 @@
 <template>
 <div class="journey">
   <div class="sequence">
-    <div class="scene" :class="activeSceneClasses">
+    <div class="scene" :class="activeSceneClasses" id="journey-sequence-scene">
       <div class="main-visual-container">
-        <div class="main-visual"></div>
-        <div v-if="activeScene.visualTags" class="visual-tags">
+        <div class="main-visual" v-if="mainVisual" :class="mainVisual.type">
+          <template v-if="mainVisual.type === 'image'">
+            <div class="content" :style="mainVisualContentStyles"></div>
+          </template>
+        </div>
+        <div class="visual-tags" v-if="activeScene.visualTags" :style="visualTagContainerStyles">
           <div v-for="tag of activeScene.visualTags" class="visual-tag" :style="getPositions('visualTags', tag)">
-            <div class="region" :style="getDimentions('visualTags', tag)"></div>
-            <div class="content" :style="getStyles('visualTags', tag)" v-if="tag.content">{{ tag.content }}</div>
+            <div class="region" :style="Object.assign(getDimensions('visualTags', tag), getStyles('visualTags', tag))"></div>
+            <div class="content" :style="" v-if="tag.content">{{ tag.content }}</div>
           </div>
         </div>
       </div>
@@ -57,9 +61,26 @@ export default {
   data() {
     var config = require('@/config/journey/' + this.config.id + '.js').default
     var state = {
-      activeSceneIndex: 0
+      activeSceneIndex: 0,
+      canvas: {
+        width: 0,
+        height: 0
+      },
+      actual: {
+        width: 0,
+        height: 0
+      },
+      croppingMethod: 'cover'
     }
     return Object.assign(config, state)
+  },
+  watch: {
+    activeSceneIndex() {
+      this.setSceneDimensions()
+    },
+    zoom() {
+      console.log(this.zoom)
+    }
   },
   computed: {
     ogImage() {
@@ -76,21 +97,62 @@ export default {
     },
     activeSceneClasses() {
       return this.activeScene.classes
+    },
+    mainVisual() {
+      return this.activeScene.hasOwnProperty('mainVisual') ? this.activeScene.mainVisual : undefined
+    },
+    mainVisualContentStyles() {
+      var styles = {}
+      if(this.mainVisual.type === 'image') {
+        if(this.mainVisual.magnify === false) {
+          if(this.canvasIsLarger()) {
+            // actual size
+            this.croppingMethod = 'none'
+            styles.backgroundSize = this.mainVisual.width + 'px'
+          } else {
+            // contain
+            this.croppingMethod = styles.backgroundSize = 'contain'
+          }
+        } else {
+          // cover
+          this.croppingMethod = styles.backgroundSize = 'cover'
+        }
+        styles.backgroundImage = 'url(' + require('_/' + this.mainVisual.url) + ')'
+      }
+      return styles
+    },
+    visualTagContainerStyles() {
+      return {
+        width: this.mainVisual.width * this.zoom + 'px',
+        height: this.mainVisual.height * this.zoom + 'px',
+        top: this.offset.top + 'px',
+        left: this.offset.left + 'px'
+      }
+    },
+    zoom() {
+      return this.mainVisual ? this.actual.width / this.mainVisual.width : 1
+    },
+    offset() {
+      return {
+        top: (this.canvas.height - this.actual.height) / 2.0,
+        left: (this.canvas.width - this.actual.width) / 2.0
+      }
     }
   },
   methods: {
-    getPositions(name, data) {
-      var styles = {}
-      const canvasWidth = this.activeScene.mainVisual.width
-      const canvasHeight = this.activeScene.mainVisual.height
-      styles.top = data.y * 100.0 / canvasWidth + '%'
-      styles.left = data.x * 100.0 / canvasHeight + '%'
-      return styles
+    canvasIsLarger() {
+      return this.canvas.width >= this.mainVisual.width
     },
-    getDimentions(name, data) {
+    getPositions(name, data) {
+      return {
+        top: data.y * 100.0 / this.mainVisual.height + '%',
+        left: data.x * 100.0 / this.mainVisual.width + '%'
+      }
+    },
+    getDimensions(name, data) {
       var styles = {}
-      styles.width = data.width + 'px'
-      styles.height = data.height + 'px'
+      styles.width = data.width * this.zoom + 'px'
+      styles.height = data.height * this.zoom + 'px'
       return styles
     },
     getStyles(name, data) {
@@ -98,8 +160,7 @@ export default {
       const global = this.sequence.default ? this.sequence.default.styles ? this.sequence.default.styles[name] : undefined : undefined
       const scene = this.activeScene.default ? this.activeScene.default.styles ? this.activeScene.default.styles[name] : undefined : undefined
       const local = data.styles
-      console.log(name, data, global, scene, local)
-      const attributes = ['text', 'background']
+      const attributes = ['text', 'border', 'background']
       for(let attribute of attributes) {
         styles[attribute] = (local && local[attribute]) || (scene && scene[attribute]) || (global && global[attribute]) || undefined
       }
@@ -115,6 +176,14 @@ export default {
           styles.color = styles.text.color
         }
       }
+      if(styles.border && typeof styles.border === 'object') {
+        if(styles.border.width) {
+          styles.borderWidth = styles.border.width
+        }
+        if(styles.border.color) {
+          styles.borderColor = styles.border.color
+        }
+      }
       if(styles.background && typeof styles.background === 'object') {
         var color = parseColor(styles.background.color)
         if(styles.background.opacity) {
@@ -122,8 +191,36 @@ export default {
         }
         styles.backgroundColor = 'rgba(' + color.rgba.join(',') + ')'
       }
-      console.log(styles)
       return styles
+    },
+    setCanvasDimensions() {
+      const el = document.getElementById('journey-sequence-scene')
+      this.canvas.width = el.getBoundingClientRect().width
+      this.canvas.height = el.getBoundingClientRect().height
+      this.setSceneDimensions()
+    },
+    setSceneDimensions() {
+      if(this.mainVisual && this.mainVisual.type === 'image') {
+        // http://blog.vjeux.com/2013/image/css-container-and-cover.html
+        const originalRatio = this.mainVisual.width / this.mainVisual.height
+        const canvasRatio = this.canvas.width / this.canvas.height
+
+        if(this.mainVisual.magnify === false) {
+          if(this.canvasIsLarger()) {
+            // actual size
+            this.actual.width = this.mainVisual.width
+            this.actual.height = this.mainVisual.height
+          } else {
+            // contain
+            this.actual.width = canvasRatio > originalRatio ? this.canvas.height * originalRatio : this.canvas.width
+            this.actual.height = canvasRatio > originalRatio ? this.canvas.height : this.canvas.width / originalRatio
+          }
+        } else {
+          // cover
+          this.actual.width = canvasRatio > originalRatio ? this.canvas.width : this.canvas.height * originalRatio
+          this.actual.height = canvasRatio > originalRatio ? this.canvas.width / originalRatio : this.canvas.height
+        }
+      }
     },
     advanceScene(delta) {
       this.activeSceneIndex = (this.activeSceneIndex + this.scenes.length + delta) % this.scenes.length
@@ -136,6 +233,10 @@ export default {
         this.advanceScene(+1)
       }
     }
+  },
+  mounted() {
+    window.addEventListener('resize', this.setCanvasDimensions)
+    this.setCanvasDimensions()
   }
 }
 </script>
@@ -207,12 +308,19 @@ export default {
         > .main-visual {
           @include fill-everything;
           background-color: rgb(192, 255, 192);
+          &.image > .content {
+            @include fill-everything;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+          }
         }
         > .visual-tags {
+          position: absolute;
           > .visual-tag {
             position: absolute;
             > .region {
-              border: 2px black solid;
+              border-style: solid;
               border-radius: 2px;
               cursor: pointer;
             }
@@ -224,6 +332,8 @@ export default {
               font-size: 0.875rem;
               margin: 0.25rem 0;
               padding: 0.25rem 0.5rem;
+              background: rgba(white, 0.5);
+              color: black;
             }
           }
         }
@@ -309,6 +419,7 @@ export default {
       }
       > .option {
         padding: 0.75rem;
+        border-radius: 0.25rem;
         line-height: 1;
         &:not(:last-child) {
           margin-right: 0.75rem;
