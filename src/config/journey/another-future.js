@@ -140,7 +140,6 @@ export default {
         classes: ['wide'],
         date: '1945-01-01',
         title: '小照片',
-        description: 'Lorem ipsum.',
         mainVisual: {
           type: 'image',
           url: 'placeholders/70181883.jpg',
@@ -160,8 +159,15 @@ export default {
       },
       {
         id: 'the-dance',
-        classes: ['square'],
-        title: 'The dance.'
+        classes: ['wide'],
+        title: 'NGC 3621',
+        description: 'Far beyond the local group of galaxies lies NGC 3621, some 22 million light-years away. Found in the multi-headed southern constellation Hydra, the winding spiral arms of this gorgeous island universe are loaded with luminous blue star clusters, pinkish starforming regions, and dark dust lanes.',
+        mainVisual: {
+          type: 'image',
+          url: 'placeholders/NGC3621-.jpg',
+          width: 1024,
+          height: 952
+        }
       },
       {
         id: 'a-square-scene',
@@ -179,7 +185,7 @@ export default {
       },
       {
         id: 'a-sample-fork-scene',
-        classes: ['wide', 'fork'],
+        classes: ['square', 'fork'],
         title: '選一個？',
         description: 'Lorem ipsum.',
         options: [
@@ -189,21 +195,52 @@ export default {
             target: 'the-dance'
           },
           {
-            label: '不要鬧了',
+            label: '繼續',
             action: 'next'
           }
-        ]
+        ],
+        mainVisual: {
+          type: 'image',
+          url: 'placeholders/yoshitoshi.jpg',
+          width: 1080,
+          height: 871,
+          magnify: false
+        }
       },
       {
         id: 'some-other-scene',
         classes: ['wide'],
-        title: '測試一下'
+        title: '測試一下',
+        mainVisual: {
+          type: 'image',
+          url: 'placeholders/53vTbZFz.jpg',
+          width: 1080,
+          height: 720
+        }
       },
       {
         id: 'closing',
         classes: ['square', 'closing'],
-        title: '結語'
+        title: '結語',
+        mainVisual: {
+          type: 'image',
+          url: 'placeholders/chatSystems.png',
+          width: 1364,
+          height: 668,
+          magnify: false
+        }
       }
     ] // end of scenes
-  }
+  },
+  authorship: [
+    {
+      job: '編輯設計',
+      people: ['洪國鈞']
+    },
+    {
+      job: '設計開發',
+      people: ['游知澔']
+    }
+  ],
+  references: []
 }

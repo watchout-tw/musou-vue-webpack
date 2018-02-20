@@ -1,11 +1,11 @@
 <template>
-<div class="journey">
+<article class="journey">
   <div class="sequence">
-    <div class="scene" :class="activeSceneClasses" id="journey-sequence-scene">
+    <div class="scene" :class="activeSceneClasses">
       <div class="main-visual-container">
         <div class="main-visual" v-if="mainVisual" :class="mainVisual.type">
           <template v-if="mainVisual.type === 'image'">
-            <div class="content" :style="mainVisualContentStyles"></div>
+            <div class="content" id="journey-main-visual-canvas" :style="mainVisualContentStyles"></div>
           </template>
         </div>
         <div class="visual-tags" v-if="activeScene.visualTags" :style="visualTagContainerStyles">
@@ -16,26 +16,46 @@
         </div>
       </div>
       <div class="text-container">
-        <p>{{ activeScene.classes }}</p>
-        <template v-if="activeScene.title">
-          <h1 v-if="activeSceneClasses.includes('opening')" class="small">{{ activeScene.title }}</h1>
-          <h2 v-else class="small">{{ activeScene.title }}</h2>
-        </template>
-        <p v-if="activeScene.description">{{ activeScene.description }}</p>
+        <div class="text">
+          <template v-if="activeScene.title">
+            <h1 v-if="activeSceneClasses.includes('opening')" class="small"><span>{{ activeScene.title }}</span></h1>
+            <h2 v-else class="small"><span>{{ activeScene.title }}</span></h2>
+          </template>
+          <div class="paragraphs" v-if="activeScene.description" v-html="markdown(activeScene.description)"></div>
+        </div>
       </div>
       <div v-if="activeScene.subtitle" class="subtitle-container">字幕在這裡</div>
     </div>
     <div class="control-panel d-flex">
+      <div class="previous" @click="advanceScene(-1)"></div>
       <template v-if="activeSceneClasses.includes('fork')">
         <div v-for="option of activeScene.options" class="option" @click="fork(option.action, option.target)" :style="getStyles('options', option)">{{ option.label }}</div>
       </template>
       <template v-else>
-        <div class="previous" @click="advanceScene(-1)"></div>
         <div class="next" @click="advanceScene(+1)"></div>
       </template>
     </div>
   </div>
-</div>
+  <header class="end">
+    <div class="text textgroup">
+      <hgroup>
+        <h5>{{ config.seriesTitle }}</h5>
+        <span class="zhi">之</span>
+        <h4>{{ config.title }}</h4>
+      </hgroup>
+      <div class="authorship">
+        <div class="item d-flex flex-row" v-for="item in authorship"><div class="job">{{ item.job }}</div><div v-for="person in item.people" class="person">{{ person }}</div></div>
+      </div>
+      <div class="date">{{ config.date }}</div>
+      <div class="references a-text-only" v-if="references.length > 0">
+        <h5>參考資料</h5>
+        <ul>
+          <li v-for="ref in references" v-html="markdown(ref)"></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+</article>
 </template>
 
 <script>
@@ -74,13 +94,8 @@ export default {
     }
     return Object.assign(config, state)
   },
-  watch: {
-    activeSceneIndex() {
-      this.setSceneDimensions()
-    },
-    zoom() {
-      console.log(this.zoom)
-    }
+  updated() { // data changes -> DOM re-render complete
+    this.setSceneDimensions()
   },
   computed: {
     ogImage() {
@@ -193,33 +208,35 @@ export default {
       }
       return styles
     },
-    setCanvasDimensions() {
-      const el = document.getElementById('journey-sequence-scene')
-      this.canvas.width = el.getBoundingClientRect().width
-      this.canvas.height = el.getBoundingClientRect().height
-      this.setSceneDimensions()
-    },
     setSceneDimensions() {
-      if(this.mainVisual && this.mainVisual.type === 'image') {
-        // http://blog.vjeux.com/2013/image/css-container-and-cover.html
-        const originalRatio = this.mainVisual.width / this.mainVisual.height
-        const canvasRatio = this.canvas.width / this.canvas.height
+      const el = document.getElementById('journey-main-visual-canvas')
+      if(el) {
+        this.canvas.width = el.getBoundingClientRect().width
+        this.canvas.height = el.getBoundingClientRect().height
+        if(this.mainVisual && this.mainVisual.type === 'image') {
+          // http://blog.vjeux.com/2013/image/css-container-and-cover.html
+          const originalRatio = this.mainVisual.width / this.mainVisual.height
+          const canvasRatio = this.canvas.width / this.canvas.height
 
-        if(this.mainVisual.magnify === false) {
-          if(this.canvasIsLarger()) {
-            // actual size
-            this.actual.width = this.mainVisual.width
-            this.actual.height = this.mainVisual.height
+          if(this.mainVisual.magnify === false) {
+            if(this.canvasIsLarger()) {
+              // actual size
+              this.actual.width = this.mainVisual.width
+              this.actual.height = this.mainVisual.height
+            } else {
+              // contain
+              this.actual.width = canvasRatio > originalRatio ? this.canvas.height * originalRatio : this.canvas.width
+              this.actual.height = canvasRatio > originalRatio ? this.canvas.height : this.canvas.width / originalRatio
+            }
           } else {
-            // contain
-            this.actual.width = canvasRatio > originalRatio ? this.canvas.height * originalRatio : this.canvas.width
-            this.actual.height = canvasRatio > originalRatio ? this.canvas.height : this.canvas.width / originalRatio
+            // cover
+            this.actual.width = canvasRatio > originalRatio ? this.canvas.width : this.canvas.height * originalRatio
+            this.actual.height = canvasRatio > originalRatio ? this.canvas.width / originalRatio : this.canvas.height
           }
-        } else {
-          // cover
-          this.actual.width = canvasRatio > originalRatio ? this.canvas.width : this.canvas.height * originalRatio
-          this.actual.height = canvasRatio > originalRatio ? this.canvas.width / originalRatio : this.canvas.height
         }
+      } else {
+        this.canvas.width = this.canvas.height = 0
+        this.actual.width = this.actual.height = 0
       }
     },
     advanceScene(delta) {
@@ -235,8 +252,8 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('resize', this.setCanvasDimensions)
-    this.setCanvasDimensions()
+    window.addEventListener('resize', this.setSceneDimensions)
+    this.setSceneDimensions()
   }
 }
 </script>
@@ -267,7 +284,7 @@ export default {
   }
 }
 
-@mixin fill-everything {
+@mixin full-coverage {
   position: absolute;
   top: 0;
   right: 0;
@@ -285,6 +302,7 @@ export default {
   position: relative;
   width: 100%;
   > .sequence {
+    position: relative;
     > .scene {
       position: relative;
       box-sizing: border-box;
@@ -303,13 +321,13 @@ export default {
       background-color: rgb(255, 192, 192);
 
       > .main-visual-container {
-        @include fill-everything;
+        @include full-coverage;
         background-color: rgb(192, 192, 255);
         > .main-visual {
-          @include fill-everything;
+          @include full-coverage;
           background-color: rgb(192, 255, 192);
           &.image > .content {
-            @include fill-everything;
+            @include full-coverage;
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -342,8 +360,12 @@ export default {
         position: absolute;
         top: 0;
         left: 0;
-        background-color: rgb(255, 228, 192);
-        margin: 1rem;
+        > .text {
+          position: relative;
+          max-width: 24rem;
+          margin: 1rem;
+          background-color: rgb(255, 228, 192);
+        }
       }
       > .subtitle-container {
         position: absolute;
@@ -358,8 +380,12 @@ export default {
       &.opening {
         > .text-container {
           top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
+          transform: translateY(-50%);
+          width: 100%;
+          > .text {
+            margin: 1rem auto;
+            text-align: center;
+          }
         }
       }
 
@@ -371,6 +397,7 @@ export default {
             position: absolute;
             width: 50%;
             height: 100%;
+            margin-left: 1rem;
             > .main-visual {
               position: absolute;
               width: 100%;
@@ -384,6 +411,7 @@ export default {
             position: absolute;
             top: 50%;
             left: 50%;
+            margin-left: 1rem;
             transform: translateY(-50%);
           }
         }
@@ -418,11 +446,12 @@ export default {
         @include arrow(1.25rem, right);
       }
       > .option {
-        padding: 0.75rem;
-        border-radius: 0.25rem;
+        padding: 1.5rem 1rem;
+        border-radius: 2rem;
         line-height: 1;
+        font-weight: bold;
         &:not(:last-child) {
-          margin-right: 0.75rem;
+          margin-right: 0.5rem;
         }
       }
     }
