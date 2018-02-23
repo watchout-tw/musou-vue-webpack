@@ -81,11 +81,11 @@ export default {
           }
         ],
         subtitle: [
-          'line1',
-          '這一行含有湯德章三個字',
-          '這裡則提到林茂生',
-          'line4',
-          'line5'
+          'Quick brown fox jumps over the lazy human being',
+          '這一行含有湯德章tang de zhang三個字',
+          '這裡則a提到林茂生',
+          'May the force be with you',
+          'Live long and prosper'
         ],
         tags: [
           {
@@ -173,6 +173,10 @@ export default {
             content: '生野',
             click: 'getCloser'
           }
+        ],
+        subtitle: [
+          'A picture paints a 1000 words',
+          '一個家族，三個時代'
         ]
       },
       {

@@ -14,7 +14,9 @@
             <div class="content" :style="" v-if="tag.content">{{ tag.content }}</div>
           </div>
         </div>
-        <div class="subtitle-container" v-if="activeScene.subtitle">字幕在這裡</div>
+        <div class="subtitle d-flex justify-content-center">
+          <subtitling-machine :lines="activeScene.subtitle" :config="subtitling.config" :status.sync="subtitling.status" :key="activeScene.id" />
+        </div>
       </div>
       <div class="text-container" :style="textContainerStyles">
         <div class="text">
@@ -62,6 +64,7 @@
 import knowsMarkdown from '@/interfaces/knowsMarkdown'
 import knowsClasses from '@/interfaces/knowsClasses'
 import parseColor from 'parse-color'
+import SubtitlingMachine from '@/components/SubtitlingMachine'
 
 export default {
   mixins: [knowsMarkdown, knowsClasses],
@@ -97,7 +100,14 @@ export default {
         width: 0,
         height: 0
       },
-      croppingMethod: 'cover'
+      croppingMethod: 'cover',
+      subtitling: {
+        status: 'inactive',
+        config: {
+          tokenInterval: 150,
+          lineInterval: 1000
+        }
+      }
     }
     return Object.assign(config, state)
   },
@@ -265,6 +275,13 @@ export default {
         this.actual.width = this.actual.height = 0
       }
     },
+    visualTagClick(tag) {
+      if(tag.click === 'getCloser') {
+        this.canvas.transformOrigin.x = (tag.x + tag.width / 2) * 100.0 / this.mainVisual.width
+        this.canvas.transformOrigin.y = (tag.y + tag.height / 2) * 100.0 / this.mainVisual.height
+        this.canvas.transform.scale = this.canvas.transform.scale === 1 ? 2 : 1
+      }
+    },
     advanceScene(delta) {
       var nextSceneIndex = (this.activeSceneIndex + this.scenes.length + delta) % this.scenes.length
       var targetSceneID = null
@@ -289,18 +306,14 @@ export default {
       } else if(action === 'next') {
         this.advanceScene(+1)
       }
-    },
-    visualTagClick(tag) {
-      if(tag.click === 'getCloser') {
-        this.canvas.transformOrigin.x = (tag.x + tag.width / 2) * 100.0 / this.mainVisual.width
-        this.canvas.transformOrigin.y = (tag.y + tag.height / 2) * 100.0 / this.mainVisual.height
-        this.canvas.transform.scale = this.canvas.transform.scale === 1 ? 2 : 1
-      }
     }
   },
   mounted() {
     window.addEventListener('resize', this.setSceneDimensions)
     this.setSceneDimensions()
+  },
+  components: {
+    SubtitlingMachine
   }
 }
 </script>
@@ -408,14 +421,10 @@ export default {
             }
           }
         }
-        > .subtitle-container {
+        > .subtitle {
           position: absolute;
           bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          padding: 0.25rem 0.75rem;
-          background-color: black;
-          color: white;
+          width: 100%;
         }
       }
       > .text-container {
