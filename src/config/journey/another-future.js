@@ -170,7 +170,8 @@ export default {
             y: 100,
             width: 48,
             height: 64,
-            content: '生野'
+            content: '生野',
+            click: 'getCloser'
           }
         ]
       },
@@ -184,28 +185,53 @@ export default {
           type: 'image',
           url: 'placeholders/70182271.jpg',
           width: 500,
-          height: 398,
+          height: 358,
           magnify: false
         }
       },
       {
+        id: 'a-extra-long-main-visual',
+        classes: ['wide'],
+        date: '1945-01-01',
+        title: '我佛慈悲',
+        description: '南無阿彌陀佛；南無阿彌陀佛；南無阿彌；南無阿；南無；無。',
+        mainVisual: {
+          type: 'image',
+          url: 'placeholders/gb+.jpg',
+          width: 2560,
+          height: 1050,
+          magnify: false
+        },
+        visualTags: [
+          {
+            x: 620,
+            y: 164,
+            width: 200,
+            height: 236,
+            content: '師姐'
+          }
+        ]
+      },
+      {
         id: 'a-sample-fork-scene',
-        classes: ['square', 'fork'],
-        title: '選一個？',
-        description: 'Lorem ipsum.',
+        classes: ['wide', 'fork'],
+        title: 'おもゐつゝら：選一個',
+        description: 'むかしむかしあるところに心優しいお爺さんと欲張りなお婆さんの老夫婦がいた。ある日、お爺さんは怪我をしていた雀を家に連れ帰って手当てをした。',
         options: [
           {
+            type: 'emoji',
             label: '🌌',
             action: 'goto',
             target: 'gallaxy'
           },
           {
+            type: 'emoji',
             label: '🌞',
             action: 'goto',
             target: 'solarpunk'
           },
           {
-            label: '🤷‍',
+            label: '結束',
             action: 'goto',
             target: 'closing'
           }
@@ -213,20 +239,20 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'placeholders/yoshitoshi.jpg',
-          width: 1080,
-          height: 871,
+          width: 466,
+          height: 704,
           magnify: false
         },
-        default: {
-          styles: {
-            options: {
-              text: {
-                size: '2rem',
-                leading: '1.25rem' // for emoji
-              }
-            }
+        visualTags: [
+          {
+            x: 170,
+            y: 350,
+            width: 128,
+            height: 120,
+            content: '#36',
+            click: 'getCloser'
           }
-        }
+        ]
       },
       {
         id: 'gallaxy',
@@ -249,8 +275,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'placeholders/53vTbZFz.jpg',
-          width: 1080,
-          height: 720
+          width: 1364,
+          height: 668
         },
         prev: 'a-sample-fork-scene',
         next: 'closing'
@@ -262,8 +288,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'placeholders/chatSystems.png',
-          width: 1364,
-          height: 668,
+          width: 740,
+          height: 536,
           magnify: false
         },
         prev: 'a-sample-fork-scene'

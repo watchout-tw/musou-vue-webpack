@@ -2,21 +2,21 @@
 <article class="journey">
   <div class="sequence">
     <div class="scene" :class="activeSceneClasses">
-      <div class="main-visual-container" :style="getStyles('mainVisualContainer')">
+      <div class="main-visual-container" :style="mainVisualContainerStyles">
         <div class="main-visual" v-if="mainVisual" :class="mainVisual.type">
           <template v-if="mainVisual.type === 'image'">
             <div class="content" id="journey-main-visual-canvas" :style="mainVisualContentStyles"></div>
           </template>
         </div>
         <div class="visual-tags" v-if="activeScene.visualTags" :style="visualTagContainerStyles">
-          <div v-for="tag of activeScene.visualTags" class="visual-tag" :style="getPositions('visualTags', tag)">
+          <div v-for="tag of activeScene.visualTags" class="visual-tag" :style="getPositions('visualTags', tag)" @click="visualTagClick(tag)">
             <div class="region" :style="Object.assign(getDimensions('visualTags', tag), getStyles('visualTags', tag))"></div>
             <div class="content" :style="" v-if="tag.content">{{ tag.content }}</div>
           </div>
         </div>
         <div class="subtitle-container" v-if="activeScene.subtitle">字幕在這裡</div>
       </div>
-      <div class="text-container" :style="getStyles('textContainer')">
+      <div class="text-container" :style="textContainerStyles">
         <div class="text">
           <template v-if="activeScene.title">
             <h1 v-if="activeSceneClasses.includes('opening')" class="small"><span>{{ activeScene.title }}</span></h1>
@@ -29,7 +29,7 @@
     <div class="control-panel d-flex">
       <div class="previous" @click="advanceScene(-1)"></div>
       <template v-if="activeSceneClasses.includes('fork')">
-        <div v-for="option of activeScene.options" class="option" @click="fork(option.action, option.target)" :style="getStyles('options', option)">{{ option.label }}</div>
+        <div v-for="option of activeScene.options" class="option" :class="option.type" @click="fork(option.action, option.target)" :style="getStyles('options', option)"><span>{{ option.label }}</span></div>
       </template>
       <template v-else>
         <div class="next" @click="advanceScene(+1)"></div>
@@ -84,7 +84,14 @@ export default {
       activeSceneIndex: 0,
       canvas: {
         width: 0,
-        height: 0
+        height: 0,
+        transformOrigin: {
+          x: 50,
+          y: 50
+        },
+        transform: {
+          scale: 1
+        }
       },
       actual: {
         width: 0,
@@ -94,8 +101,15 @@ export default {
     }
     return Object.assign(config, state)
   },
-  updated() { // data changes -> DOM re-render complete
-    this.setSceneDimensions()
+  watch: {
+    activeSceneIndex() {
+      // reset transformOrigin & transform at change of scene
+      this.canvas.transformOrigin.x = this.canvas.transformOrigin.y = 50
+      this.canvas.transform.scale = 1
+    }
+  },
+  updated() {
+    this.setSceneDimensions() // scene dimensions *HAVE TO BE* calculated after data update & DOM re-render
   },
   computed: {
     ogImage() {
@@ -136,6 +150,12 @@ export default {
       }
       return styles
     },
+    mainVisualContainerStyles() {
+      return Object.assign(this.getStyles('mainVisualContainer'), {
+        transformOrigin: `${this.canvas.transformOrigin.x}% ${this.canvas.transformOrigin.y}%`,
+        transform: `scale(${this.canvas.transform.scale})`
+      })
+    },
     visualTagContainerStyles() {
       return {
         width: this.mainVisual.width * this.zoom + 'px',
@@ -143,6 +163,9 @@ export default {
         top: this.offset.top + 'px',
         left: this.offset.left + 'px'
       }
+    },
+    textContainerStyles() {
+      return this.getStyles('textContainer')
     },
     zoom() {
       return this.mainVisual ? this.actual.width / this.mainVisual.width : 1
@@ -156,7 +179,7 @@ export default {
   },
   methods: {
     canvasIsLarger() {
-      return this.canvas.width >= this.mainVisual.width
+      return this.canvas.width >= this.mainVisual.width && this.canvas.height >= this.mainVisual.height
     },
     getPositions(name, data) {
       return {
@@ -214,8 +237,8 @@ export default {
     setSceneDimensions() {
       const el = document.getElementById('journey-main-visual-canvas')
       if(el) {
-        this.canvas.width = el.getBoundingClientRect().width
-        this.canvas.height = el.getBoundingClientRect().height
+        this.canvas.width = el.getBoundingClientRect().width / this.canvas.transform.scale
+        this.canvas.height = el.getBoundingClientRect().height / this.canvas.transform.scale
         if(this.mainVisual && this.mainVisual.type === 'image') {
           // http://blog.vjeux.com/2013/image/css-container-and-cover.html
           const originalRatio = this.mainVisual.width / this.mainVisual.height
@@ -265,6 +288,13 @@ export default {
         this.activeSceneIndex = index >= 0 ? index : this.activeSceneIndex
       } else if(action === 'next') {
         this.advanceScene(+1)
+      }
+    },
+    visualTagClick(tag) {
+      if(tag.click === 'getCloser') {
+        this.canvas.transformOrigin.x = (tag.x + tag.width / 2) * 100.0 / this.mainVisual.width
+        this.canvas.transformOrigin.y = (tag.y + tag.height / 2) * 100.0 / this.mainVisual.height
+        this.canvas.transform.scale = this.canvas.transform.scale === 1 ? 2 : 1
       }
     }
   },
@@ -323,6 +353,7 @@ export default {
     > .scene {
       position: relative;
       display: block;
+      overflow: hidden;
 
       > .main-visual-container {
         position: relative;
@@ -367,7 +398,6 @@ export default {
             }
             > .content {
               display: inline-block;
-              min-width: 3rem;
               max-width: 8rem;
               border-radius: 2px;
               font-size: 0.875rem;
@@ -498,6 +528,20 @@ export default {
         text-align: center;
         &:not(:last-child) {
           margin-right: 0.5rem;
+        }
+        &.emoji {
+          > span {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 2rem;
+            line-height: 2rem;
+            @include bp-sm-up { // FIXME: emoji baseline is different on iOS & macOS
+              padding-top: 0.25rem;
+            }
+          }
         }
       }
     }
