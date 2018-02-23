@@ -2,7 +2,7 @@
 <article class="journey">
   <div class="sequence">
     <div class="scene" :class="activeSceneClasses">
-      <div class="main-visual-container">
+      <div class="main-visual-container" :style="getStyles('mainVisualContainer')">
         <div class="main-visual" v-if="mainVisual" :class="mainVisual.type">
           <template v-if="mainVisual.type === 'image'">
             <div class="content" id="journey-main-visual-canvas" :style="mainVisualContentStyles"></div>
@@ -14,8 +14,9 @@
             <div class="content" :style="" v-if="tag.content">{{ tag.content }}</div>
           </div>
         </div>
+        <div class="subtitle-container" v-if="activeScene.subtitle">字幕在這裡</div>
       </div>
-      <div class="text-container">
+      <div class="text-container" :style="getStyles('textContainer')">
         <div class="text">
           <template v-if="activeScene.title">
             <h1 v-if="activeSceneClasses.includes('opening')" class="small"><span>{{ activeScene.title }}</span></h1>
@@ -24,7 +25,6 @@
           <div class="paragraphs" v-if="activeScene.description" v-html="markdown(activeScene.description)"></div>
         </div>
       </div>
-      <div v-if="activeScene.subtitle" class="subtitle-container">字幕在這裡</div>
     </div>
     <div class="control-panel d-flex">
       <div class="previous" @click="advanceScene(-1)"></div>
@@ -170,11 +170,11 @@ export default {
       styles.height = data.height * this.zoom + 'px'
       return styles
     },
-    getStyles(name, data) {
+    getStyles(name, data = undefined) {
       var styles = {}
       const global = this.sequence.default ? this.sequence.default.styles ? this.sequence.default.styles[name] : undefined : undefined
       const scene = this.activeScene.default ? this.activeScene.default.styles ? this.activeScene.default.styles[name] : undefined : undefined
-      const local = data.styles
+      const local = data ? data.styles : undefined
       const attributes = ['text', 'border', 'background']
       for(let attribute of attributes) {
         styles[attribute] = (local && local[attribute]) || (scene && scene[attribute]) || (global && global[attribute]) || undefined
@@ -305,27 +305,33 @@ export default {
     position: relative;
     > .scene {
       position: relative;
-      box-sizing: border-box;
-      width: 100%;
-      height: 0;
-      padding-bottom: 100%;
-      @include bp-sm-up {
-        padding-bottom: 75%;
-      }
-      @include bp-md-up {
-        padding-bottom: 66.66666667%;
-      }
-      @include bp-lg-up {
-        padding-bottom: 56.25%;
-      }
-      background-color: rgb(255, 192, 192);
+      display: block;
 
       > .main-visual-container {
-        @include full-coverage;
-        background-color: rgb(192, 192, 255);
+        position: relative;
+        display: block;
+        width: 100%;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+
+        &:before {
+          content: '';
+          display: block;
+          padding-top: 100%;
+          @include bp-sm-up {
+            padding-top: 75%;
+          }
+          @include bp-md-up {
+            padding-top: 66.66666667%;
+          }
+          @include bp-lg-up {
+            padding-top: 56.25%;
+          }
+        }
+
         > .main-visual {
           @include full-coverage;
-          background-color: rgb(192, 255, 192);
           &.image > .content {
             @include full-coverage;
             background-size: cover;
@@ -355,31 +361,41 @@ export default {
             }
           }
         }
+        > .subtitle-container {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 0.25rem 0.75rem;
+          background-color: black;
+          color: white;
+        }
       }
       > .text-container {
-        position: absolute;
-        top: 0;
-        left: 0;
+        position: relative;
+        width: 100%;
+        padding: 0.5rem 0;
+        background-color: black;
+        color: white;
+        @include bp-md-up {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: auto;
+          margin: 1rem;
+        }
         > .text {
           position: relative;
           max-width: 24rem;
-          margin: 1rem;
-          background-color: rgb(255, 228, 192);
+          margin: 0 1rem;
         }
-      }
-      > .subtitle-container {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 0.25rem 0.75rem;
-        background-color: black;
-        color: white;
       }
 
       &.opening {
         > .text-container {
+          position: absolute;
           top: 50%;
+          left: 0;
           transform: translateY(-50%);
           width: 100%;
           > .text {
@@ -394,17 +410,17 @@ export default {
         }
         &.square {
           > .main-visual-container {
-            position: absolute;
-            width: 50%;
-            height: 100%;
-            margin-left: 1rem;
             > .main-visual {
               position: absolute;
-              width: 100%;
-              height: 0;
-              padding-bottom: 100%;
               top: 50%;
+              right: auto;
+              bottom: auto;
+              left: auto;
               transform: translateY(-50%);
+              width: 50%;
+              height: 0;
+              padding-bottom: 50%;
+              margin-left: 1rem;
             }
           }
           > .text-container {

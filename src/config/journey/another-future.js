@@ -1,3 +1,7 @@
+const defaultDarkBackgroundColor = '#333'
+const defaultLightTextColor = '#efefef'
+const defaultLightBackgroundColor = '#efefef'
+const defaultDarkTextColor = '#333'
 export default {
   sequence: {
     autoplay: false,
@@ -8,27 +12,38 @@ export default {
         date: 'countdown'
       },
       styles: {
-        title: {},
-        description: {},
+        mainVisualContainer: {
+          background: {
+            color: defaultDarkBackgroundColor
+          }
+        },
+        textContainer: {
+          text: {
+            color: defaultLightTextColor
+          },
+          background: {
+            color: defaultDarkBackgroundColor
+          }
+        },
         subtitle: {},
         options: {
           text: {
             align: 'center',
             size: '1rem',
-            color: 'black'
+            color: defaultDarkTextColor
           },
           background: {
-            color: 'white',
+            color: defaultLightBackgroundColor,
             opacity: 1
           }
         },
         visualTags: {
           border: {
             width: '2px',
-            color: 'white'
+            color: defaultLightBackgroundColor
           },
           text: {
-            color: 'black'
+            color: defaultDarkTextColor
           }
         }
       }
@@ -109,10 +124,10 @@ export default {
           styles: {
             labels: {
               text: {
-                color: 'white'
+                color: defaultLightTextColor
               },
               background: {
-                color: 'black',
+                color: defaultDarkBackgroundColor,
                 opacity: 1
               }
             },
@@ -122,15 +137,17 @@ export default {
               text: {
                 align: 'center',
                 size: '1rem',
-                color: 'white'
+                color: defaultLightTextColor
               },
               background: {
-                color: 'black',
+                color: defaultDarkBackgroundColor,
                 opacity: 0.5
               }
             },
             tags: {
-              background: 'black'
+              background: {
+                color: defaultDarkBackgroundColor
+              }
             }
           }
         }
