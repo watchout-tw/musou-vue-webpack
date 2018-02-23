@@ -30,10 +30,10 @@ export default {
           text: {
             align: 'center',
             size: '1rem',
-            color: defaultDarkTextColor
+            color: 'black'
           },
           background: {
-            color: defaultLightBackgroundColor,
+            color: 'white',
             opacity: 1
           }
         },

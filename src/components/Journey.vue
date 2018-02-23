@@ -435,9 +435,19 @@ export default {
     }
     > .control-panel {
       position: absolute;
-      bottom: 0;
+      top: 100vw;
+      transform: translateY(-65%);
+      @include bp-sm-up {
+        top: 75vw;
+      }
+      @include bp-md-up {
+        top: 66.66666667vw;
+      }
+      @include bp-lg-up {
+        top: 56.25vw;
+      }
       right: 0;
-      margin: 1rem;
+      margin: 0 1rem;
       > .previous,
       > .next,
       > .option {
