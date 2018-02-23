@@ -175,18 +175,6 @@ export default {
         ]
       },
       {
-        id: 'the-dance',
-        classes: ['wide'],
-        title: 'NGC 3621',
-        description: 'Far beyond the local group of galaxies lies NGC 3621, some 22 million light-years away. Found in the multi-headed southern constellation Hydra, the winding spiral arms of this gorgeous island universe are loaded with luminous blue star clusters, pinkish starforming regions, and dark dust lanes.',
-        mainVisual: {
-          type: 'image',
-          url: 'placeholders/NGC3621-.jpg',
-          width: 1024,
-          height: 952
-        }
-      },
-      {
         id: 'a-square-scene',
         classes: ['square'],
         date: '1945-01-01',
@@ -207,13 +195,19 @@ export default {
         description: 'Lorem ipsum.',
         options: [
           {
-            label: 'Let’s dance.',
+            label: '🌌',
             action: 'goto',
-            target: 'the-dance'
+            target: 'gallaxy'
           },
           {
-            label: '繼續',
-            action: 'next'
+            label: '🌞',
+            action: 'goto',
+            target: 'solarpunk'
+          },
+          {
+            label: '🤷‍',
+            action: 'goto',
+            target: 'closing'
           }
         ],
         mainVisual: {
@@ -222,18 +216,44 @@ export default {
           width: 1080,
           height: 871,
           magnify: false
+        },
+        default: {
+          styles: {
+            options: {
+              text: {
+                size: '2rem',
+                leading: '1.25rem' // for emoji
+              }
+            }
+          }
         }
       },
       {
-        id: 'some-other-scene',
+        id: 'gallaxy',
         classes: ['wide'],
-        title: '測試一下',
+        title: 'NGC 3621',
+        description: 'Far beyond the local group of galaxies lies NGC 3621, some 22 million light-years away. Found in the multi-headed southern constellation Hydra, the winding spiral arms of this gorgeous island universe are loaded with luminous blue star clusters, pinkish starforming regions, and dark dust lanes.',
+        mainVisual: {
+          type: 'image',
+          url: 'placeholders/NGC3621-.jpg',
+          width: 1024,
+          height: 952
+        },
+        prev: 'a-sample-fork-scene',
+        next: 'closing'
+      },
+      {
+        id: 'solarpunk',
+        classes: ['wide'],
+        title: 'Solarpunk',
         mainVisual: {
           type: 'image',
           url: 'placeholders/53vTbZFz.jpg',
           width: 1080,
           height: 720
-        }
+        },
+        prev: 'a-sample-fork-scene',
+        next: 'closing'
       },
       {
         id: 'closing',
@@ -245,7 +265,8 @@ export default {
           width: 1364,
           height: 668,
           magnify: false
-        }
+        },
+        prev: 'a-sample-fork-scene'
       }
     ] // end of scenes
   },

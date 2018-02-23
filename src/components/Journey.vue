@@ -190,6 +190,9 @@ export default {
         if(styles.text.color) {
           styles.color = styles.text.color
         }
+        if(styles.text.leading) {
+          styles.lineHeight = styles.text.leading
+        }
       }
       if(styles.border && typeof styles.border === 'object') {
         if(styles.border.width) {
@@ -240,7 +243,21 @@ export default {
       }
     },
     advanceScene(delta) {
-      this.activeSceneIndex = (this.activeSceneIndex + this.scenes.length + delta) % this.scenes.length
+      var nextSceneIndex = (this.activeSceneIndex + this.scenes.length + delta) % this.scenes.length
+      var targetSceneID = null
+      var targetSceneIndex = -1
+      if(delta < 0 && this.activeScene.hasOwnProperty('prev')) {
+        targetSceneID = this.activeScene.prev
+      } else if(delta > 0 && this.activeScene.hasOwnProperty('next')) {
+        targetSceneID = this.activeScene.next
+      }
+      if(targetSceneID) {
+        targetSceneIndex = this.sceneIDs.indexOf(targetSceneID)
+        if(targetSceneIndex > -1) {
+          nextSceneIndex = targetSceneIndex
+        }
+      }
+      this.activeSceneIndex = nextSceneIndex
     },
     fork(action, target) {
       if(action === 'goto') {
@@ -374,7 +391,7 @@ export default {
       > .text-container {
         position: relative;
         width: 100%;
-        padding: 0.5rem 0;
+        padding: 1rem 0;
         background-color: black;
         color: white;
         @include bp-md-up {
@@ -472,10 +489,13 @@ export default {
         @include arrow(1.25rem, right);
       }
       > .option {
+        min-width: 4rem;
+        max-height: 4rem;
         padding: 1.5rem 1rem;
         border-radius: 2rem;
         line-height: 1;
         font-weight: bold;
+        text-align: center;
         &:not(:last-child) {
           margin-right: 0.5rem;
         }
