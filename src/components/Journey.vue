@@ -105,7 +105,15 @@ export default {
         status: 'inactive',
         config: {
           tokenInterval: 150,
-          lineInterval: 1000
+          lineInterval: 1000,
+          styles: {
+            background: {
+              color: 'black'
+            },
+            text: {
+              color: 'white'
+            }
+          }
         }
       }
     }

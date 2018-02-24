@@ -1,6 +1,6 @@
 <template>
 <div class="subtitling-machine">
-  <div v-if="lineText" class="line">{{ lineText }}</div>
+  <div v-if="lineText" class="line"><span :style="textStyles">{{ lineText }}</span></div>
 </div>
 </template>
 
@@ -19,6 +19,12 @@ export default {
     }
   },
   computed: {
+    textStyles() {
+      return {
+        backgroundColor: this.config.styles.background.color,
+        color: this.config.styles.text.color
+      }
+    },
     isEmpty() {
       return this.lines ? this.lines.length < 1 : true
     },
@@ -73,10 +79,15 @@ export default {
 
 <style lang="scss">
 .subtitling-machine {
+  margin: 0 1rem;
   > .line {
-    padding: 0.25rem 0.75rem;
-    background-color: black;
-    color: white;
+    line-height: 1.5rem;
+    > span {
+      padding: 0.25rem 0.5rem;
+      box-decoration-break: clone;
+      background-color: black;
+      color: white;
+    }
   }
 }
 </style>
