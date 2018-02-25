@@ -82,10 +82,10 @@ export default {
           '總算不再是殖民地',
           '台灣人能做自己的主人了吧？'
         ],
-        media: [
+        media: [ // Use external URL
           {
             type: 'audio',
-            url: 'another-future/Imperial_Rescript_on_the_Termination_of_the_War.ogg',
+            url: 'https://watchout.tw/musou-aux/modern-history-of-taiwan/Imperial_Rescript_on_the_Termination_of_the_War.ogg',
             autoplay: true
           }
         ],

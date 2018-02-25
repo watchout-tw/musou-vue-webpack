@@ -2,6 +2,12 @@
 <article class="journey">
   <div class="sequence">
     <div class="scene" :class="activeSceneClasses">
+      <div class="media-container" v-if="activeScene.media">
+        <template v-for="media of activeScene.media">
+          <audio v-if="media.type === 'audio'" :src="media.url" :autoplay="media.autoplay"></audio>
+        </template>
+
+      </div>
       <div class="main-visual-container" :style="mainVisualContainerStyles">
         <div class="main-visual" v-if="mainVisual" :class="mainVisual.type">
           <template v-if="mainVisual.type === 'image'">
@@ -391,7 +397,9 @@ export default {
       position: relative;
       display: block;
       overflow: hidden;
-
+      > .media-container {
+        visibility: hidden;
+      }
       > .main-visual-container {
         position: relative;
         display: block;
