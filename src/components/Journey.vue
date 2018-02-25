@@ -20,9 +20,10 @@
       </div>
       <div class="text-container" :style="textContainerStyles">
         <div class="text">
+          <div class="date" v-if="activeScene.date"><span>{{ activeSceneDateString }}</span><span v-if="sequence.default.toggles.showCountdown" class="countdown">{{ activeSceneCountDown }}</span></div>
           <template v-if="activeScene.title">
-            <h1 v-if="activeSceneClasses.includes('opening')" class="small"><span>{{ activeScene.title }}</span></h1>
-            <h2 v-else class="small"><span>{{ activeScene.title }}</span></h2>
+            <h1 v-if="activeSceneClasses.includes('opening')" class="title small"><span>{{ activeScene.title }}</span></h1>
+            <h2 v-else class="title small"><span>{{ activeScene.title }}</span></h2>
           </template>
           <div class="paragraphs" v-if="activeScene.description" v-html="markdown(activeScene.description)"></div>
         </div>
@@ -144,6 +145,21 @@ export default {
     },
     activeSceneClasses() {
       return this.activeScene.classes
+    },
+    activeSceneDate() {
+      return new Date(this.activeScene.date)
+    },
+    activeSceneDateString() {
+      return this.activeSceneDate.getFullYear() + '年' + (this.activeSceneDate.getMonth() + 1) + '月' + this.activeSceneDate.getDate() + '日'
+    },
+    activeSceneCountDown() {
+      var result = null
+      if(this.sequence.endDate) {
+        const endDate = new Date(this.sequence.endDate)
+        const oneDay = 24 * 60 * 60 * 1000
+        result = Math.round((this.activeSceneDate.getTime() - endDate.getTime()) / (oneDay))
+      }
+      return result
     },
     mainVisual() {
       return this.activeScene.hasOwnProperty('mainVisual') ? this.activeScene.mainVisual : undefined
@@ -439,8 +455,6 @@ export default {
         position: relative;
         width: 100%;
         padding: 1rem 0;
-        background-color: black;
-        color: white;
         @include bp-md-up {
           position: absolute;
           top: 0;
@@ -448,10 +462,43 @@ export default {
           width: auto;
           margin: 1rem;
         }
+        @mixin subtitle-esque {
+          display: inline;
+          padding: 0.25rem 0.5rem;
+          box-decoration-break: clone;
+          background-color: black;
+          color: white;
+        }
         > .text {
           position: relative;
           max-width: 24rem;
           margin: 0 1rem;
+          > .date {
+            margin-bottom: 1rem;
+            > span {
+              @include subtitle-esque;
+              &.countdown {
+                color: $color-nice-grey;
+              }
+            }
+          }
+          > .title {
+            > span {
+              @include subtitle-esque;
+            }
+          }
+          > .paragraphs {
+            &:first-child {
+              margin-top: 0;
+            }
+            &:last-child {
+              margin-bottom: 0;
+            }
+            > p {
+              display: inline;
+              @include subtitle-esque;
+            }
+          }
         }
       }
 
