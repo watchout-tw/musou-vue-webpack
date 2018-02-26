@@ -361,14 +361,17 @@ export default {
       const audioElement = document.getElementById('background-audio-player')
       if(this.getSceneIndexFromID(this.backgroundAudio.playAtScene) === targetSceneIndex && !this.backgroundAudio.playing) {
         this.playAudio(audioElement)
-        this.activeSceneIndex = targetSceneIndex
         this.backgroundAudio.playing = true
       } else if(this.backgroundAudio.playing) {
         this.fadeOutAudio(audioElement, () => {
           this.activeSceneIndex = targetSceneIndex
           this.backgroundAudio.playing = false
         })
+        return // do not change scene until fade is complete
       }
+
+      // change scene
+      this.activeSceneIndex = targetSceneIndex
     }
   },
   mounted() {
