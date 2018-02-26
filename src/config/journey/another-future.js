@@ -187,7 +187,7 @@ export default {
         id: '1945-12-27',
         classes: ['wide'],
         date: '1945-12-27',
-        description: '1945-12-27',
+        description: '檢察官有偵查犯罪和維持社會安寧之責，今已光復，日籍檢察官總算去職，首席檢察官雖不是台籍人士，但至少是同胞。之後願能多聘用本省法律人士。',
         mainVisual: {
           type: 'image',
           url: 'another-future/1945-12-27.png',
