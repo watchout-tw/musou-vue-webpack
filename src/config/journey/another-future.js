@@ -128,8 +128,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1945-10-11.png',
-          width: 3008,
-          height: 1884,
+          width: 3000,
+          height: 2400,
           magnify: false
         }
       },
@@ -141,8 +141,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1945-10-12.png',
-          width: 1416,
-          height: 1650,
+          width: 2000,
+          height: 2200,
           magnify: false
         }
       },
@@ -154,8 +154,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1945-10-18.png',
-          width: 1955,
-          height: 1840,
+          width: 2400,
+          height: 2000,
           magnify: false
         }
       },
@@ -167,8 +167,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1945-10-28.png',
-          width: 1050,
-          height: 1286,
+          width: 1600,
+          height: 2000,
           magnify: false
         }
       },
@@ -180,8 +180,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1945-11-15.png',
-          width: 1452,
-          height: 858,
+          width: 2200,
+          height: 1800,
           magnify: false
         }
       },
@@ -194,7 +194,7 @@ export default {
           type: 'image',
           url: 'another-future/1945-12-27.png',
           width: 2280,
-          height: 886,
+          height: 1800,
           magnify: false
         }
       },
@@ -206,8 +206,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-01-18.png',
-          width: 1620,
-          height: 1690,
+          width: 2000,
+          height: 2000,
           magnify: false
         }
       },
@@ -219,8 +219,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-02-12.png',
-          width: 1626,
-          height: 1772,
+          width: 1800,
+          height: 2000,
           magnify: false
         }
       },
@@ -232,8 +232,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-02-21.png',
-          width: 1670,
-          height: 1296,
+          width: 2200,
+          height: 1800,
           magnify: false
         }
       },
@@ -245,8 +245,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-03-16.png',
-          width: 1408,
-          height: 1535,
+          width: 2000,
+          height: 2000,
           magnify: false
         }
       },
@@ -258,8 +258,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-03-30.png',
-          width: 1990,
-          height: 1684,
+          width: 2200,
+          height: 2000,
           magnify: false
         }
       },
@@ -271,8 +271,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-03-31.png',
-          width: 1182,
-          height: 1352,
+          width: 1600,
+          height: 2000,
           magnify: false
         }
       },
@@ -284,8 +284,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-04-06.png',
-          width: 1224,
-          height: 882,
+          width: 1800,
+          height: 1800,
           magnify: false
         }
       },
@@ -298,7 +298,7 @@ export default {
           type: 'image',
           url: 'another-future/1946-04-16.png',
           width: 1918,
-          height: 1294,
+          height: 1600,
           magnify: false
         }
       },
@@ -310,8 +310,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-04-19.png',
-          width: 1312,
-          height: 1326,
+          width: 2000,
+          height: 2000,
           magnify: false
         }
       },
@@ -323,8 +323,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-05-07.png',
-          width: 1734,
-          height: 1310,
+          width: 2020,
+          height: 1600,
           magnify: false
         }
       },
@@ -336,8 +336,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-07-14.png',
-          width: 1600,
-          height: 1780,
+          width: 2000,
+          height: 2000,
           magnify: false
         }
       },
@@ -376,7 +376,7 @@ export default {
           type: 'image',
           url: 'another-future/1946-10-14.png',
           width: 1992,
-          height: 1570,
+          height: 2000,
           magnify: false
         }
       },
@@ -414,8 +414,8 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-11-26.png',
-          width: 1428,
-          height: 1174,
+          width: 1800,
+          height: 1600,
           magnify: false
         }
       },
@@ -423,12 +423,12 @@ export default {
         id: '1947-02-12',
         classes: ['wide'],
         date: '1947-02-12',
-        description: '專賣事業反倒成圖利私人的工具，專賣公司內又多是外省人，薪資比縣市長還高，台灣人要去哪呢？王育霖不當檢察官了嗎？',
+        description: '專賣事業反倒成圖利私人的工具，專賣公司內又多是外省人，薪資比縣市長還高，台灣人要去哪呢？',
         mainVisual: {
           type: 'image',
           url: 'another-future/1947-02-12.png',
-          width: 2116,
-          height: 2396,
+          width: 2022,
+          height: 1800,
           magnify: false
         }
       },
@@ -441,7 +441,7 @@ export default {
           type: 'image',
           url: 'another-future/1947-02-26.png',
           width: 2524,
-          height: 1704,
+          height: 2000,
           magnify: false
         }
       },
@@ -453,7 +453,7 @@ export default {
         mainVisual: {
           type: 'image',
           url: 'another-future/1947-02-28.png',
-          width: 1448,
+          width: 2000,
           height: 1920,
           magnify: false
         }
