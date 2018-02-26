@@ -200,7 +200,7 @@ export default {
         id: '1946-01-18',
         classes: ['wide'],
         date: '1946-01-18',
-        description: '1946-01-18',
+        description: '要作選出代表的準備，選出代表台灣人自己民意的代表。看來亦有不少推事、檢察官由台人擔當，甚好。',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-01-18.png',
@@ -213,7 +213,7 @@ export default {
         id: '1946-02-12',
         classes: ['wide'],
         date: '1946-02-12',
-        description: '1946-02-12',
+        description: '竟有公務員搭火車不買票，以前不曾見過。據說這是外省人帶來的作風，盼能改進。明明戰爭已經結束，怎麼米價還一直漲，比三個月前高了三倍。',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-02-12.png',
@@ -226,7 +226,7 @@ export default {
         id: '1946-02-21',
         classes: ['wide'],
         date: '1946-02-21',
-        description: '1946-02-21',
+        description: '怎麼連首席檢察官也在走私，怪不得物價飛漲。許久不見的天花病出現了，過去「種痘防疫」的政策取消了嗎？',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-02-21.png',
@@ -239,7 +239,7 @@ export default {
         id: '1946-03-16',
         classes: ['wide'],
         date: '1946-03-16',
-        description: '1946-03-16',
+        description: '人才輩出，一時之選。',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-03-16.png',
@@ -252,7 +252,7 @@ export default {
         id: '1946-03-30',
         classes: ['wide'],
         date: '1946-03-30',
-        description: '1946-03-30',
+        description: '大報紙居然把大畫家陳澄波的名字給寫錯，來寫封信要求訂正一下。',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-03-30.png',
@@ -265,7 +265,7 @@ export default {
         id: '1946-03-31',
         classes: ['wide'],
         date: '1946-03-31',
-        description: '1946-03-31',
+        description: '日本政府殖民台灣五十年，壓榨了台灣人民不少財產，日產清查一定得公平，千萬不能交給人格品行有疑者。',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-03-31.png',
