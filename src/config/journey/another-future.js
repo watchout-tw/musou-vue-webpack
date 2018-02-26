@@ -278,7 +278,7 @@ export default {
         id: '1946-04-06',
         classes: ['wide'],
         date: '1946-04-06',
-        description: '1946-04-06',
+        description: '專賣局查緝私煙查到自己口袋裡，一個股長就可以貪污敲詐超過十萬元，惡劣！',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-04-06.png',
@@ -291,7 +291,7 @@ export default {
         id: '1946-04-16',
         classes: ['wide'],
         date: '1946-04-16',
-        description: '1946-04-16',
+        description: '王添灯從市參議員選上省參議員了，更上一層樓！',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-04-16.png',
@@ -304,7 +304,7 @@ export default {
         id: '1946-04-19',
         classes: ['wide'],
         date: '1946-04-19',
-        description: '1946-04-19',
+        description: '原來我們的參議會權力只有這樣，難怪「議而不決，決而不行」。政府支出又被公務員津貼補助佔了一大款，「爾俸爾祿，民脂民膏」，為政者得要苦民所苦啊！',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-04-19.png',
@@ -317,7 +317,7 @@ export default {
         id: '1946-05-07',
         classes: ['wide'],
         date: '1946-05-07',
-        description: '1946-05-07',
+        description: '買教科書的錢竟被挪去走私，但官員怎是答非所問，莫名其妙。又各縣市預算收入僅有一億餘元，支出卻逾九億，錢哪來？',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-05-07.png',
@@ -330,7 +330,7 @@ export default {
         id: '1946-07-14',
         classes: ['wide'],
         date: '1946-07-14',
-        description: '1946-07-14',
+        description: '捐給孩童的糧食居然被市府人員私吞，負責本案的王育霖檢察官據說是台灣人，應要為台人討公道。',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-07-14.png',
@@ -343,7 +343,7 @@ export default {
         id: '1946-07-16',
         classes: ['wide'],
         date: '1946-07-16',
-        description: '1946-07-16',
+        description: '貪污瀆職公務員橫行，媒體據實報導還來信恐嚇，《民報》用整版貪污事件回擊真是痛快！',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-07-16.png',
@@ -356,7 +356,7 @@ export default {
         id: '1946-08-13',
         classes: ['wide'],
         date: '1946-08-13',
-        description: '1946-08-13',
+        description: '王育霖檢察官果然有膽識，直接帶憲兵和法警到市府訊問貪瀆官員，這些貪官還四處嚷嚷說市府被憲兵包圍，真不要臉。',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-08-13.png',
@@ -369,7 +369,7 @@ export default {
         id: '1946-10-14',
         classes: ['wide'],
         date: '1946-10-14',
-        description: '1946-10-14',
+        description: '全台建設百廢待舉，反先去籌獻金一億元建館慶祝蔣介石六十歲生日，荒謬！',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-10-14.png',
@@ -382,7 +382,7 @@ export default {
         id: '1946-10-16',
         classes: ['wide'],
         date: '1946-10-16',
-        description: '1946-10-16',
+        description: '陳儀說什麼寬大仁愛是中國人長處，要台人成為地道的中國人，這不就是要我們也一起做事隨便嗎？',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-10-16.png',
@@ -395,7 +395,7 @@ export default {
         id: '1946-11-18',
         classes: ['wide'],
         date: '1946-11-18',
-        description: '1946-11-18',
+        description: '警察打傷殺害法院法警又拘留其他當事人，法官、檢察官都已經同意保釋，為何還不放人？又不是古代衙門，縣長難道可以說押人就押人？',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-11-18.png',
@@ -408,7 +408,7 @@ export default {
         id: '1946-11-26',
         classes: ['wide'],
         date: '1946-11-26',
-        description: '1946-11-26',
+        description: '媒體報導警察開槍亂打人，社長居然被告上法庭成筆禍。已是參議員的王添灯先生還因此官司纏身，殖民政府都不至如此。',
         mainVisual: {
           type: 'image',
           url: 'another-future/1946-11-26.png',
@@ -421,7 +421,7 @@ export default {
         id: '1947-02-12',
         classes: ['wide'],
         date: '1947-02-12',
-        description: '1947-02-12',
+        description: '專賣事業反倒成圖利私人的工具，專賣公司內又多是外省人，薪資比縣市長還高，台灣人要去哪呢？王育霖不當檢察官了嗎？',
         mainVisual: {
           type: 'image',
           url: 'another-future/1947-02-12.png',
@@ -434,7 +434,7 @@ export default {
         id: '1947-02-26',
         classes: ['wide'],
         date: '1947-02-26',
-        description: '1947-02-26',
+        description: '過去殖民時期臺灣人被壓榨的財富都歸到了日產，現在被盜賣又不追究，跟殖民政府有何異？王育霖不當檢察官了嗎？',
         mainVisual: {
           type: 'image',
           url: 'another-future/1947-02-26.png',
@@ -447,7 +447,7 @@ export default {
         id: '1947-02-28',
         classes: ['wide'],
         date: '1947-02-28',
-        description: '1947-02-28',
+        description: '這政府不只是謀財，還來害命，實在可惡！今日聽聞眾人將到行政長官公署前討公道，得一起去才行。',
         mainVisual: {
           type: 'image',
           url: 'another-future/1947-02-28.png',
