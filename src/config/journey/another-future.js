@@ -713,16 +713,20 @@ export default {
         },
         visualTags: [
           {
-            width: 128,
-            height: 382,
-            x: 12,
-            y: 183,
-            styles: {
-              background: {
-                color: 'yellow',
-                opacity: 0.25
-              }
-            }
+            width: 72,
+            height: 192,
+            x: 1628,
+            y: 656,
+            visible: true,
+            click: 'revealUnder'
+          },
+          {
+            width: 78,
+            height: 254,
+            x: 1272,
+            y: 278,
+            visible: true,
+            click: 'revealUnder'
           },
           {
             width: 316,
@@ -790,6 +794,22 @@ export default {
           magnify: false
         },
         visualTags: [
+          {
+            width: 64,
+            height: 128,
+            x: 1542,
+            y: 145,
+            visible: true,
+            click: 'revealUnder'
+          },
+          {
+            width: 64,
+            height: 128,
+            x: 1076,
+            y: 584,
+            visible: true,
+            click: 'revealUnder'
+          },
           {
             width: 212,
             height: 372,
