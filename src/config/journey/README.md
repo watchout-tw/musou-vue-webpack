@@ -21,7 +21,8 @@
       width
       height
       content
-      click: 'getCloser'
+      visible
+      click: 'getCloser' OR 'revealUnder'
     }
   ]
   subtitle: []

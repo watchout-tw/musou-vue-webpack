@@ -10,7 +10,7 @@
           </template>
         </div>
         <div class="visual-tags" v-if="activeScene.visualTags" :style="visualTagContainerStyles">
-          <div v-for="tag of activeScene.visualTags" class="visual-tag" :style="getPositions('visualTags', tag)" @click="visualTagClick(tag)">
+          <div v-for="tag of activeScene.visualTags" class="visual-tag" :style="Object.assign(getPositions('visualTags', tag), getVisibility(tag))" @click="visualTagClick(tag)">
             <div class="region" :style="Object.assign(getDimensions('visualTags', tag), getStyles('visualTags', tag))"></div>
             <div class="content" :style="" v-if="tag.content">{{ tag.content }}</div>
           </div>
@@ -268,6 +268,14 @@ export default {
       styles.height = data.height * this.zoom + 'px'
       return styles
     },
+    getVisibility(data) {
+      var styles = {}
+      if(data.hasOwnProperty('visible') && data.visible === false) {
+        styles.opacity = 0
+        styles.visibility = 'hidden'
+      }
+      return styles
+    },
     getStyles(name, data = undefined) {
       var styles = {}
       const global = this.sequence.default ? this.sequence.default.styles ? this.sequence.default.styles[name] : undefined : undefined
@@ -345,6 +353,8 @@ export default {
         this.canvas.transformOrigin.x = (tag.x + tag.width / 2) * 100.0 / this.mainVisual.width
         this.canvas.transformOrigin.y = (tag.y + tag.height / 2) * 100.0 / this.mainVisual.height
         this.canvas.transform.scale = this.canvas.transform.scale === 1 ? 2 : 1
+      } else if(tag.click === 'revealUnder') {
+        tag.visible = false
       }
     },
     changeScene(action, target) {
@@ -478,9 +488,9 @@ export default {
           position: absolute;
           > .visual-tag {
             position: absolute;
+            transition: visibility 0s linear 500ms, opacity 500ms;
             > .region {
               border-style: solid;
-              border-radius: 2px;
               cursor: pointer;
             }
             > .content {
