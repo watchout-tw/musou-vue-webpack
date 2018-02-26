@@ -60,13 +60,18 @@ export default {
     prepare() {
       clearInterval(this.tokenTimer)
       this.lineTimer = setTimeout(() => {
-        this.tokenIndex = -1
         this.lineTimer = null
-        this.lineIndex = this.lineIndex + 1 < this.lines.length ? this.lineIndex + 1 : this.lineIndex
-        if(this.lineIndex > -1) {
-          this.play()
-        } else {
+        var nextLineIndex = this.lineIndex + 1
+        if(nextLineIndex >= this.lines.length) {
           this.stop()
+        } else {
+          this.lineIndex = nextLineIndex
+          this.tokenIndex = -1
+          if(this.lineIndex > -1) {
+            this.play()
+          } else {
+            this.stop()
+          }
         }
       }, this.config.lineInterval)
     },
