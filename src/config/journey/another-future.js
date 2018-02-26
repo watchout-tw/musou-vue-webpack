@@ -71,7 +71,7 @@ export default {
       {
         id: 'japanese-surrender-broadcast',
         type: 'audio',
-        url: 'https://watchout.tw/musou-aux/modern-history-of-taiwan/Imperial_Rescript_on_the_Termination_of_the_War.ogg'  // Use external URL
+        url: 'https://watchout.tw/musou-aux/modern-history-of-taiwan/Imperial_Rescript_on_the_Termination_of_the_War-excerpt.mp3' // Use external URL
       }
     ],
     scenes: [

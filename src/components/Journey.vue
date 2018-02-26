@@ -1,9 +1,7 @@
 <template>
 <article class="journey">
   <div class="sequence">
-    <div class="media">
-      <audio id="background-audio-player" :src="nextBackgroundAudioURL"></audio>
-    </div>
+
     <div class="scene" :class="activeSceneClasses">
       <div class="main-visual-container" :style="mainVisualContainerStyles">
         <div class="main-visual" v-if="mainVisual" :class="mainVisual.type">
@@ -33,14 +31,17 @@
       </div>
     </div>
     <div class="control-panel d-flex">
-      <div class="previous" @click="advanceScene(-1)"></div>
+      <div class="previous" @click="changeScene('prev')"></div>
       <template v-if="activeSceneClasses.includes('fork')">
-        <div v-for="option of activeScene.options" class="option" :class="option.type" @click="fork(option.action, option.target)" :style="getStyles('options', option)"><span>{{ option.label }}</span></div>
+        <div v-for="option of activeScene.options" class="option" :class="option.type" @click="changeScene(option.action, option.target)" :style="getStyles('options', option)"><span>{{ option.label }}</span></div>
       </template>
       <template v-else>
-        <div class="next" @click="advanceScene(+1)"></div>
+        <div class="next" @click="changeScene('next')"></div>
       </template>
     </div>
+  </div>
+  <div class="media">
+    <audio id="background-audio-player" :src="backgroundAudio.url"></audio>
   </div>
   <header class="end">
     <div class="text textgroup">
@@ -67,11 +68,12 @@
 <script>
 import knowsMarkdown from '@/interfaces/knowsMarkdown'
 import knowsClasses from '@/interfaces/knowsClasses'
+import knowsAudio from '@/interfaces/knowsAudio'
 import parseColor from 'parse-color'
 import SubtitlingMachine from '@/components/SubtitlingMachine'
 
 export default {
-  mixins: [knowsMarkdown, knowsClasses],
+  mixins: [knowsMarkdown, knowsClasses, knowsAudio],
   metaInfo() {
     return {
       title: `《${this.config.seriesTitle}》${this.config.title}→沃草←國會無雙`,
@@ -120,7 +122,9 @@ export default {
           }
         }
       },
-      backgroundAudioPlayer: {
+      backgroundAudio: {
+        url: null,
+        playAtScene: null,
         playing: false
       }
     }
@@ -131,6 +135,8 @@ export default {
       // reset transformOrigin & transform at change of scene
       this.canvas.transformOrigin.x = this.canvas.transformOrigin.y = 50
       this.canvas.transform.scale = 1
+      // prepare background audio for future playback
+      this.prepareBackgroundAudio()
     }
   },
   updated() {
@@ -160,7 +166,7 @@ export default {
     },
     activeSceneCountDown() {
       var result = null
-      if(this.sequence.endDate) {
+      if(this.activeSceneDate && this.sequence.endDate) {
         const endDate = new Date(this.sequence.endDate)
         const oneDay = 24 * 60 * 60 * 1000
         result = Math.round((this.activeSceneDate.getTime() - endDate.getTime()) / (oneDay))
@@ -172,7 +178,7 @@ export default {
     },
     mainVisualContentStyles() {
       var styles = {}
-      if(this.mainVisual.type === 'image') {
+      if(this.mainVisual && this.mainVisual.type === 'image') {
         if(this.mainVisual.magnify === false) {
           if(this.canvasIsLarger()) {
             // actual size
@@ -197,12 +203,12 @@ export default {
       })
     },
     visualTagContainerStyles() {
-      return {
+      return this.mainVisual ? {
         width: this.mainVisual.width * this.zoom + 'px',
         height: this.mainVisual.height * this.zoom + 'px',
         top: this.offset.top + 'px',
         left: this.offset.left + 'px'
-      }
+      } : {}
     },
     textContainerStyles() {
       return this.getStyles('textContainer')
@@ -216,11 +222,37 @@ export default {
         left: (this.canvas.width - this.actual.width) / 2.0
       }
     },
-    nextBackgroundAudioURL() {
-      return null
+    nextScene() {
+      var index = -1
+      if(this.activeScene.classes.includes('fork')) {
+         // FIXME: TBD
+      } else {
+        index = this.activeScene.hasOwnProperty('next')
+          ? this.getSceneIndexFromID(this.activeScene.next)
+          : (this.activeSceneIndex + this.scenes.length + 1) % this.scenes.length
+      }
+      return index > 0 && index < this.scenes.length ? this.scenes[index] : undefined
+    },
+    backgroundAudioQueue() {
+      return this.scenes
+        .filter(scene => scene.hasOwnProperty('backgroundAudio'))
+        .map(scene => ({
+          audio: this.sequence.media.filter(media => media.id === scene.backgroundAudio.id).pop(),
+          playAtScene: scene.id
+        }))
     }
   },
   methods: {
+    getSceneIndexFromID(id) {
+      return this.sceneIDs.indexOf(id)
+    },
+    prepareBackgroundAudio() {
+      var item = this.backgroundAudioQueue.find(item => this.getSceneIndexFromID(item.playAtScene) > this.activeSceneIndex)
+      if(item) {
+        this.backgroundAudio.url = item.audio.url
+        this.backgroundAudio.playAtScene = item.playAtScene
+      }
+    },
     canvasIsLarger() {
       return this.canvas.width >= this.mainVisual.width && this.canvas.height >= this.mainVisual.height
     },
@@ -315,35 +347,34 @@ export default {
         this.canvas.transform.scale = this.canvas.transform.scale === 1 ? 2 : 1
       }
     },
-    advanceScene(delta) {
-      var nextSceneIndex = (this.activeSceneIndex + this.scenes.length + delta) % this.scenes.length
-      var targetSceneID = null
-      var targetSceneIndex = -1
-      if(delta < 0 && this.activeScene.hasOwnProperty('prev')) {
-        targetSceneID = this.activeScene.prev
-      } else if(delta > 0 && this.activeScene.hasOwnProperty('next')) {
-        targetSceneID = this.activeScene.next
+    changeScene(action, target) {
+      var targetSceneIndex = this.activeSceneIndex
+      if(action === 'next') {
+        targetSceneIndex = this.activeScene.hasOwnProperty('next') ? this.getSceneIndexFromID(this.activeScene.next) : (this.activeSceneIndex + this.scenes.length + 1) % this.scenes.length
+      } else if(action === 'prev') {
+        targetSceneIndex = this.activeScene.hasOwnProperty('prev') ? this.getSceneIndexFromID(this.activeScene.prev) : (this.activeSceneIndex + this.scenes.length - 1) % this.scenes.length
+      } else if(action === 'goto') {
+        targetSceneIndex = this.getSceneIndexFromID(target)
       }
-      if(targetSceneID) {
-        targetSceneIndex = this.sceneIDs.indexOf(targetSceneID)
-        if(targetSceneIndex > -1) {
-          nextSceneIndex = targetSceneIndex
-        }
-      }
-      this.activeSceneIndex = nextSceneIndex
-    },
-    fork(action, target) {
-      if(action === 'goto') {
-        const index = this.sceneIDs.indexOf(target)
-        this.activeSceneIndex = index >= 0 ? index : this.activeSceneIndex
-      } else if(action === 'next') {
-        this.advanceScene(+1)
+
+      // audio.play() *MUST* be involked within a click/touch event handler
+      const audioElement = document.getElementById('background-audio-player')
+      if(this.getSceneIndexFromID(this.backgroundAudio.playAtScene) === targetSceneIndex && !this.backgroundAudio.playing) {
+        this.playAudio(audioElement)
+        this.activeSceneIndex = targetSceneIndex
+        this.backgroundAudio.playing = true
+      } else if(this.backgroundAudio.playing) {
+        this.fadeOutAudio(audioElement, () => {
+          this.activeSceneIndex = targetSceneIndex
+          this.backgroundAudio.playing = false
+        })
       }
     }
   },
   mounted() {
     window.addEventListener('resize', this.setSceneDimensions)
     this.setSceneDimensions()
+    this.prepareBackgroundAudio()
   },
   components: {
     SubtitlingMachine
