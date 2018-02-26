@@ -67,6 +67,13 @@ export default {
         }
       }
     },
+    media: [
+      {
+        id: 'japanese-surrender-broadcast',
+        type: 'audio',
+        url: 'https://watchout.tw/musou-aux/modern-history-of-taiwan/Imperial_Rescript_on_the_Termination_of_the_War.ogg'  // Use external URL
+      }
+    ],
     scenes: [
       {
         id: 'opening',
@@ -82,13 +89,12 @@ export default {
           '總算不再是殖民地',
           '台灣人能做自己的主人了吧？'
         ],
-        media: [ // Use external URL
-          {
-            type: 'audio',
-            url: 'https://watchout.tw/musou-aux/modern-history-of-taiwan/Imperial_Rescript_on_the_Termination_of_the_War.ogg',
+        backgroundAudio: {
+          id: 'japanese-surrender-broadcast',
+          config: {
             autoplay: true
           }
-        ],
+        },
         default: {
           styles: {
             mainVisualContainer: {

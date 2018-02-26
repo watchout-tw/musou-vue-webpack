@@ -1,13 +1,10 @@
 <template>
 <article class="journey">
   <div class="sequence">
+    <div class="media">
+      <audio id="background-audio-player" :src="nextBackgroundAudioURL"></audio>
+    </div>
     <div class="scene" :class="activeSceneClasses">
-      <div class="media-container" v-if="activeScene.media">
-        <template v-for="media of activeScene.media">
-          <audio v-if="media.type === 'audio'" :src="media.url" :autoplay="media.autoplay"></audio>
-        </template>
-
-      </div>
       <div class="main-visual-container" :style="mainVisualContainerStyles">
         <div class="main-visual" v-if="mainVisual" :class="mainVisual.type">
           <template v-if="mainVisual.type === 'image'">
@@ -122,6 +119,9 @@ export default {
             }
           }
         }
+      },
+      backgroundAudioPlayer: {
+        playing: false
       }
     }
     return Object.assign(config, state)
@@ -215,6 +215,9 @@ export default {
         top: (this.canvas.height - this.actual.height) / 2.0,
         left: (this.canvas.width - this.actual.width) / 2.0
       }
+    },
+    nextBackgroundAudioURL() {
+      return null
     }
   },
   methods: {
@@ -397,9 +400,6 @@ export default {
       position: relative;
       display: block;
       overflow: hidden;
-      > .media-container {
-        visibility: hidden;
-      }
       > .main-visual-container {
         position: relative;
         display: block;
