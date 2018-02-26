@@ -62,7 +62,7 @@ export default {
       this.lineTimer = setTimeout(() => {
         this.tokenIndex = -1
         this.lineTimer = null
-        this.lineIndex = this.lineIndex + 1 < this.lines.length ? this.lineIndex + 1 : -1
+        this.lineIndex = this.lineIndex + 1 < this.lines.length ? this.lineIndex + 1 : this.lineIndex
         if(this.lineIndex > -1) {
           this.play()
         } else {
@@ -78,15 +78,14 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../common';
+
 .subtitling-machine {
   margin: 0 1rem;
+  line-height: 1.5;
   > .line {
-    line-height: 1.5rem;
     > span {
-      padding: 0.25rem 0.5rem;
-      box-decoration-break: clone;
-      background-color: black;
-      color: white;
+      @include subtitle-ish
     }
   }
 }

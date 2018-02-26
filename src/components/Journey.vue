@@ -353,6 +353,7 @@ export default {
 
 <style lang="scss">
 @import '~common/src/styles/resources';
+@import '../common';
 
 @mixin arrow($size, $orientation) {
   &:before {
@@ -455,7 +456,7 @@ export default {
         }
         > .subtitle {
           position: absolute;
-          bottom: 0;
+          top: 0.125rem; // FIXME: weird line height issue with the font?
           width: 100%;
         }
       }
@@ -470,13 +471,6 @@ export default {
           width: auto;
           margin: 1rem;
         }
-        @mixin subtitle-esque {
-          display: inline;
-          padding: 0.25rem 0.5rem;
-          box-decoration-break: clone;
-          background-color: black;
-          color: white;
-        }
         > .text {
           position: relative;
           max-width: 24rem;
@@ -484,7 +478,7 @@ export default {
           > .date {
             margin-bottom: 1rem;
             > span {
-              @include subtitle-esque;
+              @include subtitle-ish;
               &.countdown {
                 color: $color-nice-grey;
               }
@@ -492,7 +486,7 @@ export default {
           }
           > .title {
             > span {
-              @include subtitle-esque;
+              @include subtitle-ish(true);
             }
           }
           > .paragraphs {
@@ -504,7 +498,7 @@ export default {
             }
             > p {
               display: inline;
-              @include subtitle-esque;
+              @include subtitle-ish;
             }
           }
         }
