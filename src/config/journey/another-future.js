@@ -53,8 +53,10 @@ export default {
           }
         },
         subtitle: { // INACTIVE
-          x: 'center',
-          y: 'bottom',
+          position: {
+            x: 'center',
+            y: 'center'
+          },
           text: {
             align: 'center',
             size: '1rem',
@@ -71,7 +73,7 @@ export default {
       {
         id: 'japanese-surrender-broadcast',
         type: 'audio',
-        url: 'https://watchout.tw/musou-aux/modern-history-of-taiwan/Imperial_Rescript_on_the_Termination_of_the_War-excerpt.mp3' // Use external URL
+        url: 'https://watchout.tw/musou-aux/modern-history-of-taiwan/Imperial_Rescript_on_the_Termination_of_the_War-excerpt.mp3?l=15s' // Use external URL
       }
     ],
     scenes: [
@@ -480,6 +482,9 @@ export default {
     }
   ],
   references: [
-    '台灣省行政長官公署檔案'
+    '二二八事件紀念基金會',
+    '中研院台灣史研究所台灣日記知識庫',
+    '國立公共資訊圖書館數位典藏服務網',
+    '國史館臺灣文獻館臺灣省行政長官公署檔案'
   ]
 }

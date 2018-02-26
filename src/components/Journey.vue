@@ -111,7 +111,7 @@ export default {
         status: 'inactive',
         config: {
           tokenInterval: 150,
-          lineInterval: 1000,
+          lineInterval: 2000,
           styles: {
             background: {
               color: 'black'
@@ -497,7 +497,9 @@ export default {
         }
         > .subtitle {
           position: absolute;
-          top: 0.125rem; // FIXME: weird line height issue with the font?
+          top: 50%;
+          transform: translateY(-50%);
+          // FIXME: not perfect center due to weird line height issue with the font?
           width: 100%;
         }
       }
