@@ -419,9 +419,13 @@ export default {
   bottom: 0;
   left: 0;
 }
-
 @mixin bp-lg-alt-up {
   @media (min-width: #{$bp-lg-alt}) {
+    @content;
+  }
+}
+@mixin aspect-ratio-wide {
+  @media (min-aspect-ratio: 16/10) {
     @content;
   }
 }
@@ -455,6 +459,9 @@ export default {
           }
           @include bp-lg-up {
             padding-top: 56.25%;
+          }
+          @include aspect-ratio-wide {
+            padding-top: 48%;
           }
         }
 
@@ -592,6 +599,11 @@ export default {
       }
       @include bp-lg-up {
         top: 56.25vw;
+      }
+      @include aspect-ratio-wide {
+        transform: none;
+        top: auto;
+        bottom: 1rem;
       }
       right: 0;
       margin: 0 1rem;
