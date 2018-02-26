@@ -153,10 +153,10 @@ export default {
       return this.activeScene.classes
     },
     activeSceneDate() {
-      return new Date(this.activeScene.date)
+      return this.activeScene.date ? new Date(this.activeScene.date) : undefined
     },
     activeSceneDateString() {
-      return this.activeSceneDate.getFullYear() + '年' + (this.activeSceneDate.getMonth() + 1) + '月' + this.activeSceneDate.getDate() + '日'
+      return this.activeSceneDate ? this.activeSceneDate.getFullYear() + '年' + (this.activeSceneDate.getMonth() + 1) + '月' + this.activeSceneDate.getDate() + '日' : undefined
     },
     activeSceneCountDown() {
       var result = null
