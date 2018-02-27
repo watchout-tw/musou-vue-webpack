@@ -85,12 +85,27 @@ export default {
       {
         id: 'opening',
         classes: ['wide', 'opening'],
-        title: '你不知道你失去了什麼'
+        beforeTitle: '《二二八日記》',
+        title: '你不知道你失去了什麼',
+        mainVisual: {
+          type: 'image',
+          url: 'another-future-dark.jpg',
+          width: 2400,
+          height: 1350,
+          magnify: false
+        }
       },
       {
         id: '1945-08-15',
         classes: ['wide'],
         date: '1945-08-15',
+        mainVisual: {
+          type: 'image',
+          url: 'another-future/radio.png',
+          width: 800,
+          height: 800,
+          magnify: false
+        },
         subtitle: [
           '這就是天皇的聲音？',
           '戰爭終於要結束了嗎？',

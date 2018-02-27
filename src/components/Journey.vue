@@ -22,6 +22,7 @@
       <div class="text-container" :style="textContainerStyles">
         <div class="text">
           <div class="date" v-if="activeScene.date"><span>{{ activeSceneDateString }}</span><span v-if="sequence.default.toggles.showCountdown" class="countdown">{{ activeSceneCountDown }}</span></div>
+          <h3 v-if="activeScene.beforeTitle" class="before-title font-size-body body-style"><span>{{ activeScene.beforeTitle }}</span></h3>
           <template v-if="activeScene.title">
             <h1 v-if="activeSceneClasses.includes('opening')" class="title small"><span>{{ activeScene.title }}</span></h1>
             <h2 v-else class="title small"><span>{{ activeScene.title }}</span></h2>
@@ -48,7 +49,7 @@
       <hgroup>
         <h5>{{ config.seriesTitle }}</h5>
         <span class="zhi">之</span>
-        <h4>{{ config.title }}</h4>
+        <h4 class="d-flex align-items-center"><span v-if="config.beforeTitle" class="before-title font-size-body body-style">{{ config.beforeTitle }}</span><span>{{ config.title }}</span></h4>
       </hgroup>
       <div class="authorship">
         <div class="item d-flex flex-row" v-for="item in authorship"><div class="job">{{ item.job }}</div><div v-for="person in item.people" class="person">{{ person }}</div></div>
@@ -547,6 +548,11 @@ export default {
               &.countdown {
                 color: $color-nice-grey;
               }
+            }
+          }
+          > .before-title {
+            > span {
+              @include subtitle-ish;
             }
           }
           > .title {

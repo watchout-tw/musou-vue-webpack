@@ -141,6 +141,9 @@ article {
           line-height: 1;
           opacity: 0.85;
         }
+        > h4 > .before-title {
+          margin-right: 0.125rem;
+        }
       }
       > .description {
         margin: 1rem 0;

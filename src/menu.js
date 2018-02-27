@@ -8,13 +8,15 @@ exports.default = [
     pages: [
       {
         id: 'another-future',
+        beforeTitle: '《二二八日記》',
         title: '你不知道你失去了什麼',
-        image: 'journey.png',
+        image: 'another-future-light.jpg',
         date: '2018-02-27 20:00:00',
         breaking: true
       }
     ]
   },
+  /*
   {
     id: 'swipe',
     image: 'swipe.png',
@@ -31,6 +33,7 @@ exports.default = [
       }
     ]
   },
+  */
   {
     id: 'qz',
     image: 'qz.png',
