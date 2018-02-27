@@ -283,7 +283,7 @@ export default {
         id: '1945-11-15',
         classes: ['wide'],
         date: '1945-11-15',
-        description: '別的不敢說，台灣人才中醫生和律師最多，政府應該加以錄用。剛接收還未上軌道，但法院應速速開辦，不得拖延才是。',
+        description: '別的不敢說，台灣人才裡，醫生和律師最多，政府應該加以錄用。剛接收還未上軌道，但法院應速速開辦，不得拖延才是。',
         mainVisual: {
           type: 'image',
           url: 'another-future/1945-11-15.png',
