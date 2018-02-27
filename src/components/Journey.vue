@@ -77,7 +77,7 @@ export default {
   mixins: [knowsMarkdown, knowsClasses, knowsAudio],
   metaInfo() {
     return {
-      title: `《${this.config.seriesTitle}》${this.config.title}→沃草←國會無雙`,
+      title: `《${this.config.seriesTitle}》${this.config.beforeTitle ? this.config.beforeTitle : ''}${this.config.title}→沃草←國會無雙`,
       meta: [
         {
           vmid: 'og-image',
