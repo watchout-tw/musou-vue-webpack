@@ -190,6 +190,9 @@ export default {
           // cover
           this.croppingMethod = styles.backgroundSize = 'cover'
         }
+        if(this.mainVisual.blur) {
+          styles.filter = 'blur(4px)'
+        }
         styles.backgroundImage = 'url(' + require('_/' + this.mainVisual.url) + ')'
       }
       return styles
@@ -556,6 +559,10 @@ export default {
             }
           }
           > .title {
+            // FIXME: temporary solution for 10-character title
+            @include bp-xs-down {
+              font-size: 1.75rem;
+            }
             > span {
               @include subtitle-ish(true);
             }
