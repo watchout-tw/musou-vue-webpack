@@ -73,7 +73,7 @@ export default {
       {
         id: 'japanese-surrender-broadcast',
         type: 'audio',
-        url: 'https://watchout.tw/musou-aux/modern-history-of-taiwan/Imperial_Rescript_on_the_Termination_of_the_War-excerpt.mp3' // Use external URL
+        url: 'https://watchout.tw/musou-aux/modern-history-of-taiwan/Imperial_Rescript_on_the_Termination_of_the_War-excerpt.mp3?l=20s' // Use external URL
       },
       {
         id: 'martial-law-declaration-broadcast',
@@ -92,8 +92,7 @@ export default {
         classes: ['wide'],
         date: '1945-08-15',
         subtitle: [
-          '1945年8月15日',
-          '日本天皇廣播接受停戰',
+          '這就是天皇的聲音？',
           '戰爭終於要結束了嗎？',
           '總算不再是殖民地',
           '台灣人能做自己的主人了吧？'
@@ -1351,33 +1350,34 @@ export default {
         ]
       },
       {
-        id: '228-incident',
+        id: '1947-03-09',
         classes: ['wide'],
+        date: '1947-03-09',
         backgroundAudio: {
           id: 'martial-law-declaration-broadcast'
         },
         subtitle: [
-          '2月28日稍晚，陳儀宣布台北戒嚴',
-          '各地菁英陸續開始籌組《二二八事件處理委員會》',
-          '和官方談判如何善後，平定民心',
-          '陳儀一方面和《處理委員會》談判',
-          '一方面和蔣中正要求兵力鎮壓',
-          '3月8日，中國軍隊陸續於基隆、高雄各地登陸',
-          '全面「清鄉」開始',
-          '許多無武裝民眾遭無故槍殺',
-          '許多知識份子開始陸續失蹤⋯'
+          '前幾天，陳儀宣布台北戒嚴',
+          '廣播說不會傷害守法民眾，會保護人民',
+          '大家也正在組成委員會跟陳儀談判',
+          '討論如何讓民眾安心',
+          '這幾日街頭仍不斷傳來間歇的槍聲',
+          '聽說中國兵從基隆上岸',
+          '《民報》也停刊了',
+          '不知道他們還好嗎？'
         ]
       },
       {
-        id: 'closing',
-        classes: ['wide', 'closing'],
-        title: '結語',
+        id: '林茂生',
+        classes: ['square'],
         mainVisual: {
           type: 'image',
-          url: 'journey-background.png',
-          width: 3840,
-          height: 2160
-        }
+          url: 'another-future/林茂生.jpg',
+          width: 800,
+          height: 800,
+          magnify: false
+        },
+        description: '東京大學文學士、美國哥倫比亞大學哲學博士，是臺灣歷史上第一位留美博士。創辦《台灣民報》。二二八事件時，被武裝人員以陳儀長官找談話為由帶走，就再也沒出現過。'
       }
     ] // end of scenes
   },

@@ -166,6 +166,7 @@ export default {
         const endDate = new Date(this.sequence.endDate)
         const oneDay = 24 * 60 * 60 * 1000
         result = Math.round((this.activeSceneDate.getTime() - endDate.getTime()) / (oneDay))
+        result = result > 0 ? '+' + result : result
       }
       return result
     },
@@ -526,18 +527,19 @@ export default {
       > .text-container {
         position: relative;
         width: 100%;
-        padding: 1rem 0;
+        margin: 0;
+        padding: 1rem;
         @include bp-md-up {
           position: absolute;
           top: 0;
           left: 0;
           width: auto;
-          margin: 1rem;
         }
         > .text {
           position: relative;
           max-width: 24rem;
-          margin: 0 1rem;
+          margin: 0;
+          padding: 0;
           > .date {
             margin-bottom: 1rem;
             > span {
@@ -573,20 +575,24 @@ export default {
           top: 50%;
           left: 0;
           transform: translateY(-50%);
+          padding: 0;
+          margin: 0;
           width: 100%;
           > .text {
-            margin: 1rem auto;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            max-width: none;
             text-align: center;
           }
         }
       }
-
-      @include bp-sm-up {
-        &.wide {
-        }
-        &.square {
-          > .main-visual-container {
-            > .main-visual {
+      &.wide {
+      }
+      &.square {
+        > .main-visual-container {
+          > .main-visual {
+            @include bp-sm-up {
               position: absolute;
               top: 50%;
               right: auto;
@@ -596,15 +602,23 @@ export default {
               width: 50%;
               height: 0;
               padding-bottom: 50%;
-              margin-left: 1rem;
+            }
+            @include bp-md-up {
+              margin-left: 2.5%;
             }
           }
-          > .text-container {
+        }
+        > .text-container {
+          @include bp-sm-up {
             position: absolute;
             top: 50%;
-            left: 50%;
-            margin-left: 1rem;
             transform: translateY(-50%);
+            left: 50%;
+            width: 50%;
+          }
+          @include bp-md-up {
+            left: 52.5%;
+            width: 45%;
           }
         }
       }
