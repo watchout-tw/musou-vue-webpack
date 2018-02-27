@@ -298,7 +298,7 @@ export default {
         id: '1945-11-15',
         classes: ['wide'],
         date: '1945-11-15',
-        description: '別的不敢說，台灣人才中醫生和律師最多，政府應該加以錄用。剛接收還未上軌道，但法院應速速開辦，不得拖延才是。',
+        description: '別的不敢說，台灣人才裡，醫生和律師最多，政府應該加以錄用。剛接收還未上軌道，但法院應速速開辦，不得拖延才是。',
         mainVisual: {
           type: 'image',
           url: 'another-future/1945-11-15.png',
@@ -1393,7 +1393,115 @@ export default {
           magnify: false
         },
         description: '東京大學文學士、美國哥倫比亞大學哲學博士，是臺灣歷史上第一位留美博士。創辦《台灣民報》。二二八事件時，被武裝人員以陳儀長官找談話為由帶走，就再也沒出現過。'
-      }
+      },
+      {
+        id: '施江南',
+        classes: ['square'],
+        mainVisual: {
+          type: 'image',
+          url: 'another-future/施江南.jpg',
+          width: 800,
+          height: 800,
+          magnify: false
+        },
+        description: '東京大學醫學博士，是第二位拿到醫學博士的台灣人。二二八事件時臥病在床，被軍人從醫院帶走後失蹤。'
+      },
+      {
+        id: '陳炘',
+        classes: ['square'],
+        mainVisual: {
+          type: 'image',
+          url: 'another-future/陳炘.jpg',
+          width: 800,
+          height: 800,
+          magnify: false
+        },
+        description: '美國哥倫比亞大學經濟學博士，創設日治時期第一家台灣人經營的金融機構「大東信託」。二二八事件時，擔任臺灣信託公司董事長，被軍隊逮捕後遭到處死。'
+      },
+      {
+        id: '黃朝生',
+        classes: ['square'],
+        mainVisual: {
+          type: 'image',
+          url: 'another-future/黃朝生.jpg',
+          width: 800,
+          height: 800,
+          magnify: false
+        },
+        description: '醫師，日治時期時曾因抗日被捕，戰後籌組「臺灣省政治建設協會」，第一屆台北市參議員。二二八事件時，被陳儀列為叛亂首謀，被私下處決。'
+      },
+      {
+        id: '林界',
+        classes: ['square'],
+        mainVisual: {
+          type: 'image',
+          url: 'another-future/林界.jpg',
+          width: 800,
+          height: 800,
+          magnify: false
+        },
+        description: '《台灣新生報》高雄印刷廠廠長，第一屆高雄市苓雅區區長。二二八事件時，至高雄壽山要塞司令部和彭孟緝談判，要求約束軍人行為，後被以「暴徒首犯」為由處決。'
+      },
+      {
+        id: '吳鴻麒',
+        classes: ['square'],
+        mainVisual: {
+          type: 'image',
+          url: 'another-future/吳鴻麒.jpg',
+          width: 800,
+          height: 800,
+          magnify: false
+        },
+        description: '曾任台北地方法院和高等法院法官，戰後因辦理「員林事件」得罪警方。二二八事件爆發後，在法院處理公文時被帶走，多日之後屍體於台北南港橋下被發現。姪子吳伯雄曾任中國國民黨主席。'
+      },
+      {
+        id: '楊元丁',
+        classes: ['square'],
+        mainVisual: {
+          type: 'image',
+          url: 'another-future/楊元丁.jpg',
+          width: 800,
+          height: 800,
+          magnify: false
+        },
+        description: '日治時期曾因抗日被捕，戰後籌組「臺灣省政治建設協會」，第一屆基隆市參議員、副議長。二二八事件時失蹤，多日之後遺體於基隆海邊被尋獲。'
+      },
+      {
+        id: '王添灯',
+        classes: ['square'],
+        mainVisual: {
+          type: 'image',
+          url: 'another-future/王添灯.jpg',
+          width: 800,
+          height: 800,
+          magnify: false
+        },
+        description: '第一屆台北市參議員、台灣省參議員，《人民導報》社長，三民主義青年團臺北分團主任。戰後多次於議會或報紙抨擊當局貪污腐敗，遭當局控告。二二八事件時被逮捕，遭私下處決。'
+      },
+      {
+        id: '王育霖',
+        classes: ['square'],
+        mainVisual: {
+          type: 'image',
+          url: 'another-future/王育霖.jpg',
+          width: 800,
+          height: 800,
+          magnify: false
+        },
+        description: '東京大學法律系畢業，戰後曾任新竹地檢署檢察官。曾於調查新竹市長貪瀆案件時倍受打壓，後辭任檢察官，擔任《台灣民報》法律顧問。二二八事件時，被拘捕於西本願寺、遭受刑求，後被處死。'
+      },
+      {
+        id: '陳澄波',
+        classes: ['square'],
+        mainVisual: {
+          type: 'image',
+          url: 'another-future/陳澄波.jpg',
+          width: 800,
+          height: 800,
+          magnify: false
+        },
+        description: '台灣知名畫家，東京美術學校研究所畢業，第一屆嘉義市參議員。二二八事件時，至嘉義水上機場與軍隊談判卻遭逮捕，後未經審判於嘉義車站前被槍決。'
+      },
     ] // end of scenes
   },
   authorship: [
