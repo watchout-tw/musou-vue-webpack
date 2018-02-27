@@ -1,7 +1,6 @@
 <template>
 <article class="journey">
   <div class="sequence">
-
     <div class="scene" :class="activeSceneClasses">
       <div class="main-visual-container" :style="mainVisualContainerStyles">
         <div class="main-visual" v-if="mainVisual" :class="mainVisual.type">
@@ -77,7 +76,7 @@ export default {
   mixins: [knowsMarkdown, knowsClasses, knowsAudio],
   metaInfo() {
     return {
-      title: `《${this.config.seriesTitle}》${this.config.beforeTitle ? this.config.beforeTitle : ''}${this.config.title}→沃草←國會無雙`,
+      title: `${this.config.beforeTitle}${this.config.title}→沃草←國會無雙`,
       meta: [
         {
           vmid: 'og-image',
