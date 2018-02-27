@@ -10,7 +10,7 @@
           </template>
         </div>
         <div class="visual-tags" v-if="activeScene.visualTags" :style="visualTagContainerStyles">
-          <div v-for="tag of activeScene.visualTags" class="visual-tag" :style="Object.assign(getPositions('visualTags', tag), getVisibility(tag))" @click="visualTagClick(tag)">
+          <div v-for="tag of activeScene.visualTags" class="visual-tag" :style="Object.assign(getPositions('visualTags', tag), getVisibility(tag))" @click="visualTagClick(tag)" :key="getVisualTagKey(tag)">
             <div class="region" :style="Object.assign(getDimensions('visualTags', tag), getStyles('visualTags', tag))"></div>
             <div class="content" :style="" v-if="tag.content">{{ tag.content }}</div>
           </div>
@@ -40,8 +40,8 @@
       </template>
     </div>
   </div>
-  <div class="media">
-    <audio id="background-audio-player" :src="backgroundAudio.url"></audio>
+  <div class="background-audio-library">
+    <audio v-for="audio of backgroundAudioLibrary" :id="'background-audio-player-' + audio.media.id" :src="audio.media.url"></audio>
   </div>
   <header class="end">
     <div class="text textgroup">
@@ -123,8 +123,6 @@ export default {
         }
       },
       backgroundAudio: {
-        url: null,
-        playAtScene: null,
         playing: false
       }
     }
@@ -135,8 +133,6 @@ export default {
       // reset transformOrigin & transform at change of scene
       this.canvas.transformOrigin.x = this.canvas.transformOrigin.y = 50
       this.canvas.transform.scale = 1
-      // prepare background audio for future playback
-      this.prepareBackgroundAudio()
     }
   },
   updated() {
@@ -233,25 +229,29 @@ export default {
       }
       return index > 0 && index < this.scenes.length ? this.scenes[index] : undefined
     },
-    backgroundAudioQueue() {
-      return this.scenes
+    backgroundAudioLibrary() {
+      // find all background audio occurences at scenes
+      var backgroundAudioAtScene = this.scenes
         .filter(scene => scene.hasOwnProperty('backgroundAudio'))
         .map(scene => ({
-          audio: this.sequence.media.filter(media => media.id === scene.backgroundAudio.id).pop(),
-          playAtScene: scene.id
+          mediaID: scene.backgroundAudio.id,
+          sceneID: scene.id
+        }))
+
+      // return list of unique media entries and their occurences at scenes
+      return [...new Set(backgroundAudioAtScene.map(item => item.mediaID))]
+        .map(mediaID => ({
+          media: this.getMediaFromID(mediaID),
+          scenes: backgroundAudioAtScene.filter(item => item.mediaID === mediaID).map(item => item.sceneID)
         }))
     }
   },
   methods: {
+    getMediaFromID(id) {
+      return Object.assign({}, this.sequence.media.find(media => media.id === id))
+    },
     getSceneIndexFromID(id) {
       return this.sceneIDs.indexOf(id)
-    },
-    prepareBackgroundAudio() {
-      var item = this.backgroundAudioQueue.find(item => this.getSceneIndexFromID(item.playAtScene) > this.activeSceneIndex)
-      if(item) {
-        this.backgroundAudio.url = item.audio.url
-        this.backgroundAudio.playAtScene = item.playAtScene
-      }
     },
     canvasIsLarger() {
       return this.canvas.width >= this.mainVisual.width && this.canvas.height >= this.mainVisual.height
@@ -357,37 +357,47 @@ export default {
         tag.visible = false
       }
     },
+    getVisualTagKey(tag) {
+      return `${tag.x}-${tag.y}-${tag.width}-${tag.height}`
+    },
     changeScene(action, target) {
-      var targetSceneIndex = this.activeSceneIndex
+      var nextSceneIndex = this.activeSceneIndex
       if(action === 'next') {
-        targetSceneIndex = this.activeScene.hasOwnProperty('next') ? this.getSceneIndexFromID(this.activeScene.next) : (this.activeSceneIndex + this.scenes.length + 1) % this.scenes.length
+        nextSceneIndex = this.activeScene.hasOwnProperty('next') ? this.getSceneIndexFromID(this.activeScene.next) : (this.activeSceneIndex + this.scenes.length + 1) % this.scenes.length
       } else if(action === 'prev') {
-        targetSceneIndex = this.activeScene.hasOwnProperty('prev') ? this.getSceneIndexFromID(this.activeScene.prev) : (this.activeSceneIndex + this.scenes.length - 1) % this.scenes.length
+        nextSceneIndex = this.activeScene.hasOwnProperty('prev') ? this.getSceneIndexFromID(this.activeScene.prev) : (this.activeSceneIndex + this.scenes.length - 1) % this.scenes.length
       } else if(action === 'goto') {
-        targetSceneIndex = this.getSceneIndexFromID(target)
+        nextSceneIndex = this.getSceneIndexFromID(target)
       }
 
+      // fade out AND/OR play background audio
       // audio.play() *MUST* be involked within a click/touch event handler
-      const audioElement = document.getElementById('background-audio-player')
-      if(this.getSceneIndexFromID(this.backgroundAudio.playAtScene) === targetSceneIndex && !this.backgroundAudio.playing) {
-        this.playAudio(audioElement)
-        this.backgroundAudio.playing = true
-      } else if(this.backgroundAudio.playing) {
-        this.fadeOutAudio(audioElement, () => {
-          this.activeSceneIndex = targetSceneIndex
-          this.backgroundAudio.playing = false
+      const nextScene = this.scenes[nextSceneIndex]
+      const audioInLibrary = this.backgroundAudioLibrary.find(audio => audio.scenes.includes(nextScene.id))
+      const nextBackgroundAudio = audioInLibrary ? document.getElementById('background-audio-player-' + audioInLibrary.media.id) : null
+
+      if(this.backgroundAudio.playing) {
+        this.fadeOutAudio(this.backgroundAudio.playing, () => {
+          this.activeSceneIndex = nextSceneIndex
+          if(nextBackgroundAudio) {
+            this.playAudio(nextBackgroundAudio)
+            this.backgroundAudio.playing = nextBackgroundAudio
+          }
         })
         return // do not change scene until fade is complete
+      } else {
+        if(nextBackgroundAudio) {
+          this.playAudio(nextBackgroundAudio)
+          this.backgroundAudio.playing = nextBackgroundAudio
+        }
       }
-
       // change scene
-      this.activeSceneIndex = targetSceneIndex
+      this.activeSceneIndex = nextSceneIndex
     }
   },
   mounted() {
     window.addEventListener('resize', this.setSceneDimensions)
     this.setSceneDimensions()
-    this.prepareBackgroundAudio()
   },
   components: {
     SubtitlingMachine

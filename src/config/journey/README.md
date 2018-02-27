@@ -14,6 +14,12 @@
     height
     magnify
   }
+  backgroundAudio: {
+    id
+    config: {
+      autoplay
+    }
+  }
   visualTags: [
     {
       x

@@ -73,7 +73,12 @@ export default {
       {
         id: 'japanese-surrender-broadcast',
         type: 'audio',
-        url: 'https://watchout.tw/musou-aux/modern-history-of-taiwan/Imperial_Rescript_on_the_Termination_of_the_War-excerpt.mp3?l=15s' // Use external URL
+        url: 'https://watchout.tw/musou-aux/modern-history-of-taiwan/Imperial_Rescript_on_the_Termination_of_the_War-excerpt.mp3' // Use external URL
+      },
+      {
+        id: 'martial-law-declaration-broadcast',
+        type: 'audio',
+        url: 'https://watchout.tw/musou-aux/modern-history-of-taiwan/martial-law-declaration-broadcast-chen-yi-excerpt.mp3'
       }
     ],
     scenes: [
@@ -92,10 +97,7 @@ export default {
           '台灣人能做自己的主人了吧？'
         ],
         backgroundAudio: {
-          id: 'japanese-surrender-broadcast',
-          config: {
-            autoplay: true
-          }
+          id: 'japanese-surrender-broadcast'
         },
         default: {
           styles: {
@@ -1344,6 +1346,24 @@ export default {
               }
             }
           }
+        ]
+      },
+      {
+        id: '228-incident',
+        classes: ['wide'],
+        backgroundAudio: {
+          id: 'martial-law-declaration-broadcast'
+        },
+        subtitle: [
+          '2月28日稍晚，陳儀宣布台北戒嚴',
+          '各地菁英陸續開始籌組《二二八事件處理委員會》',
+          '和官方談判如何善後，平定民心',
+          '陳儀一方面和《處理委員會》談判',
+          '一方面和蔣中正要求兵力鎮壓',
+          '3月8日，中國軍隊陸續於基隆、高雄各地登陸',
+          '全面「清鄉」開始',
+          '許多無武裝民眾遭無故槍殺',
+          '許多知識份子開始陸續失蹤⋯'
         ]
       },
       {
