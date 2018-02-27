@@ -49,7 +49,7 @@
       <hgroup>
         <h5>{{ config.seriesTitle }}</h5>
         <span class="zhi">之</span>
-        <h4 class="d-flex align-items-center"><span v-if="config.beforeTitle" class="before-title font-size-body body-style">{{ config.beforeTitle }}</span><span>{{ config.title }}</span></h4>
+        <h4><span v-if="config.beforeTitle" class="before-title font-size-body body-style">{{ config.beforeTitle }}</span><span>{{ config.title }}</span></h4>
       </hgroup>
       <div class="authorship">
         <div class="item d-flex flex-row" v-for="item in authorship"><div class="job">{{ item.job }}</div><div v-for="person in item.people" class="person">{{ person }}</div></div>
