@@ -1501,7 +1501,7 @@ export default {
           magnify: false
         },
         description: '台灣知名畫家，東京美術學校研究所畢業，第一屆嘉義市參議員。二二八事件時，至嘉義水上機場與軍隊談判卻遭逮捕，後未經審判於嘉義車站前被槍決。'
-      },
+      }
     ] // end of scenes
   },
   authorship: [
