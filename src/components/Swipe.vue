@@ -55,7 +55,7 @@
                 <div class="content" v-if="section.content" v-html="markdown(section.content)"></div>
               </template>
               <template v-else-if="section.type === 'figure'">
-                <iframe v-if="section.platform === 'infogram'" class="figure" :src="`https://e.infogram.com/${section.id}?src=embed`" width="100%" height="500" scrolling="no" frameborder="0"></iframe>
+                <iframe v-if="section.platform === 'infogram'" class="figure" :src="`https://e.infogram.com/${section.id}?src=embed`" width="100%" :height="section.height" scrolling="no" frameborder="0"></iframe>
                 <div class="description" v-if="section.description" v-html="markdown(section.description)"></div>
               </template>
             </div>
@@ -508,11 +508,18 @@ $color-no: $color-musou;
         > .section.figure {
           > .figure {
             width: 100%;
+            margin-bottom: 1rem;
           }
+        }
+        h4 {
+          font-family: inherit;
+          font-size: 1.25rem;
+          margin: 1rem 0 0.5rem;
         }
       }
       > .buttons {
         text-align: center;
+        padding-bottom: 0.5rem;
       }
     }
   }
