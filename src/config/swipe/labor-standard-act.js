@@ -18,7 +18,7 @@ export default {
     },
     {
       type: 'question',
-      question: '先練習一次吧。\n\n**只要努力，人人都有機會成功。**\n\n<span>在卡片上往左滑，或按紅色的按鈕</span><label class="swipe-action-inline NO"></label><span>，表示你不同意這則敘述。往右滑，或按綠色的按鈕</span><label class="swipe-action-inline YES"></label><span>，表示你同意。</span>',
+      question: '先練習一次吧。\n\n**每過六十秒，就有一分鐘過去。**\n\n<span>在卡片上往左滑，或按紅色的按鈕</span><label class="swipe-action-inline NO"></label><span>，表示你不同意這則敘述。往右滑，或按綠色的按鈕</span><label class="swipe-action-inline YES"></label><span>，表示你同意。</span>',
       answer: 'YES',
       options: {
         left: {
@@ -30,12 +30,12 @@ export default {
           label: 'YES'
         }
       },
-      recap: '只要努力，人人都有機會成功？',
-      but: '話是這麼說沒錯，但是⋯\n\n如果聽《沃草》的說法，請按「繼續說下去」，不然，按「下一題謝謝」可以跳出，繼續看下一題。',
+      recap: '每過六十秒，就有一分鐘過去。',
+      but: '**話是這麼說沒錯，但是⋯**\n\n如果想聽更多《沃草》的說法，請按「繼續說下去」，或是按「下一題謝謝」，繼續看下一題。',
       more: [
         {
           type: 'markdown',
-          content: '根據古典自由經濟理論⋯'
+          content: '因為一分鐘有六十秒，所以每六十秒就過去一分鐘呀！\n\n<script id="infogram_0_34df8c36-f538-411d-8afb-1328f31c1cd1" title="PayPerHour" src="https://e.infogram.com/js/dist/embed.js?i0W" type="text/javascript"></script><div style="padding:8px 0;font-family:Arial!important;font-size:13px!important;line-height:15px!important;text-align:center;border-top:1px solid #dadada;margin:0 30px"><a href="https://infogram.com/34df8c36-f538-411d-8afb-1328f31c1cd1" style="color:#989898!important;text-decoration:none!important;" target="_blank">PayPerHour</a><br><a href="https://infogram.com" style="color:#989898!important;text-decoration:none!important;" target="_blank" rel="nofollow">Infogram</a></div>'
         }
       ]
     },
