@@ -50,12 +50,13 @@
         <div class="but paragraphs" v-html="markdown(activeCard.but)"></div>
         <template v-if="showMore">
           <div class="more">
-            <div v-if="activeCard.more" v-for="section in activeCard.more">
+            <div class="section" v-if="activeCard.more" v-for="section in activeCard.more" :class="section.type">
               <template v-if="section.type === 'markdown'">
-                <div v-html="markdown(section.content)"></div>
+                <div class="content" v-if="section.content" v-html="markdown(section.content)"></div>
               </template>
               <template v-else-if="section.type === 'figure'">
-                <div v-html="markdown(section.description)"></div>
+                <iframe v-if="section.platform === 'infogram'" class="figure" :src="`https://e.infogram.com/${section.id}?src=embed`" width="100%" height="500" scrolling="no" frameborder="0"></iframe>
+                <div class="description" v-if="section.description" v-html="markdown(section.description)"></div>
               </template>
             </div>
           </div>
@@ -258,6 +259,20 @@ export default {
         this.cards[index].hasBeenOut = true
       }
     })
+  },
+  updated() {
+    if(this.showMore) {
+      this.activeCard.more.map(section => {
+        if(section.type === 'script') {
+          const id = section.id
+          const el = document.getElementById('script-container-' + id)
+          const script = this.scripts[id]
+          if(el && script) {
+            el.innerHTML = script
+          }
+        }
+      })
+    }
   }
 }
 </script>
@@ -490,11 +505,19 @@ $color-no: $color-musou;
         }
       }
       > .more {
+        > .section.figure {
+          > .figure {
+            width: 100%;
+          }
+        }
       }
       > .buttons {
         text-align: center;
       }
     }
   }
+}
+.figure {
+  display: block;
 }
 </style>

@@ -35,7 +35,12 @@ export default {
       more: [
         {
           type: 'markdown',
-          content: '因為一分鐘有六十秒，所以每六十秒就過去一分鐘呀！\n\n<script id="infogram_0_34df8c36-f538-411d-8afb-1328f31c1cd1" title="PayPerHour" src="https://e.infogram.com/js/dist/embed.js?i0W" type="text/javascript"></script><div style="padding:8px 0;font-family:Arial!important;font-size:13px!important;line-height:15px!important;text-align:center;border-top:1px solid #dadada;margin:0 30px"><a href="https://infogram.com/34df8c36-f538-411d-8afb-1328f31c1cd1" style="color:#989898!important;text-decoration:none!important;" target="_blank">PayPerHour</a><br><a href="https://infogram.com" style="color:#989898!important;text-decoration:none!important;" target="_blank" rel="nofollow">Infogram</a></div>'
+          content: '因為一分鐘有六十秒，所以每六十秒就過去一分鐘呀！\n\n'
+        },
+        {
+          type: 'figure',
+          platform: 'infogram',
+          id: '34df8c36-f538-411d-8afb-1328f31c1cd1'
         }
       ]
     },
