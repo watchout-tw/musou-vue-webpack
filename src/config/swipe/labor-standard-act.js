@@ -2,9 +2,9 @@ export default {
   cards: [
     {
       type: 'text',
-      id: 'preface',
-      title: '《勞基法》流言終結者',
-      content: '我們《沃草》幫你整理這次《勞基法》修法最常見的九個似是而非的說法，都已經這麼簡單了，你還不看嗎？\n\n左右滑滑看啊！\n\n不然，用下面的兩個按鈕也可以。',
+      id: 'cover',
+      title: '《勞基法》<br/>流言終結者',
+      content: '《沃草》幫你整理這次《勞基法》修法最常見的九個似是而非的說法，都已經這麼簡單了，你還不看嗎？\n\n左右滑滑看吧！不然，用下面的兩個按鈕也可以。',
       options: {
         left: {
           type: 'NO',
@@ -18,6 +18,7 @@ export default {
     },
     {
       type: 'question',
+      title: '練習題',
       question: '先練習一次吧。\n\n<span>在卡片上往左滑，或按紅色的按鈕</span><label class="swipe-action-inline NO"></label><span>，表示你不同意這則敘述。往右滑，或按綠色的按鈕</span><label class="swipe-action-inline YES"></label><span>，表示你同意。</span>',
       answer: 'YES',
       options: {
@@ -30,23 +31,18 @@ export default {
           label: 'YES'
         }
       },
-      recap: '每過六十秒，就有一分鐘過去。',
-      but: '如果想聽更多《沃草》的說法，請按「繼續說下去」，或是按「下一題謝謝」，繼續看下一題。',
+      recap: '幹得好！',
+      but: '選完你的答案之後，我們會告訴你我們的答案。如果想聽更多，請按「繼續說下去」，不然就按「下一題謝謝」，繼續看下一題。',
       more: [
         {
           type: 'markdown',
-          content: '因為一分鐘有六十秒，所以每六十秒就過去一分鐘呀！\n\n'
-        },
-        {
-          type: 'figure',
-          platform: 'infogram',
-          id: '34df8c36-f538-411d-8afb-1328f31c1cd1',
-          height: 250
+          content: '每過六十秒，就有一分鐘過去。'
         }
       ]
     },
     {
       type: 'question',
+      title: '加班換補休',
       question: '法律規定加班可以換補休，以後加班費都領不到了啦 QQ',
       answer: 'NO',
       options: {
@@ -70,6 +66,7 @@ export default {
     },
     {
       type: 'question',
+      title: '休息日加班費',
       question: '休息日加班費費率變低，加班費要減少了啦 QQ',
       answer: 'NO',
       options: {
@@ -99,6 +96,7 @@ export default {
     },
     {
       type: 'question',
+      title: '加班上限',
       question: '加班工時上限提高了，以後每個月都要多加班八小時了啦 QQ',
       answer: 'NO',
       options: {
@@ -121,13 +119,14 @@ export default {
         {
           type: 'figure',
           platform: 'infogram',
-          id: '8dca1a95-7681-465b-8786-d1b75814ef92',
-          height: 250
+          id: '06b798eb-b85b-4742-8e0d-2f2ea900fc4d',
+          height: 300
         }
       ]
     },
     {
       type: 'question',
+      title: '早就七休一',
       question: '「七休一」條文從《勞基法》訂定時就存在，已經實施超過三十年！',
       answer: 'YES',
       options: {
@@ -151,6 +150,7 @@ export default {
     },
     {
       type: 'question',
+      title: '休息八小時',
       question: '要累死了，以後每個人下班後八小時就可以繼續上班 QQ',
       answer: 'NO',
       options: {
@@ -174,7 +174,8 @@ export default {
     },
     {
       type: 'question',
-      question: '公司沒工會，也沒開過勞資會議，放寬七休一、加班時數上限調整跟我沒關係～',
+      title: '工會',
+      question: '公司沒工會，也沒開過勞資會議，放寬七休一、加班時數上限調整跟我沒關係！',
       answer: 'YES',
       options: {
         left: {
@@ -197,7 +198,8 @@ export default {
     },
     {
       type: 'question',
-      question: '檢舉沒用啦！公司違反勞基法，政府都不來勞檢～',
+      title: '勞檢',
+      question: '檢舉沒用啦！公司違反勞基法，政府都不來勞檢！',
       answer: 'NO',
       options: {
         left: {
@@ -220,6 +222,7 @@ export default {
     },
     {
       type: 'question',
+      title: '中小企業',
       question: '這次修法後，民進黨立委說的中南部中小企業就可以讓勞工在例假日上班了耶！',
       answer: 'YES',
       options: {
@@ -243,6 +246,7 @@ export default {
     },
     {
       type: 'question',
+      title: '保全業',
       question: '保全業的勞工已經夠慘了，修法後，工時規定更有「彈性」，要更過勞了 QQ',
       answer: 'NO',
       options: {

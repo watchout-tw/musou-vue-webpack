@@ -3,19 +3,20 @@
   <div class="swipe-container">
     <div class="swipe-sections">
       <div class="swipe-cards">
-        <template v-for="(card, index) of cards">
-          <div v-if="card.type === 'question'" class="swipe-card" :data-card-index="index" :class="cardClasses(index)">
+        <div v-for="(card, index) of cards" class="swipe-card" :data-card-index="index" :class="cardClasses(index)" :id="card.id">
+          <label class="index">{{ index }}</label>
+          <component v-if="card.title" :is="card.id === 'cover' ? 'h1' : 'h2'" class="title" v-html="card.title"></component>
+          <template v-if="card.type === 'question'">
             <div class="content">
               <div class="paragraphs first" v-html="markdown(card.question)"></div>
             </div>
-          </div>
-          <div v-else-if="card.type === 'text'" class="swipe-card" :data-card-index="index" :class="cardClasses(index)" :id="card.id">
+          </template>
+          <template v-else-if="card.type === 'text'">
             <div class="content">
-              <h1 v-if="card.title" class="small">{{ card.title }}</h1>
               <div class="paragraphs" v-html="markdown(card.content)"></div>
             </div>
-          </div>
-        </template>
+          </template>
+        </div>
       </div>
       <div class="swipe-actions d-flex justify-content-around">
         <div class="swipe-action d-flex justify-content-center align-items-center" @click="swipe(swipeActionEnabled('left') ? -1 : 0)" :class="swipeActionClasses('left')"></div>
@@ -52,7 +53,7 @@
           <div class="more">
             <div class="section" v-if="activeCard.more" v-for="section in activeCard.more" :class="section.type">
               <template v-if="section.type === 'markdown'">
-                <div class="content" v-if="section.content" v-html="markdown(section.content)"></div>
+                <div class="content a-text-only" v-if="section.content" v-html="markdown(section.content)"></div>
               </template>
               <template v-else-if="section.type === 'figure'">
                 <iframe v-if="section.platform === 'infogram'" class="figure" :src="`https://e.infogram.com/${section.id}?src=embed`" width="100%" :height="section.height" scrolling="no" frameborder="0"></iframe>
@@ -377,7 +378,7 @@ $color-no: $color-musou;
     width: 100%;
     > .swipe-sections {
       width: 100%;
-      max-width: 24rem;
+      max-width: 20rem;
       margin: 0 auto;
       padding: 2rem 0;
       @include bp-md-up {
@@ -403,12 +404,33 @@ $color-no: $color-musou;
           &.is-out {
               @include shadow;
           }
+          > .index {
+            display: block;
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 2rem;
+            background-color: rgba(black, 0.125);
+            color: rgba(black, 0.25);
+          }
+          > .title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 0.75rem 0 1rem;
+            font-family: $font-sans-serif;
+            @include font-no-smoothing;
+          }
           > .content {
             width: 100%;
-            @include font-serif;
-            font-size: 1.25rem;
+            font-size: 1.125rem;
           }
           &.is-out {
+            > .index,
+            > .title,
             > .content,
             > .actions {
               opacity: 0.25;
