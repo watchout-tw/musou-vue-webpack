@@ -3,7 +3,7 @@ export default {
     {
       type: 'text',
       id: 'cover',
-      title: '《勞基法》<br/>流言終結者',
+      title: '勞基法流言終結者',
       content: '《沃草》幫你整理這次《勞基法》修法最常見的九個似是而非的說法，都已經這麼簡單了，你還不看嗎？\n\n左右滑滑看吧！不然，用下面的兩個按鈕也可以。',
       options: {
         left: {

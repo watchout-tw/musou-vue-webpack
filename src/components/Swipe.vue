@@ -4,7 +4,7 @@
     <div class="swipe-sections">
       <div class="swipe-cards">
         <div v-for="(card, index) of cards" class="swipe-card" :data-card-index="index" :class="cardClasses(index)" :id="card.id">
-          <label class="index">{{ index }}</label>
+          <label v-if="index > 0" class="index">{{ index }}</label>
           <component v-if="card.title" :is="card.id === 'cover' ? 'h1' : 'h2'" class="title" v-html="card.title"></component>
           <template v-if="card.type === 'question'">
             <div class="content">
@@ -44,7 +44,7 @@
     </div>
   </header>
   <transition name="modal">
-    <div v-if="showResult" class="result-container d-flex justify-content-center align-items-center" @click.self="showResult = showMore = false">
+    <div v-if="showResult" class="result-container d-flex justify-content-center align-items-start" @click.self="showResult = showMore = false">
       <div class="result">
         <div class="question paragraphs" v-html="markdown(activeCard.hasOwnProperty('recap') ? activeCard.recap : activeCard.question)"></div>
         <div class="answer" :class="activeCard.answer"></div>
@@ -317,6 +317,16 @@ export default {
   height: 100%;
   overflow: hidden !important;
 }
+@mixin v-bp-sm-down {
+  @media (max-height: #{$bp-sm}) {
+    @content;
+  }
+}
+@mixin v-bp-sm-up {
+  @media (min-height: #{$bp-sm}) {
+    @content;
+  }
+}
 @mixin v-bp-md-up {
   @media (min-height: #{$bp-md}) {
     @content;
@@ -378,9 +388,13 @@ $color-no: $color-musou;
     width: 100%;
     > .swipe-sections {
       width: 100%;
-      max-width: 20rem;
+      max-width: 16rem;
       margin: 0 auto;
-      padding: 2rem 0;
+      padding: 1rem 0;
+      @include bp-sm-up {
+        max-width: 20rem;
+        padding: 2rem 0;
+      }
       @include bp-md-up {
         padding: 8vw 0;
       }
@@ -408,7 +422,7 @@ $color-no: $color-musou;
             display: block;
             position: absolute;
             top: 0.5rem;
-            left: 0.5rem;
+            right: 0.5rem;
             width: 2rem;
             height: 2rem;
             border-radius: 50%;
@@ -418,15 +432,23 @@ $color-no: $color-musou;
             color: rgba(black, 0.25);
           }
           > .title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin: 0.75rem 0 1rem;
+            font-size: 1.75rem;
+            margin: 0.5rem 0;
             font-family: $font-sans-serif;
             @include font-no-smoothing;
+            @include bp-sm-up {
+              font-size: 2.25rem;
+              margin: 0.75rem 0 1rem;
+            }
+          }
+          > h1.title {
           }
           > .content {
             width: 100%;
-            font-size: 1.125rem;
+            @include bp-sm-up {
+              font-size: 1.125rem;
+            }
+
           }
           &.is-out {
             > .index,
@@ -443,7 +465,10 @@ $color-no: $color-musou;
         }
       }
       > .swipe-actions {
-        margin-top: 2rem;
+        margin-top: 1.25rem;
+        @include bp-sm-up {
+          margin-top: 2rem;
+        }
         > .swipe-action {
           position: relative;
           width: 6rem;
@@ -488,10 +513,12 @@ $color-no: $color-musou;
     transition: opacity .3s ease;
 
     > .result {
+      margin-top: 1rem;
       max-width: 24rem;
-      max-height: 24rem;
+      max-height: 22rem;
       @include v-bp-md-up {
-        max-height: 36rem;
+        margin-top: 4rem;
+        max-height: 32rem;
       }
       overflow-x: hidden;
       overflow-y: auto;
@@ -548,5 +575,37 @@ $color-no: $color-musou;
 }
 .figure {
   display: block;
+}
+// FIXME: HOTFIX
+.support-watchout {
+  @include bp-sm-down {
+    width: 16rem;
+    left: 50%;
+    transform: translateX(-50%);
+    > .panel {
+      padding: 0;
+      > .text {
+        padding: 0.5rem 0 0.25rem;
+        font-size: 0.75rem;
+        font-family: $font-sans-serif;
+        > p {
+          display: none;
+          margin: 0;
+          &:last-child {
+            display: block;
+          }
+        }
+      }
+      > .button {
+        padding: 0 0 0.5rem;
+        > .grouping {
+          > button {
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
