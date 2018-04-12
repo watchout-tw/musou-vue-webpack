@@ -5,7 +5,7 @@
   <div class="pages">
     <router-link class="page" v-for="page in config.pages" :to="{name: page.id}" :key="page.id">
       <div class="title">
-        <h3 class="small">{{ page.title }}</h3>
+        <h3 class="small body-style">{{ page.title }}</h3>
       </div>
       <div v-if="page.breaking" class="breaking">NEW</div>
     </router-link>
@@ -56,7 +56,7 @@ export default {
       position: relative;
       display: inline-block;
       vertical-align: middle;
-      max-width: 16rem;
+      max-width: 18rem;
       margin: 0 1rem 1rem 0;
       padding: 1rem;
       background: rgba($color-musou, 0.25);

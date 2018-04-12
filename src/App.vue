@@ -16,7 +16,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import dataStore from 'common/src/lib/dataStore'
+// import dataStore from 'common/src/lib/dataStore'
 import NavigationWithIdentity from 'common/src/components/Navigation/Identity'
 import ModalAuth from 'common/src/components/Modal/Auth'
 import ModalLostPwd from 'common/src/components/Modal/LostPwd'
@@ -63,7 +63,29 @@ export default {
   },
   data() {
     return {
-      channel: dataStore.channels.musou,
+      channel: {
+        id: 'musou-media-experiment',
+        name: '國會無雙媒體實驗',
+        classes: {
+          bg: 'bg-musou'
+        },
+        links: {
+          home: 'https://musou.watchout.tw'
+        },
+        asset: {
+          logo: {
+            large: require('_/logo/musou-media-experiment/large.png'),
+            small: require('_/logo/musou-media-experiment/small.png')
+          },
+          logoWithType: {
+            regular: {
+              src: require('_/logo+watchout+type/musou-media-experiment/regular.png'),
+              width: 214,
+              style: { width: '214px' }
+            }
+          }
+        }
+      },
       supportIsShown: true,
       supportPackageKey: 'musou'
     }
@@ -94,6 +116,10 @@ export default {
 <style lang="scss">
 @import '~common/src/styles/resources';
 @import '~common/src/styles/main';
+
+#navbar-identity {
+  display: none;
+}
 
 html, body {
   margin: 0;

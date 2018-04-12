@@ -1,5 +1,36 @@
 exports.default = [
   {
+    id: 'qz',
+    image: 'qz.png',
+    title: '小測驗',
+    description: '中華民國的教育系統最喜歡考試了。沃草也有小測驗，現在就試試看，看你是不是個好學生。',
+    component: 'longform',
+    pages: [
+      {
+        id: 'congress-midterm-mock-exam',
+        title: '國會草知識期中模擬考',
+        image: 'qz.jpg',
+        date: '2018-04-16 20:00:00',
+        breaking: true
+      },
+      {
+        id: '3-principles',
+        title: '你唸過三民主義嗎？',
+        image: '3-principles.jpg',
+        date: '2017-11-12 20:00:00',
+        breaking: false
+      },
+      {
+        id: 'republic-of-china',
+        title: '做個堂堂正正的中華民國人',
+        image: 'republic-of-china.jpg',
+        date: '2017-10-10 20:00:00',
+        breaking: false
+      }
+    ]
+  },
+  /*
+  {
     id: 'swipe',
     image: 'swipe.png',
     title: '滑滑看',
@@ -15,6 +46,7 @@ exports.default = [
       }
     ]
   },
+  */
   {
     id: 'journey',
     image: 'journey.png',
@@ -29,29 +61,6 @@ exports.default = [
         image: 'another-future-light.jpg',
         date: '2018-02-27 20:00:00',
         breaking: true
-      }
-    ]
-  },
-  {
-    id: 'qz',
-    image: 'qz.png',
-    title: '小測驗',
-    description: '中華民國的教育系統最喜歡考試了。沃草也有小測驗，現在就試試看，看你是不是個好學生。',
-    component: 'longform',
-    pages: [
-      {
-        id: '3-principles',
-        title: '你唸過三民主義嗎？',
-        image: '3-principles.jpg',
-        date: '2017-11-12 20:00:00',
-        breaking: false
-      },
-      {
-        id: 'republic-of-china',
-        title: '做個堂堂正正的中華民國人',
-        image: 'republic-of-china.jpg',
-        date: '2017-10-10 20:00:00',
-        breaking: false
       }
     ]
   },
