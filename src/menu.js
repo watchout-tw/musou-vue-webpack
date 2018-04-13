@@ -9,8 +9,8 @@ exports.default = [
       {
         id: 'congress-midterm-mock-exam',
         title: '國會草知識期中模擬考',
-        image: 'qz.jpg',
-        date: '2018-04-16 20:00:00',
+        image: 'congress-midterm-mock-exam.jpg',
+        date: '2018-04-14 20:00:00',
         breaking: true
       },
       {
