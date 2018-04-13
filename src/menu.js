@@ -29,7 +29,7 @@ exports.default = [
       }
     ]
   },
-  /*
+/*
   {
     id: 'swipe',
     image: 'swipe.png',
@@ -46,7 +46,7 @@ exports.default = [
       }
     ]
   },
-  */
+*/
   {
     id: 'journey',
     image: 'journey.png',
